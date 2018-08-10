@@ -1,63 +1,48 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Custom Toolbar</span>
-  </mat-toolbar-row>
+<div class="main d-flex flex-column">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Custom Toolbar</span>
+    </mat-toolbar-row>
 
-  <mat-toolbar-row>
-    <span>Second Line</span>
-    <span class="example-spacer"></span>
-    <mat-icon class="example-icon">verified_user</mat-icon>
-  </mat-toolbar-row>
-</mat-toolbar>
+    <mat-toolbar-row>
+      <span>Second Line</span>
+      <span class="example-spacer"></span>
+      <mat-icon class="example-icon">verified_user</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
 
-<!-- <router-outlet></router-outlet> -->
+  <mat-sidenav-container class="example-container" *ngIf="true">
+    <mat-sidenav #sidenav [mode]="mode.value">
+      <p>
+        <button mat-button (click)="sideNavToggle()">Toggle</button>
+      </p>
+      <p>
+        <mat-radio-group class="example-radio-group" [formControl]="mode">
+          <label>Mode:</label>
+          <mat-radio-button value="over">Over</mat-radio-button>
+          <mat-radio-button value="side">Side</mat-radio-button>
+          <mat-radio-button value="push">Push</mat-radio-button>
+        </mat-radio-group>
+      </p>
+    </mat-sidenav>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="w-100">
+    <mat-sidenav-content>
+      <p>
+        <button mat-button (click)="sideNavToggle()">Toggle</button>
+      </p>
+      <p>
+        <mat-radio-group class="example-radio-group" [formControl]="mode">
+          <label>Mode:</label>
+          <mat-radio-button value="over">Over</mat-radio-button>
+          <mat-radio-button value="side">Side</mat-radio-button>
+          <mat-radio-button value="push">Push</mat-radio-button>
+        </mat-radio-group>
+      </p>
+      <!-- <pre>{{mode |json}}</pre> -->
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 
-  <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
 
-  <!-- Position Column -->
-  <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-  </ng-container>
+  <!-- <router-outlet></router-outlet> -->
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
-
-  <!-- Weight Column -->
-  <ng-container matColumnDef="weight">
-    <th mat-header-cell *matHeaderCellDef> Weight </th>
-    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="symbol">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p>Auto-resizing sidenav</p>
-    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-    <button (click)="showFiller = !showFiller" mat-raised-button>
-      Toggle extra text
-    </button>
-  </mat-drawer>
-
-  <div class="example-sidenav-content">
-    <button type="button" mat-button (click)="drawer.toggle()">
-      Toggle sidenav
-    </button>
-  </div>
-
-</mat-drawer-container>
+</div>
