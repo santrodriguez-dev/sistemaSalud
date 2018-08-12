@@ -11,7 +11,8 @@ import {
   MatIconModule,
   MatTableModule,
   MatSidenavModule,
-  MatRadioModule
+  MatRadioModule,
+  MatListModule
 } from '@angular/material';
 
 @NgModule({
@@ -24,7 +25,8 @@ import {
     MatIconModule,
     MatTableModule,
     MatSidenavModule,
-    MatRadioModule
+    MatRadioModule,
+    MatListModule,
   ],
   exports: [
     BrowserAnimationsModule,
@@ -35,7 +37,8 @@ import {
     MatIconModule,
     MatTableModule,
     MatSidenavModule,
-    MatRadioModule
+    MatRadioModule,
+    MatListModule,
   ],
   declarations: []
 })

@@ -1,48 +1,24 @@
-<div class="main d-flex flex-column">
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span>Custom Toolbar</span>
-    </mat-toolbar-row>
-
-    <mat-toolbar-row>
-      <span>Second Line</span>
-      <span class="example-spacer"></span>
-      <mat-icon class="example-icon">verified_user</mat-icon>
-    </mat-toolbar-row>
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <!-- <mat-icon mat-list-icon>airport_shuttle</mat-icon> -->
+    <h1 class="example-app-name">Sistema de salud</h1>
   </mat-toolbar>
 
-  <mat-sidenav-container class="example-container" *ngIf="true">
-    <mat-sidenav #sidenav [mode]="mode.value">
-      <p>
-        <button mat-button (click)="sideNavToggle()">Toggle</button>
-      </p>
-      <p>
-        <mat-radio-group class="example-radio-group" [formControl]="mode">
-          <label>Mode:</label>
-          <mat-radio-button value="over">Over</mat-radio-button>
-          <mat-radio-button value="side">Side</mat-radio-button>
-          <mat-radio-button value="push">Push</mat-radio-button>
-        </mat-radio-group>
-      </p>
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list *ngFor="let nav of rutas">
+        <a mat-list-item [routerLink]="nav.url" routerLinkActive="active-link">
+          <mat-icon mat-list-icon>{{nav.icono}}</mat-icon>
+          {{nav.nombre}}</a>
+      </mat-nav-list>
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <p>
-        <button mat-button (click)="sideNavToggle()">Toggle</button>
-      </p>
-      <p>
-        <mat-radio-group class="example-radio-group" [formControl]="mode">
-          <label>Mode:</label>
-          <mat-radio-button value="over">Over</mat-radio-button>
-          <mat-radio-button value="side">Side</mat-radio-button>
-          <mat-radio-button value="push">Push</mat-radio-button>
-        </mat-radio-group>
-      </p>
-      <!-- <pre>{{mode |json}}</pre> -->
+      <!-- Contenido de la aplicación -->
+      <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
-
-
-  <!-- <router-outlet></router-outlet> -->
-
 </div>
