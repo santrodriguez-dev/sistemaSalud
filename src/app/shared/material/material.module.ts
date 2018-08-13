@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 /**
- * Modulos externangular material
+ * Modulos angular material
  */
 import {
   MatButtonModule,
@@ -12,12 +11,17 @@ import {
   MatTableModule,
   MatSidenavModule,
   MatRadioModule,
-  MatListModule
+  MatListModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  MatInputModule,
+  MatMenuModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 @NgModule({
   imports: [
-    BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
     MatButtonToggleModule,
@@ -27,9 +31,14 @@ import {
     MatSidenavModule,
     MatRadioModule,
     MatListModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatMenuModule,
+    MatSnackBarModule
   ],
   exports: [
-    BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
     MatButtonToggleModule,
@@ -39,6 +48,12 @@ import {
     MatSidenavModule,
     MatRadioModule,
     MatListModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatMenuModule,
+    MatSnackBarModule
   ],
   declarations: []
 })

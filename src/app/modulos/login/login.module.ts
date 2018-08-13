@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login.component';
 import { Routes, RouterModule } from '@angular/router';
+import { MaterialModule } from '../../shared';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: LoginComponent }
@@ -10,7 +12,10 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   declarations: [LoginComponent],
   exports: [RouterModule]

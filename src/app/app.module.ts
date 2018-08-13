@@ -1,11 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { MaterialModule } from './shared';
+import { AuthGuard } from './shared/auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -14,11 +13,9 @@ import { MaterialModule } from './shared';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MaterialModule,
-    FormsModule,
-    ReactiveFormsModule
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

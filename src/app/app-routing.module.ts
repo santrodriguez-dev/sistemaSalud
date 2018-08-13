@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LoginModule } from './modulos/login/login.module';
+import { ModulosModule } from './modulos/modulos.module';
+import { AuthGuard } from './shared/auth/auth.guard';
 
 const routes: Routes = [
-  { path: 'home', loadChildren: './modulos/home/home.module#HomeModule' },
-  { path: 'pacientes', loadChildren: './modulos/pacientes/pacientes.module#PacientesModule' },
-  { path: 'solicitudes', loadChildren: './modulos/solicitudes/solicitudes.module#SolicitudesModule' },
-  { path: 'login', loadChildren: './modulos/login/login.module#LoginModule' },
-  { path: '**', redirectTo: 'home' }
-
+  { path: 'login', loadChildren: () => LoginModule },
+  { path: 'intro', loadChildren: () => ModulosModule, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({
