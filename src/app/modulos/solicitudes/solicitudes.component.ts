@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort } from '@angular/material';
+import { SolicitudesService } from './servicios/solicitudes.service';
+import { Solicitud } from './interfaces/Solicitud';
 
 @Component({
   selector: 'app-solicitudes',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SolicitudesComponent implements OnInit {
 
-  constructor() { }
+  displayedColumns: string[] = ['id', 'paciente_id', 'categoria_id', 'clasificacion_id', 'descripcion'];
+  lsSolicitudes: MatTableDataSource<Solicitud>;
+
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(private _solicitudesService: SolicitudesService) { }
 
   ngOnInit() {
+    this.cargarPacientes();
+  }
+
+  cargarPacientes() {
+    this._solicitudesService.getAllPacientes().subscribe(lsSoli => {
+      this.lsSolicitudes = new MatTableDataSource(lsSoli);
+      this.lsSolicitudes.sort = this.sort;
+    });
   }
 
 }

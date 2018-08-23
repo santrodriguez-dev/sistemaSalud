@@ -4,6 +4,8 @@ import { LoginComponent } from './login.component';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../shared';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginService } from './servicios/login.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: '', component: LoginComponent }
@@ -16,8 +18,10 @@ const routes: Routes = [
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   declarations: [LoginComponent],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [LoginService]
 })
 export class LoginModule { }

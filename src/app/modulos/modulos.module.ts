@@ -5,6 +5,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../shared';
 
 /**
+ * Modulos no globales
+ */
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+/**
  * Submodulos de modulo principal
  */
 import { HomeModule } from './home/home.module';
@@ -27,7 +31,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    MaterialModule
+    MaterialModule,
+    MatProgressBarModule
   ],
   declarations: [ModulosComponent],
   exports: [RouterModule]

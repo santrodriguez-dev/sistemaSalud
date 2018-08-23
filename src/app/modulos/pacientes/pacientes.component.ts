@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Paciente } from './interfaces/paciente';
 
 @Component({
   selector: 'app-pacientes',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PacientesComponent implements OnInit {
 
+  lsPacientes: Paciente[];
+
+
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

@@ -2,6 +2,7 @@ import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
+import { UtilsService } from '../shared';
 
 @Component({
   selector: 'app-modulos',
@@ -15,12 +16,12 @@ export class ModulosComponent {
   private _mobileQueryListener: () => void;
 
   rutas: Ruta[] = [
-    { url: 'home', nombre: 'Home', icono: 'home' },
+    // { url: 'home', nombre: 'Home', icono: 'home' },
     { url: 'pacientes', nombre: 'Pacientes', icono: 'accessibility' },
     { url: 'solicitudes', nombre: 'Solicitudes', icono: 'alarm' }
   ];
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router, public utilServ: UtilsService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);

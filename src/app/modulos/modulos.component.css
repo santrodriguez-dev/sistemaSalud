@@ -8,6 +8,10 @@
   right: 0;
 }
 
+.example-container .cont-tool {
+  z-index: 2;
+}
+
 .example-is-mobile .example-toolbar {
   position: fixed;
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */
@@ -45,10 +49,6 @@ mat-nav-list {
 
 mat-sidenav {
   width: 210px
-}
-
-mat-sidenav-content {
-  padding: 20px 50px 50px 20px;
 }
 
 .example-spacer {

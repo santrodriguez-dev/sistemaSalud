@@ -1,0 +1,49 @@
+<mat-card class="card">
+  <form class="example-container d-flex flex-column" [formGroup]="registroPacForm" (ngSubmit)="onSubmit()">
+    <h2 class="text-center">Registrar paciente</h2>
+    <mat-form-field>
+      <input matInput placeholder="Nombre" formControlName="nombre" required>
+      <mat-icon matSuffix>person</mat-icon>
+      <mat-error>El nombre de usuario es requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Documento" formControlName="documento" required>
+      <mat-icon matSuffix>vpn_key</mat-icon>
+      <mat-error>El nombre de usuario es requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Teléfono" formControlName="telefono">
+      <mat-icon matSuffix>phone</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Dirección" formControlName="direccion">
+      <mat-icon matSuffix>location_on</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Correo" formControlName="nom_usuario" required>
+      <mat-icon matSuffix>email</mat-icon>
+      <mat-error>El correo no es válido</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Contraseña" [type]="hidePass ? 'password' : 'text'" formControlName="contrasena" required>
+      <mat-icon matSuffix (click)="hidePass = !hidePass">{{hidePass ? 'visibility' : 'visibility_off'}}</mat-icon>
+      <mat-error>La conttraseña no es válida</mat-error>
+    </mat-form-field>
+    <!-- <mat-form-field>
+      <input matInput placeholder="Foto" formControlName="username" required>
+      <mat-icon matSuffix>person</mat-icon>
+      <mat-error>El nombre de usuario es requerido</mat-error>
+    </mat-form-field> -->
+
+    <div class="d-flex pt-3">
+      <button mat-raised-button color="primary" class="mr-3">
+        <i class="material-icons">done</i> Guardar
+      </button>
+      <button mat-raised-button color="primary" type="reset">
+        <i class="material-icons">delete</i> Reestablecer
+      </button>
+    </div>
+
+  </form>
+
+</mat-card>

@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { LoginService } from './servicios/login.service';
+import { Credenciales } from './interfaces/credenciales';
+import { RespuestaSevidor } from '../../shared';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +16,11 @@ export class LoginComponent {
   loginForm: FormGroup;
   hide = true;
 
-  constructor(private fb: FormBuilder, private router: Router, public snackBar: MatSnackBar) {
-    this.loginForm = fb.group({
+  constructor(private fb: FormBuilder,
+    private router: Router,
+    public snackBar: MatSnackBar,
+    private _loginService: LoginService) {
+    this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
@@ -34,7 +40,18 @@ export class LoginComponent {
   get f(): any { return this.loginForm.controls; }
 
   validarCredenciales() {
-    if (this.loginForm.value.username === 'santi123' && this.loginForm.value.password === 'santi123') {
+    const cred: Credenciales = {
+      usuario: this.loginForm.value.username,
+      contrasena: this.loginForm.value.password,
+    };
+
+    // this._loginService.validarCredenciales(cred)
+    //   .subscribe(resp => {
+    //     console.log(resp);
+    //   });
+
+
+    if (cred.usuario === 'santi123' && this.loginForm.value.password === 'santi123') {
       this.saveSession();
       this.router.navigate(['intro']);
       return;

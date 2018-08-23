@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SolicitudesComponent } from './solicitudes.component';
 import { Routes, RouterModule } from '@angular/router';
+import { MaterialModule } from '../../shared';
+import { SolicitudesService } from './servicios/solicitudes.service';
 
 const routes: Routes = [
   { path: '', component: SolicitudesComponent }
@@ -10,9 +12,11 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MaterialModule
   ],
   declarations: [SolicitudesComponent],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [SolicitudesService]
 })
 export class SolicitudesModule { }

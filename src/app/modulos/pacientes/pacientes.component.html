@@ -1,3 +1,20 @@
-<p>
-  pacientes works!
-</p>
+<mat-tab-group color="primary" backgroundColor="primary" [selectedIndex]="1">
+  <mat-tab class="p-4 tabs">
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">format_list_bulleted</mat-icon>
+      Listado
+    </ng-template>
+    <div class="cont">
+      <app-listado-pacientes></app-listado-pacientes>
+    </div>
+  </mat-tab>
+  <mat-tab class="cont">
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">accessible_forward</mat-icon>
+      Registro
+    </ng-template>
+    <div class="cont">
+      <app-registro-pacientes></app-registro-pacientes>
+    </div>
+  </mat-tab>
+</mat-tab-group>
