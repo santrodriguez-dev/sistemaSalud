@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { Paciente } from '../interfaces/paciente';
 import { PacientesService } from '../servicios/pacientes.service';
 import { UtilsService } from '../../../shared';
@@ -20,11 +20,14 @@ export class ListadoPacientesComponent implements OnInit {
     'foto',
   ];
 
-  lsPacientes: Paciente[];
+  lsPacientes: MatTableDataSource<Paciente>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _pacientesService: PacientesService, private utilServ: UtilsService) { }
+  constructor(
+    private _pacientesService: PacientesService,
+    private utilServ: UtilsService) { }
 
   ngOnInit() {
     this.cargarPacientes();
@@ -32,10 +35,19 @@ export class ListadoPacientesComponent implements OnInit {
 
   cargarPacientes() {
     this._pacientesService.getAllPacientes().subscribe(lsPac => {
-      this.lsPacientes = lsPac;
+      this.lsPacientes = new MatTableDataSource(lsPac);
+      this.lsPacientes.sort = this.sort;
+      this.lsPacientes.paginator = this.paginator;
     }, err => {
       console.error(err);
     });
+  }
+
+  applyFilter(filterValue: string) {
+    this.lsPacientes.filter = filterValue.trim().toLowerCase();
+    if (this.lsPacientes.paginator) {
+      this.lsPacientes.paginator.firstPage();
+    }
   }
 
 }

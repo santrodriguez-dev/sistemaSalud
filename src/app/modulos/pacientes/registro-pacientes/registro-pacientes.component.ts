@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { Paciente } from '../interfaces/paciente';
 import { PacientesService } from '../servicios/pacientes.service';
+import { UtilsService } from '../../../shared';
 
 @Component({
   selector: 'app-registro-pacientes',
@@ -18,7 +19,8 @@ export class RegistroPacientesComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private router: Router,
     public snackBar: MatSnackBar,
-    private _pacientesService: PacientesService) {
+    private _pacientesService: PacientesService,
+    private utilServ: UtilsService) {
     this.registroPacForm = this.fb.group({
       nombre: ['', Validators.required],
       documento: [''],

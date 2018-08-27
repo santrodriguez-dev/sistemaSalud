@@ -1,3 +1,4 @@
 {
-  "urlServidor": "http://localhost:3000/"
+  "urlServidor": "http://localhost:3000/",
+  "urlSocket": "http://localhost:1000/"
 }

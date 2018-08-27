@@ -1,23 +1,26 @@
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar...">
+</mat-form-field>
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="lsPacientes" class="mat-elevation-z8">
+  <table mat-table [dataSource]="lsPacientes" matSort class="mat-elevation-z8">
     <ng-container matColumnDef="nombre">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
       <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
     </ng-container>
     <ng-container matColumnDef="documento">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Documento </th>
+      <th mat-header-cell *matHeaderCellDef> Documento </th>
       <td mat-cell *matCellDef="let element"> {{element.documento}} </td>
     </ng-container>
     <ng-container matColumnDef="telefono">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
+      <th mat-header-cell *matHeaderCellDef> Teléfono </th>
       <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
     </ng-container>
-    <ng-container matColumnDef="direccion" mat-sort-header>
+    <ng-container matColumnDef="direccion">
       <th mat-header-cell *matHeaderCellDef> Dirección </th>
       <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
     </ng-container>
     <ng-container matColumnDef="nom_usuario">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+      <th mat-header-cell *matHeaderCellDef> Correo </th>
       <td mat-cell *matCellDef="let element"> {{element.nom_usuario}} </td>
     </ng-container>
     <ng-container matColumnDef="foto">

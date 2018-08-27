@@ -9,6 +9,7 @@ export interface Solicitud {
     categoria?: Categoria;
     clasificacion?: Clasificacion;
     paciente?: Paciente;
+    createdAt: Date;
 }
 
 export interface Clasificacion {

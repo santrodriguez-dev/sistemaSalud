@@ -1,4 +1,4 @@
 export interface Credenciales {
-    usuario: string;
+    nom_usuario: string;
     contrasena: string;
 }

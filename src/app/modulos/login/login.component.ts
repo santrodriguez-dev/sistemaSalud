@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { LoginService } from './servicios/login.service';
 import { Credenciales } from './interfaces/credenciales';
-import { RespuestaSevidor } from '../../shared';
 
 @Component({
   selector: 'app-login',
@@ -21,14 +20,14 @@ export class LoginComponent {
     public snackBar: MatSnackBar,
     private _loginService: LoginService) {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      nom_usuario: ['', Validators.required],
+      contrasena: ['', [Validators.required, Validators.minLength(8)]]
     });
 
   }
 
-  get username() { return this.loginForm.get('username'); }
-  get password() { return this.loginForm.get('password'); }
+  get nom_usuario() { return this.loginForm.get('nom_usuario'); }
+  get contrasena() { return this.loginForm.get('contrasena'); }
 
   onSubmit() {
     if (this.loginForm.invalid) {
@@ -36,37 +35,30 @@ export class LoginComponent {
     }
     this.validarCredenciales();
   }
+
   // convenience getter for easy access to form fields
   get f(): any { return this.loginForm.controls; }
 
   validarCredenciales() {
-    const cred: Credenciales = {
-      usuario: this.loginForm.value.username,
-      contrasena: this.loginForm.value.password,
-    };
+    const cred: Credenciales = this.loginForm.value;
 
-    // this._loginService.validarCredenciales(cred)
-    //   .subscribe(resp => {
-    //     console.log(resp);
-    //   });
-
-
-    if (cred.usuario === 'santi123' && this.loginForm.value.password === 'santi123') {
-      this.saveSession();
-      this.router.navigate(['intro']);
-      return;
-    }
-    this.openSnackBar('Usuario o contraseña inválidos', '');
+    this._loginService.validarCredenciales(cred)
+      .subscribe(isLogged => {
+        if (isLogged) {
+          this.router.navigate(['intro']);
+          return;
+        }
+        this.openSnackBar('Usuario o contraseña inválidos', '');
+      }, err => {
+        this.openSnackBar(err, '');
+        console.log(err);
+      });
   }
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
-  }
-
-  saveSession() {
-    localStorage.setItem('session', JSON.stringify(this.loginForm.value.username));
   }
 
 }

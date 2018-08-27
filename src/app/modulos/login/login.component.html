@@ -4,16 +4,16 @@
       <h2 class="text-center">Iniciar sesión</h2>
 
       <mat-form-field>
-        <input matInput placeholder="Usuario" formControlName="username" required>
+        <input matInput placeholder="Usuario" formControlName="nom_usuario" required>
         <mat-icon matSuffix>person</mat-icon>
-        <mat-error *ngIf="username.errors?.required">El nombre de usuario es requerido</mat-error>
+        <mat-error *ngIf="nom_usuario.errors?.required">El nombre de usuario es requerido</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput placeholder="Contraseña" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+        <input matInput placeholder="Contraseña" [type]="hide ? 'password' : 'text'" formControlName="contrasena" required>
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-        <mat-error *ngIf="password.errors?.required">La contraseña es requerida</mat-error>
-        <mat-error *ngIf="password.errors?.minlength">Debe ser mayor a 8 caracteres</mat-error>
+        <mat-error *ngIf="contrasena.errors?.required">La contraseña es requerida</mat-error>
+        <mat-error *ngIf="contrasena.errors?.minlength">Debe ser mayor a 8 caracteres</mat-error>
       </mat-form-field>
       <br>
       <button mat-raised-button color="primary">Iniciar sesión</button>

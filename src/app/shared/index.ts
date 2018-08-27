@@ -1,5 +1,9 @@
 export * from './material/material.module';
-export { RespuestaSevidor } from './interfaces/respuesta-sevidor';
+/**
+ * Interfaces
+ */
+export { RespuestaServidor } from './interfaces/RespuestaServidor';
+export { Usuario } from './interfaces/Usuario';
 
 /**
  * Servicios comunes
