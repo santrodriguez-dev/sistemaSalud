@@ -117,6 +117,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var AppComponent = /** @class */ (function () {
     function AppComponent(util) {
+        this.util = util;
     }
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1798,20 +1799,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var UtilsService = /** @class */ (function () {
     function UtilsService(http) {
-        var _this = this;
         this.http = http;
-        this.rutasServicios = {
-            urlServidor: 'http://localhost:3000/',
-            urlSocket: 'http://localhost:3000/',
-        };
         this.cambioCargando = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
         this.cargarRutaServidor();
-        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_3__["connect"](this.rutasServicios.urlSocket);
-        this.obNuevaSolicitud = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-            _this.socket.on('nuevaSolicitud', function (data) {
-                observer.next(data);
-            });
-        });
     }
     UtilsService.prototype.cargarRutaServidor = function () {
         var _this = this;
@@ -1819,8 +1809,18 @@ var UtilsService = /** @class */ (function () {
             this.http.get('src/assets/config.json')
                 .subscribe(function (config) {
                 _this.rutasServicios = config;
+                _this.onLoadRoutes();
             });
         }
+    };
+    UtilsService.prototype.onLoadRoutes = function () {
+        var _this = this;
+        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_3__["connect"](this.rutasServicios.urlSocket);
+        this.obNuevaSolicitud = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
+            _this.socket.on('nuevaSolicitud', function (data) {
+                observer.next(data);
+            });
+        });
     };
     UtilsService.prototype.mostrarCargando = function (flag) {
         this.cambioCargando.next(flag);
