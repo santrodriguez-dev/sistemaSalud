@@ -8,23 +8,13 @@ import * as io from 'socket.io-client';
   providedIn: 'root'
 })
 export class UtilsService {
-  rutasServicios: RutasServicios = {
-    urlServidor: 'http://localhost:3000/',
-    urlSocket: 'http://localhost:3000/',
-  };
+  rutasServicios: RutasServicios;
   cambioCargando = new BehaviorSubject<boolean>(false);
   private socket;
   obNuevaSolicitud: Observable<Solicitud>;
 
   constructor(private http: HttpClient) {
     this.cargarRutaServidor();
-    this.socket = io.connect(this.rutasServicios.urlSocket);
-
-    this.obNuevaSolicitud = new Observable(observer => {
-      this.socket.on('nuevaSolicitud', (data) => {
-        observer.next(data);
-      });
-    });
   }
 
   private cargarRutaServidor() {
@@ -32,8 +22,18 @@ export class UtilsService {
       this.http.get<RutasServicios>('src/assets/config.json')
         .subscribe(config => {
           this.rutasServicios = config;
+          this.onLoadRoutes();
         });
     }
+  }
+
+  onLoadRoutes() {
+    this.socket = io.connect(this.rutasServicios.urlSocket);
+    this.obNuevaSolicitud = new Observable(observer => {
+      this.socket.on('nuevaSolicitud', (data) => {
+        observer.next(data);
+      });
+    });
   }
 
   mostrarCargando(flag: boolean) {

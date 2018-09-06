@@ -1802,7 +1802,7 @@ var UtilsService = /** @class */ (function () {
         this.http = http;
         this.rutasServicios = {
             urlServidor: 'http://localhost:3000/',
-            urlSocket: 'http://localhost:1000/',
+            urlSocket: 'http://localhost:3000/',
         };
         this.cambioCargando = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
         this.cargarRutaServidor();

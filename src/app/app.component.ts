@@ -7,5 +7,5 @@ import { UtilsService } from './shared';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(util: UtilsService) { }
+  constructor(private util: UtilsService) { }
 }
