@@ -13,7 +13,7 @@ export class LoginService {
   constructor(private http: HttpClient, private util: UtilsService) { }
 
   validarCredenciales(credenciales: Credenciales): Observable<Boolean> {
-    return this.http.post<RespuestaServidor>(this.util.urlServidor + 'usuarios/login', credenciales)
+    return this.http.post<RespuestaServidor>(this.util.rutasServicios.urlServidor + 'usuarios/login', credenciales)
       .pipe(map(res => {
         if (res.satisfactorio) {
           if (res.resultado !== null) {

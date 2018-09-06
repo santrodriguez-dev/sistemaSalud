@@ -8,15 +8,17 @@ import * as io from 'socket.io-client';
   providedIn: 'root'
 })
 export class UtilsService {
-  urlServidor = 'http://localhost:3000/';
-  urlSocket = 'http://localhost:1000/';
+  rutasServicios: RutasServicios = {
+    urlServidor: 'http://localhost:3000/',
+    urlSocket: 'http://localhost:1000/',
+  };
   cambioCargando = new BehaviorSubject<boolean>(false);
   private socket;
   obNuevaSolicitud: Observable<Solicitud>;
 
   constructor(private http: HttpClient) {
     this.cargarRutaServidor();
-    this.socket = io.connect(this.urlSocket);
+    this.socket = io.connect(this.rutasServicios.urlSocket);
 
     this.obNuevaSolicitud = new Observable(observer => {
       this.socket.on('nuevaSolicitud', (data) => {
@@ -26,11 +28,10 @@ export class UtilsService {
   }
 
   private cargarRutaServidor() {
-    if (!this.urlServidor) {
-      this.http.get<any>('src/assets/config.json')
+    if (!this.rutasServicios) {
+      this.http.get<RutasServicios>('src/assets/config.json')
         .subscribe(config => {
-          this.urlServidor = config.urlServidor;
-          this.urlSocket = config.urlSocket;
+          this.rutasServicios = config;
         });
     }
   }
@@ -39,4 +40,9 @@ export class UtilsService {
     this.cambioCargando.next(flag);
   }
 
+}
+
+interface RutasServicios {
+  urlServidor: string;
+  urlSocket: string;
 }

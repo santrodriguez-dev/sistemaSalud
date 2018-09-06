@@ -4,9 +4,11 @@ import { SolicitudesComponent } from './solicitudes.component';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../shared';
 import { SolicitudesService } from './servicios/solicitudes.service';
+import { InfoSolicitudComponent } from './info-solicitud/info-solicitud.component';
 
 const routes: Routes = [
-  { path: '', component: SolicitudesComponent }
+  { path: '', component: SolicitudesComponent },
+  { path: ':id', component: InfoSolicitudComponent }
 ];
 
 @NgModule({
@@ -15,7 +17,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule,
   ],
-  declarations: [SolicitudesComponent],
+  declarations: [SolicitudesComponent, InfoSolicitudComponent],
   exports: [RouterModule],
   providers: [SolicitudesService]
 })

@@ -13,7 +13,7 @@ export class SolicitudesService {
   constructor(private http: HttpClient, private util: UtilsService) { }
 
   getAllSolicitudes(): Observable<Solicitud[]> {
-    return this.http.get<RespuestaServidor>(this.util.urlServidor + 'solicitudes/getall').pipe(map(res => {
+    return this.http.get<RespuestaServidor>(this.util.rutasServicios.urlServidor + 'solicitudes/getall').pipe(map(res => {
       if (res.satisfactorio) {
         return res.resultado;
       }

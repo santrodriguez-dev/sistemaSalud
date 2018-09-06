@@ -31,7 +31,7 @@
       </mat-menu>
     </mat-toolbar>
   </div>
-  <mat-progress-bar mode="indeterminate" *ngIf="cargando"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate" [hidden]="!cargando"></mat-progress-bar>
 
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">

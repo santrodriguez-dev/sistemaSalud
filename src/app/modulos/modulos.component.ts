@@ -36,9 +36,9 @@ export class ModulosComponent implements OnInit, OnDestroy {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
 
-    // this.utilServ.cambioCargando.subscribe(cargando => {
-    //   this.cargando = cargando;
-    // });
+    this.utilServ.cambioCargando.subscribe(cargando => {
+      this.cargando = cargando;
+    });
   }
 
   ngOnInit(): void {

@@ -1,37 +1,40 @@
-<div class="cont">
-  <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar...">
-  </mat-form-field>
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="lsSolicitudes" matSort class="mat-elevation-z8">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
-      <ng-container matColumnDef="paciente_id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre paciente </th>
-        <td mat-cell *matCellDef="let element"> {{element.paciente.nombre}} </td>
-      </ng-container>
-      <ng-container matColumnDef="categoria_id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Categoría </th>
-        <td mat-cell *matCellDef="let element"> {{element.categoria.nombre}} </td>
-      </ng-container>
-      <ng-container matColumnDef="clasificacion_id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Clasificación </th>
-        <td mat-cell *matCellDef="let element"> {{element.clasificacion.nombre}} </td>
-      </ng-container>
-      <ng-container matColumnDef="descripcion">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
-        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
-      </ng-container>
-      <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-        <td mat-cell *matCellDef="let element"> {{element.createdAt | date}} </td>
-      </ng-container>
+<div class="componente-solicitudes">
+  <mat-card>
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar...">
+    </mat-form-field>
+    <div class="mat-elevation-z8">
+      <mat-table [dataSource]="lsSolicitudes" matSort>
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>>
+          <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="paciente_id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre paciente </mat-header-cell>>
+          <mat-cell *matCellDef="let element"> {{element.paciente.nombre}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="categoria_id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Categoría </mat-header-cell>>
+          <mat-cell *matCellDef="let element"> {{element.categoria.nombre}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="clasificacion_id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Clasificación </mat-header-cell>>
+          <mat-cell *matCellDef="let element"> {{element.clasificacion.nombre}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="descripcion">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </mat-header-cell>>
+          <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="createdAt">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>>
+          <mat-cell *matCellDef="let element"> {{element.createdAt | date}} </mat-cell>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-  </div>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="filaSeleccionada(row)"></mat-row>
+
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </mat-card>
 </div>

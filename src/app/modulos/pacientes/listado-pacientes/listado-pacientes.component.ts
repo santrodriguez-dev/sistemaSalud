@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { Paciente } from '../interfaces/paciente';
 import { PacientesService } from '../servicios/pacientes.service';
@@ -18,36 +18,51 @@ export class ListadoPacientesComponent implements OnInit {
     'telefono',
     'direccion',
     'foto',
+    'acciones',
   ];
-
-  lsPacientes: MatTableDataSource<Paciente>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(
-    private _pacientesService: PacientesService,
-    private utilServ: UtilsService) { }
+  // private _lsPacientes: MatTableDataSource<Paciente>;
+  // @Input()
+  // set lsPacientes(ls: MatTableDataSource<Paciente>) {
+  //   ls.sort = this.sort;
+  //   ls.paginator = this.paginator;
+  //   this._lsPacientes = ls;
+  // }
 
-  ngOnInit() {
-    this.cargarPacientes();
+  // get lsPacientes(): MatTableDataSource<Paciente> {
+  //   return this._lsPacientes;
+  // }
+
+  constructor(public _pacientesService: PacientesService) {
+    _pacientesService.cargarPacientes();
   }
 
-  cargarPacientes() {
-    this._pacientesService.getAllPacientes().subscribe(lsPac => {
-      this.lsPacientes = new MatTableDataSource(lsPac);
-      this.lsPacientes.sort = this.sort;
-      this.lsPacientes.paginator = this.paginator;
-    }, err => {
-      console.error(err);
-    });
-  }
+  ngOnInit() { }
 
   applyFilter(filterValue: string) {
-    this.lsPacientes.filter = filterValue.trim().toLowerCase();
-    if (this.lsPacientes.paginator) {
-      this.lsPacientes.paginator.firstPage();
+    this._pacientesService.lsPacientes.filter = filterValue.trim().toLowerCase();
+    if (this._pacientesService.lsPacientes.paginator) {
+      this._pacientesService.lsPacientes.paginator.firstPage();
     }
+  }
+
+  filaSeleccionada(row) {
+    // console.log(row);
+  }
+
+  editarPaciente(p: Paciente) {
+    this._pacientesService.redirectEditarPaciente(p);
+  }
+
+  eliminarPaciente(p: Paciente) {
+    this._pacientesService.eliminarPaciente(p).subscribe(res => {
+      if (res) {
+        this._pacientesService.cargarPacientes();
+      }
+    });
   }
 
 }

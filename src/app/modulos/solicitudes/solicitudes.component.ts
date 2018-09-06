@@ -4,6 +4,7 @@ import { SolicitudesService } from './servicios/solicitudes.service';
 import { Solicitud } from './interfaces/Solicitud';
 import { UtilsService } from '../../shared';
 import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-solicitudes',
@@ -18,7 +19,11 @@ export class SolicitudesComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private subsObtSoli: Subscription;
 
-  constructor(private _solicitudesService: SolicitudesService, private utilServ: UtilsService) { }
+  constructor(
+    private _solicitudesService: SolicitudesService,
+    private utilServ: UtilsService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.cargarSolicitudes();
@@ -37,12 +42,15 @@ export class SolicitudesComponent implements OnInit, OnDestroy {
   }
 
   cargarSolicitudes() {
+    this.utilServ.mostrarCargando(true);
     this._solicitudesService.getAllSolicitudes().subscribe(lsSoli => {
       this.lsSolicitudes = new MatTableDataSource(lsSoli);
       this.lsSolicitudes.paginator = this.paginator;
       this.lsSolicitudes.sort = this.sort;
+      this.utilServ.mostrarCargando(false);
     }, err => {
-      console.log('Ha ocurrido un error');
+      this.utilServ.mostrarCargando(false);
+      console.log('Ha ocurrido un error', err);
     });
   }
 
@@ -51,6 +59,11 @@ export class SolicitudesComponent implements OnInit, OnDestroy {
     if (this.lsSolicitudes.paginator) {
       this.lsSolicitudes.paginator.firstPage();
     }
+  }
+
+  filaSeleccionada(row: Solicitud) {
+    console.log(row);
+    this.router.navigate(['./', row.id], { relativeTo: this.route });
   }
 
 }
