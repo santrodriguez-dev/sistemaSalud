@@ -68,7 +68,7 @@ export class ModulosComponent implements OnInit, OnDestroy {
   }
 
   cierraNotifi() {
-    console.log('Cierra notificacion');
+    this.lsNotificaciones = [];
   }
 
 }

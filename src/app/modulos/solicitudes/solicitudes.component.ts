@@ -62,7 +62,6 @@ export class SolicitudesComponent implements OnInit, OnDestroy {
   }
 
   filaSeleccionada(row: Solicitud) {
-    console.log(row);
     this.router.navigate(['./', row.id], { relativeTo: this.route });
   }
 

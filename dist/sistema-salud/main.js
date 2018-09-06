@@ -557,7 +557,7 @@ var LoginService = /** @class */ (function () {
     }
     LoginService.prototype.validarCredenciales = function (credenciales) {
         var _this = this;
-        return this.http.post(this.util.urlServidor + 'usuarios/login', credenciales)
+        return this.http.post(this.util.rutasServicios.urlServidor + 'usuarios/login', credenciales)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
             if (res.satisfactorio) {
                 if (res.resultado !== null) {
@@ -602,7 +602,7 @@ module.exports = ".example-container {\r\n  display: flex;\r\n  flex-direction: 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"example-container\" [class.example-is-mobile]=\"mobileQuery.matches\">\n  <!-- <mat-progress-bar mode=\"indeterminate\" *ngIf=\"cargando\"></mat-progress-bar> -->\n\n  <div class=\"mat-elevation-z6 cont-tool\">\n    <mat-toolbar color=\"primary\" class=\"example-toolbar\">\n      <button mat-icon-button (click)=\"snav.toggle()\">\n        <mat-icon>menu</mat-icon>\n      </button>\n      <h1 class=\"example-app-name\">Sistema de salud</h1>\n      <span class=\"example-spacer\"></span>\n      <button *ngIf=\"lsNotificaciones.length\" mat-icon-button [matMenuTriggerFor]=\"menuSolicitudes\" [matBadge]=\"lsNotificaciones.length\"\n        matBadgePosition=\"after\" matBadgeColor=\"accent\">\n        <mat-icon>accessible_forward</mat-icon>\n      </button>\n      <button mat-icon-button [matMenuTriggerFor]=\"menu\">\n        <mat-icon>more_vert</mat-icon>\n      </button>\n      <mat-menu #menu=\"matMenu\">\n        <button mat-menu-item (click)=\"cerrarSesion()\">\n          <mat-icon>power_settings_new</mat-icon>\n          <span>Cerrar sesión</span>\n        </button>\n      </mat-menu>\n      <mat-menu #menuSolicitudes=\"matMenu\" (close)=\"cierraNotifi()\">\n        <mat-list role=\"list\">\n          <mat-list-item *ngFor=\"let notif of lsNotificaciones\">\n            <a mat-list-item [routerLink]=\"''\">Solicitud hecha por {{notif.paciente_id}}</a>\n            <mat-divider></mat-divider>\n          </mat-list-item>\n        </mat-list>\n      </mat-menu>\n    </mat-toolbar>\n  </div>\n  <mat-progress-bar mode=\"indeterminate\" *ngIf=\"cargando\"></mat-progress-bar>\n\n  <mat-sidenav-container class=\"example-sidenav-container\" [style.marginTop.px]=\"mobileQuery.matches ? 56 : 0\">\n    <mat-sidenav #snav [mode]=\"mobileQuery.matches ? 'over' : 'side'\" [fixedInViewport]=\"mobileQuery.matches\" fixedTopGap=\"56\">\n      <mat-nav-list *ngFor=\"let nav of rutas\">\n        <a mat-list-item [routerLink]=\"nav.url\" routerLinkActive=\"active-link\">\n          <mat-icon mat-list-icon>{{nav.icono}}</mat-icon>\n          {{nav.nombre}}</a>\n      </mat-nav-list>\n    </mat-sidenav>\n\n    <mat-sidenav-content>\n      <router-outlet></router-outlet>\n    </mat-sidenav-content>\n  </mat-sidenav-container>\n</div>\n"
+module.exports = "<div class=\"example-container\" [class.example-is-mobile]=\"mobileQuery.matches\">\n  <!-- <mat-progress-bar mode=\"indeterminate\" *ngIf=\"cargando\"></mat-progress-bar> -->\n\n  <div class=\"mat-elevation-z6 cont-tool\">\n    <mat-toolbar color=\"primary\" class=\"example-toolbar\">\n      <button mat-icon-button (click)=\"snav.toggle()\">\n        <mat-icon>menu</mat-icon>\n      </button>\n      <h1 class=\"example-app-name\">Sistema de salud</h1>\n      <span class=\"example-spacer\"></span>\n      <button *ngIf=\"lsNotificaciones.length\" mat-icon-button [matMenuTriggerFor]=\"menuSolicitudes\" [matBadge]=\"lsNotificaciones.length\"\n        matBadgePosition=\"after\" matBadgeColor=\"accent\">\n        <mat-icon>accessible_forward</mat-icon>\n      </button>\n      <button mat-icon-button [matMenuTriggerFor]=\"menu\">\n        <mat-icon>more_vert</mat-icon>\n      </button>\n      <mat-menu #menu=\"matMenu\">\n        <button mat-menu-item (click)=\"cerrarSesion()\">\n          <mat-icon>power_settings_new</mat-icon>\n          <span>Cerrar sesión</span>\n        </button>\n      </mat-menu>\n      <mat-menu #menuSolicitudes=\"matMenu\" (close)=\"cierraNotifi()\">\n        <mat-list role=\"list\">\n          <mat-list-item *ngFor=\"let notif of lsNotificaciones\">\n            <a mat-list-item [routerLink]=\"''\">Solicitud hecha por {{notif.paciente_id}}</a>\n            <mat-divider></mat-divider>\n          </mat-list-item>\n        </mat-list>\n      </mat-menu>\n    </mat-toolbar>\n  </div>\n  <mat-progress-bar mode=\"indeterminate\" [hidden]=\"!cargando\"></mat-progress-bar>\n\n  <mat-sidenav-container class=\"example-sidenav-container\" [style.marginTop.px]=\"mobileQuery.matches ? 56 : 0\">\n    <mat-sidenav #snav [mode]=\"mobileQuery.matches ? 'over' : 'side'\" [fixedInViewport]=\"mobileQuery.matches\" fixedTopGap=\"56\">\n      <mat-nav-list *ngFor=\"let nav of rutas\">\n        <a mat-list-item [routerLink]=\"nav.url\" routerLinkActive=\"active-link\">\n          <mat-icon mat-list-icon>{{nav.icono}}</mat-icon>\n          {{nav.nombre}}</a>\n      </mat-nav-list>\n    </mat-sidenav>\n\n    <mat-sidenav-content>\n      <router-outlet></router-outlet>\n    </mat-sidenav-content>\n  </mat-sidenav-container>\n</div>\n"
 
 /***/ }),
 
@@ -637,6 +637,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var ModulosComponent = /** @class */ (function () {
     function ModulosComponent(changeDetectorRef, media, router, utilServ, snackBar) {
+        var _this = this;
         this.router = router;
         this.utilServ = utilServ;
         this.snackBar = snackBar;
@@ -650,9 +651,9 @@ var ModulosComponent = /** @class */ (function () {
         this.mobileQuery = media.matchMedia('(max-width: 600px)');
         this._mobileQueryListener = function () { return changeDetectorRef.detectChanges(); };
         this.mobileQuery.addListener(this._mobileQueryListener);
-        // this.utilServ.cambioCargando.subscribe(cargando => {
-        //   this.cargando = cargando;
-        // });
+        this.utilServ.cambioCargando.subscribe(function (cargando) {
+            _this.cargando = cargando;
+        });
     }
     ModulosComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -677,7 +678,7 @@ var ModulosComponent = /** @class */ (function () {
         });
     };
     ModulosComponent.prototype.cierraNotifi = function () {
-        console.log('Cierra notificacion');
+        this.lsNotificaciones = [];
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('sidenav'),
@@ -792,7 +793,7 @@ module.exports = "table {\r\n  width: 100%;\r\n}\r\n\r\nth.mat-sort-header-sorte
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-form-field>\n  <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Buscar...\">\n</mat-form-field>\n<div class=\"mat-elevation-z8\">\n  <table mat-table [dataSource]=\"lsPacientes\" matSort class=\"mat-elevation-z8\">\n    <ng-container matColumnDef=\"nombre\">\n      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.nombre}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"documento\">\n      <th mat-header-cell *matHeaderCellDef> Documento </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.documento}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"telefono\">\n      <th mat-header-cell *matHeaderCellDef> Teléfono </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.telefono}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"direccion\">\n      <th mat-header-cell *matHeaderCellDef> Dirección </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.direccion}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"nom_usuario\">\n      <th mat-header-cell *matHeaderCellDef> Correo </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.nom_usuario}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"foto\">\n      <th mat-header-cell *matHeaderCellDef> Foto </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.foto}} </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n\n  <mat-paginator [pageSizeOptions]=\"[5, 10, 20]\" showFirstLastButtons></mat-paginator>\n</div>\n"
+module.exports = "<div>\n  <h3>Lista de pacientes</h3>\n</div>\n\n<mat-card class=\"card\">\n  <mat-form-field>\n    <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Buscar...\">\n  </mat-form-field>\n  <div class=\"mat-elevation-z8\">\n    <mat-table [dataSource]=\"_pacientesService.lsPacientes\" matSort>\n      <ng-container matColumnDef=\"nombre\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.nombre}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"documento\">\n        <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.documento}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"telefono\">\n        <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.telefono}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"direccion\">\n        <mat-header-cell *matHeaderCellDef> Dirección </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.direccion}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"nom_usuario\">\n        <mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.nom_usuario}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"foto\">\n        <mat-header-cell *matHeaderCellDef> Foto </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.foto}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"acciones\">\n        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\">\n          <button mat-icon-button [matMenuTriggerFor]=\"menu\">\n            <mat-icon>more_vert</mat-icon>\n          </button>\n          <mat-menu #menu=\"matMenu\">\n            <button mat-menu-item (click)=\"editarPaciente(element)\">\n              <mat-icon color=\"secondary\">edit</mat-icon>\n              <span>Editar</span>\n            </button>\n            <button mat-menu-item (click)=\"eliminarPaciente(element)\">\n              <mat-icon>delete</mat-icon>\n              <span color=\"primary\">Eliminar</span>\n            </button>\n          </mat-menu>\n        </mat-cell>\n      </ng-container>\n\n      <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n      <mat-row *matRowDef=\"let row; columns: displayedColumns;\" (click)=\"filaSeleccionada(row)\"></mat-row>\n\n    </mat-table>\n    <mat-paginator [pageSizeOptions]=\"[3, 5, 10]\" showFirstLastButtons></mat-paginator>\n  </div>\n</mat-card>\n"
 
 /***/ }),
 
@@ -809,7 +810,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _servicios_pacientes_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../servicios/pacientes.service */ "./src/app/modulos/pacientes/servicios/pacientes.service.ts");
-/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared */ "./src/app/shared/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -822,11 +822,19 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var ListadoPacientesComponent = /** @class */ (function () {
-    function ListadoPacientesComponent(_pacientesService, utilServ) {
+    // private _lsPacientes: MatTableDataSource<Paciente>;
+    // @Input()
+    // set lsPacientes(ls: MatTableDataSource<Paciente>) {
+    //   ls.sort = this.sort;
+    //   ls.paginator = this.paginator;
+    //   this._lsPacientes = ls;
+    // }
+    // get lsPacientes(): MatTableDataSource<Paciente> {
+    //   return this._lsPacientes;
+    // }
+    function ListadoPacientesComponent(_pacientesService) {
         this._pacientesService = _pacientesService;
-        this.utilServ = utilServ;
         this.displayedColumns = [
             'nombre',
             'documento',
@@ -834,26 +842,30 @@ var ListadoPacientesComponent = /** @class */ (function () {
             'telefono',
             'direccion',
             'foto',
+            'acciones',
         ];
+        _pacientesService.cargarPacientes();
     }
-    ListadoPacientesComponent.prototype.ngOnInit = function () {
-        this.cargarPacientes();
-    };
-    ListadoPacientesComponent.prototype.cargarPacientes = function () {
-        var _this = this;
-        this._pacientesService.getAllPacientes().subscribe(function (lsPac) {
-            _this.lsPacientes = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTableDataSource"](lsPac);
-            _this.lsPacientes.sort = _this.sort;
-            _this.lsPacientes.paginator = _this.paginator;
-        }, function (err) {
-            console.error(err);
-        });
-    };
+    ListadoPacientesComponent.prototype.ngOnInit = function () { };
     ListadoPacientesComponent.prototype.applyFilter = function (filterValue) {
-        this.lsPacientes.filter = filterValue.trim().toLowerCase();
-        if (this.lsPacientes.paginator) {
-            this.lsPacientes.paginator.firstPage();
+        this._pacientesService.lsPacientes.filter = filterValue.trim().toLowerCase();
+        if (this._pacientesService.lsPacientes.paginator) {
+            this._pacientesService.lsPacientes.paginator.firstPage();
         }
+    };
+    ListadoPacientesComponent.prototype.filaSeleccionada = function (row) {
+        // console.log(row);
+    };
+    ListadoPacientesComponent.prototype.editarPaciente = function (p) {
+        this._pacientesService.redirectEditarPaciente(p);
+    };
+    ListadoPacientesComponent.prototype.eliminarPaciente = function (p) {
+        var _this = this;
+        this._pacientesService.eliminarPaciente(p).subscribe(function (res) {
+            if (res) {
+                _this._pacientesService.cargarPacientes();
+            }
+        });
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatPaginator"]),
@@ -869,8 +881,7 @@ var ListadoPacientesComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./listado-pacientes.component.html */ "./src/app/modulos/pacientes/listado-pacientes/listado-pacientes.component.html"),
             styles: [__webpack_require__(/*! ./listado-pacientes.component.css */ "./src/app/modulos/pacientes/listado-pacientes/listado-pacientes.component.css")]
         }),
-        __metadata("design:paramtypes", [_servicios_pacientes_service__WEBPACK_IMPORTED_MODULE_2__["PacientesService"],
-            _shared__WEBPACK_IMPORTED_MODULE_3__["UtilsService"]])
+        __metadata("design:paramtypes", [_servicios_pacientes_service__WEBPACK_IMPORTED_MODULE_2__["PacientesService"]])
     ], ListadoPacientesComponent);
     return ListadoPacientesComponent;
 }());
@@ -897,7 +908,7 @@ module.exports = "table {\r\n  width: 100%;\r\n}\r\n\r\n.cont {\r\n  padding: 20
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-tab-group color=\"primary\" backgroundColor=\"primary\" [selectedIndex]=\"1\">\n  <mat-tab class=\"p-4 tabs\">\n    <ng-template mat-tab-label>\n      <mat-icon class=\"example-tab-icon\">format_list_bulleted</mat-icon>\n      Listado\n    </ng-template>\n    <div class=\"cont\">\n      <app-listado-pacientes></app-listado-pacientes>\n    </div>\n  </mat-tab>\n  <mat-tab class=\"cont\">\n    <ng-template mat-tab-label>\n      <mat-icon class=\"example-tab-icon\">accessibility</mat-icon>\n      Registro\n    </ng-template>\n    <div class=\"cont\">\n      <app-registro-pacientes></app-registro-pacientes>\n    </div>\n  </mat-tab>\n</mat-tab-group>\n"
+module.exports = "<mat-tab-group color=\"primary\" backgroundColor=\"primary\" [(selectedIndex)]=\"tabIndex\" (selectedIndexChange)=\"cambioTab($event)\">\n  <mat-tab class=\"p-4 tabs\">\n    <ng-template mat-tab-label>\n      <mat-icon class=\"example-tab-icon\">format_list_bulleted</mat-icon>\n      Listado\n    </ng-template>\n    <div class=\"cont\">\n      <app-listado-pacientes></app-listado-pacientes>\n    </div>\n  </mat-tab>\n  <mat-tab class=\"cont\">\n    <ng-template mat-tab-label>\n      <mat-icon class=\"example-tab-icon\">accessibility</mat-icon>\n      Registro\n    </ng-template>\n    <div class=\"cont\">\n      <app-registro-pacientes (recargarPacientes)=\"recargarPacientes()\"></app-registro-pacientes>\n    </div>\n  </mat-tab>\n  <mat-tab class=\"cont\" *ngIf=\"pacienteSeleccionado\">\n    <ng-template mat-tab-label>\n      <mat-icon class=\"example-tab-icon\">accessibility</mat-icon>\n      Actualizar usuario\n    </ng-template>\n    <div class=\"cont\">\n      <app-registro-pacientes [paciente]=\"pacienteSeleccionado\" (recargarPacientes)=\"recargarPacientes()\"></app-registro-pacientes>\n    </div>\n  </mat-tab>\n</mat-tab-group>\n"
 
 /***/ }),
 
@@ -912,6 +923,8 @@ module.exports = "<mat-tab-group color=\"primary\" backgroundColor=\"primary\" [
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PacientesComponent", function() { return PacientesComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared */ "./src/app/shared/index.ts");
+/* harmony import */ var _servicios_pacientes_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./servicios/pacientes.service */ "./src/app/modulos/pacientes/servicios/pacientes.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -922,17 +935,45 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var PacientesComponent = /** @class */ (function () {
-    function PacientesComponent() {
+    function PacientesComponent(_pacientesService, utilServ) {
+        this._pacientesService = _pacientesService;
+        this.utilServ = utilServ;
+        this.tabIndex = 0;
     }
-    PacientesComponent.prototype.ngOnInit = function () { };
+    PacientesComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._pacientesService.obEditarPaciente.subscribe(function (p) {
+            if (p) {
+                console.log(p);
+                _this.pacienteSeleccionado = p;
+                _this.tabIndex = 2;
+            }
+        });
+    };
+    PacientesComponent.prototype.ngOnDestroy = function () {
+        // this._pacientesService.obEditarPaciente.unsubscribe();
+    };
+    PacientesComponent.prototype.recargarPacientes = function () {
+        this._pacientesService.cargarPacientes();
+        // this.cargarPacientes();
+        this.tabIndex = 0;
+    };
+    PacientesComponent.prototype.cambioTab = function (tabIndex) {
+        if (tabIndex !== 2) {
+            this.pacienteSeleccionado = null;
+        }
+    };
     PacientesComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-pacientes',
             template: __webpack_require__(/*! ./pacientes.component.html */ "./src/app/modulos/pacientes/pacientes.component.html"),
             styles: [__webpack_require__(/*! ./pacientes.component.css */ "./src/app/modulos/pacientes/pacientes.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_servicios_pacientes_service__WEBPACK_IMPORTED_MODULE_2__["PacientesService"],
+            _shared__WEBPACK_IMPORTED_MODULE_1__["UtilsService"]])
     ], PacientesComponent);
     return PacientesComponent;
 }());
@@ -1021,7 +1062,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"card\">\n  <form class=\"example-container d-flex flex-column\" [formGroup]=\"registroPacForm\" (ngSubmit)=\"onSubmit()\">\n    <h2 class=\"text-center\">Registrar paciente</h2>\n    <mat-form-field>\n      <input matInput placeholder=\"Nombre\" formControlName=\"nombre\" required>\n      <mat-icon matSuffix>person</mat-icon>\n      <mat-error>El nombre de usuario es requerido</mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Documento\" formControlName=\"documento\" required>\n      <mat-icon matSuffix>vpn_key</mat-icon>\n      <mat-error>El nombre de usuario es requerido</mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Teléfono\" formControlName=\"telefono\">\n      <mat-icon matSuffix>phone</mat-icon>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Dirección\" formControlName=\"direccion\">\n      <mat-icon matSuffix>location_on</mat-icon>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Correo\" formControlName=\"nom_usuario\" required>\n      <mat-icon matSuffix>email</mat-icon>\n      <mat-error>El correo no es válido</mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Contraseña\" [type]=\"hidePass ? 'password' : 'text'\" formControlName=\"contrasena\" required>\n      <mat-icon matSuffix (click)=\"hidePass = !hidePass\">{{hidePass ? 'visibility' : 'visibility_off'}}</mat-icon>\n      <mat-error>La conttraseña no es válida</mat-error>\n    </mat-form-field>\n    <!-- <mat-form-field>\n      <input matInput placeholder=\"Foto\" formControlName=\"username\" required>\n      <mat-icon matSuffix>person</mat-icon>\n      <mat-error>El nombre de usuario es requerido</mat-error>\n    </mat-form-field> -->\n\n    <div class=\"d-flex pt-3\">\n      <button mat-raised-button color=\"primary\" class=\"mr-3\">\n        <i class=\"material-icons\">done</i> Guardar\n      </button>\n      <button mat-raised-button color=\"primary\" type=\"reset\">\n        <i class=\"material-icons\">delete</i> Reestablecer\n      </button>\n    </div>\n\n  </form>\n\n</mat-card>\n"
+module.exports = "<mat-card class=\"card\">\n  <form class=\"example-container d-flex flex-column\" [formGroup]=\"registroPacForm\" (ngSubmit)=\"onSubmit()\">\n    <h2 class=\"text-center\">Registrar paciente</h2>\n    <mat-form-field>\n      <input matInput placeholder=\"Nombre\" formControlName=\"nombre\" required>\n      <mat-icon matSuffix>person</mat-icon>\n      <mat-error>El nombre de usuario es requerido</mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Documento\" formControlName=\"documento\" required>\n      <mat-icon matSuffix>vpn_key</mat-icon>\n      <mat-error>El nombre de usuario es requerido</mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Teléfono\" formControlName=\"telefono\">\n      <mat-icon matSuffix>phone</mat-icon>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Dirección\" formControlName=\"direccion\">\n      <mat-icon matSuffix>location_on</mat-icon>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Correo\" formControlName=\"nom_usuario\" required>\n      <mat-icon matSuffix>email</mat-icon>\n      <mat-error>El correo no es válido</mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Contraseña\" [type]=\"hidePass ? 'password' : 'text'\" formControlName=\"contrasena\" required>\n      <mat-icon matSuffix (click)=\"hidePass = !hidePass\">{{hidePass ? 'visibility' : 'visibility_off'}}</mat-icon>\n      <mat-error>La conttraseña no es válida</mat-error>\n    </mat-form-field>\n    <!-- <mat-form-field>\n      <input matInput placeholder=\"Foto\" formControlName=\"username\" required>\n      <mat-icon matSuffix>person</mat-icon>\n      <mat-error>El nombre de usuario es requerido</mat-error>\n    </mat-form-field> -->\n\n    <div class=\"d-flex pt-3\">\n      <button mat-raised-button color=\"primary\" class=\"mr-3\" type=\"submit\">\n        <i class=\"material-icons\">done</i> Guardar\n      </button>\n      <button mat-raised-button color=\"primary\" (click)=\"resetForm()\" type=\"button\">\n        <i class=\"material-icons\">delete</i> Reestablecer\n      </button>\n    </div>\n\n  </form>\n\n</mat-card>\n"
 
 /***/ }),
 
@@ -1064,6 +1105,7 @@ var RegistroPacientesComponent = /** @class */ (function () {
         this._pacientesService = _pacientesService;
         this.utilServ = utilServ;
         this.hidePass = true;
+        this.recargarPacientes = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.registroPacForm = this.fb.group({
             nombre: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             documento: [''],
@@ -1073,22 +1115,61 @@ var RegistroPacientesComponent = /** @class */ (function () {
             contrasena: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].minLength(8)]],
         });
     }
-    RegistroPacientesComponent.prototype.ngOnInit = function () { };
+    RegistroPacientesComponent.prototype.resetForm = function () {
+        if (this.modoEditable) {
+            this.registroPacForm.patchValue(this.paciente);
+            return;
+        }
+        this.registroPacForm.reset();
+        this.registroPacForm.clearValidators();
+    };
+    RegistroPacientesComponent.prototype.ngOnInit = function () {
+        if (this.paciente) {
+            this.registroPacForm.patchValue(this.paciente);
+            this.modoEditable = true;
+        }
+    };
     RegistroPacientesComponent.prototype.onSubmit = function () {
         if (this.registroPacForm.invalid) {
             return;
         }
-        this.crearPaciente(this.registroPacForm.value);
+        if (!this.modoEditable) {
+            this.crearPaciente(this.registroPacForm.value);
+            return;
+        }
+        this.actualizarPaciente(this.registroPacForm.value);
     };
     RegistroPacientesComponent.prototype.crearPaciente = function (paciente) {
         var _this = this;
+        this.utilServ.mostrarCargando(true);
         this._pacientesService.crearPaciente(paciente).subscribe(function (resdb) {
             if (resdb === true) {
                 _this.registroPacForm.reset();
+                _this.utilServ.mostrarCargando(false);
                 _this.openSnackBar('El paciente se ha registrado con éxito', '');
+                _this.recargarPacientes.emit();
+                _this.registroPacForm.clearAsyncValidators();
             }
             else {
-                _this.openSnackBar(resdb.toString(), 'Error');
+                _this.utilServ.mostrarCargando(false);
+                _this.openSnackBar('No se ha podido registrar el paciente', 'Error');
+            }
+        }, function (err) {
+            console.error(err);
+        });
+    };
+    RegistroPacientesComponent.prototype.actualizarPaciente = function (paciente) {
+        var _this = this;
+        this.utilServ.mostrarCargando(true);
+        this._pacientesService.actualizarPaciente(paciente).subscribe(function (resdb) {
+            if (resdb === true) {
+                _this.utilServ.mostrarCargando(false);
+                _this.openSnackBar('El paciente se ha actualizado con éxito', '');
+                _this.recargarPacientes.emit();
+            }
+            else {
+                _this.utilServ.mostrarCargando(false);
+                _this.openSnackBar('No se ha podido actualizar el paciente', 'Error');
             }
         }, function (err) {
             console.error(err);
@@ -1099,6 +1180,14 @@ var RegistroPacientesComponent = /** @class */ (function () {
             duration: 2000,
         });
     };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], RegistroPacientesComponent.prototype, "recargarPacientes", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], RegistroPacientesComponent.prototype, "paciente", void 0);
     RegistroPacientesComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-registro-pacientes',
@@ -1130,8 +1219,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PacientesService", function() { return PacientesService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../shared */ "./src/app/shared/index.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared */ "./src/app/shared/index.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1145,30 +1236,138 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var PacientesService = /** @class */ (function () {
     function PacientesService(http, util) {
         this.http = http;
         this.util = util;
+        this.obEditarPaciente = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
     }
+    PacientesService.prototype.cargarPacientes = function () {
+        var _this = this;
+        this.util.mostrarCargando(true);
+        this.getAllPacientes().subscribe(function (lsPac) {
+            _this.lsPacientes = new _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatTableDataSource"](lsPac);
+            _this.util.mostrarCargando(false);
+        }, function (err) {
+            _this.util.mostrarCargando(false);
+            console.error(err);
+        });
+    };
     PacientesService.prototype.getAllPacientes = function () {
-        return this.http.get(this.util.urlServidor + 'pacientes/getall').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
+        return this.http.get(this.util.rutasServicios.urlServidor + 'pacientes/getall').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (res) {
             if (res.satisfactorio) {
                 return res.resultado;
             }
         }));
     };
     PacientesService.prototype.crearPaciente = function (paciente) {
-        return this.http.post(this.util.urlServidor + 'pacientes/new', paciente).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
+        return this.http.post(this.util.rutasServicios.urlServidor + 'pacientes/new', paciente).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (res) {
             return res.satisfactorio;
         }));
+    };
+    PacientesService.prototype.eliminarPaciente = function (paciente) {
+        return this.http.delete(this.util.rutasServicios.urlServidor + 'pacientes/delete/' + paciente.nom_usuario)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (res) {
+            return res.satisfactorio;
+        }));
+    };
+    PacientesService.prototype.actualizarPaciente = function (paciente) {
+        return this.http.put(this.util.rutasServicios.urlServidor + 'pacientes/update/', paciente)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (res) {
+            return res.satisfactorio;
+        }));
+    };
+    PacientesService.prototype.redirectEditarPaciente = function (p) {
+        this.obEditarPaciente.next(p);
     };
     PacientesService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _shared__WEBPACK_IMPORTED_MODULE_2__["UtilsService"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _shared__WEBPACK_IMPORTED_MODULE_3__["UtilsService"]])
     ], PacientesService);
     return PacientesService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.css":
+/*!*********************************************************************************!*\
+  !*** ./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.css ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.html":
+/*!**********************************************************************************!*\
+  !*** ./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.html ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"componente-seguimiento-solicitud\">\n  <mat-card>\n    seguimiento-solicitud\n  </mat-card>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.ts":
+/*!********************************************************************************!*\
+  !*** ./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.ts ***!
+  \********************************************************************************/
+/*! exports provided: InfoSolicitudComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InfoSolicitudComponent", function() { return InfoSolicitudComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../servicios/solicitudes.service */ "./src/app/modulos/solicitudes/servicios/solicitudes.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var InfoSolicitudComponent = /** @class */ (function () {
+    function InfoSolicitudComponent(route, _solicitudesService) {
+        this.route = route;
+        this._solicitudesService = _solicitudesService;
+    }
+    InfoSolicitudComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            _this.id = params['id'];
+            _this.cargarSeguimiento(_this.id);
+        });
+    };
+    InfoSolicitudComponent.prototype.cargarSeguimiento = function (id) {
+        this._solicitudesService.obtenerSeguimientoSolicitud(id).subscribe(function (resp) {
+            console.log(resp);
+        }, function (err) { return console.log(err); });
+    };
+    InfoSolicitudComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-info-solicitud',
+            template: __webpack_require__(/*! ./info-solicitud.component.html */ "./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.html"),
+            styles: [__webpack_require__(/*! ./info-solicitud.component.css */ "./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.css")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_2__["SolicitudesService"]])
+    ], InfoSolicitudComponent);
+    return InfoSolicitudComponent;
 }());
 
 
@@ -1208,7 +1407,14 @@ var SolicitudesService = /** @class */ (function () {
         this.util = util;
     }
     SolicitudesService.prototype.getAllSolicitudes = function () {
-        return this.http.get(this.util.urlServidor + 'solicitudes/getall').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
+        return this.http.get(this.util.rutasServicios.urlServidor + 'solicitudes/getall').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
+            if (res.satisfactorio) {
+                return res.resultado;
+            }
+        }));
+    };
+    SolicitudesService.prototype.obtenerSeguimientoSolicitud = function (id) {
+        return this.http.get(this.util.rutasServicios.urlServidor + 'seguimsolicitud/getall/' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
             if (res.satisfactorio) {
                 return res.resultado;
             }
@@ -1234,7 +1440,7 @@ var SolicitudesService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "table {\r\n  width: 100%;\r\n}\r\n\r\nth.mat-sort-header-sorted {\r\n  color: black;\r\n}\r\n\r\n.mat-form-field {\r\n  font-size: 14px;\r\n  width: 100%;\r\n}\r\n\r\n.cont {\r\n  padding: 20px;\r\n}\r\n"
+module.exports = "table {\r\n  width: 100%;\r\n}\r\n\r\nth.mat-sort-header-sorted {\r\n  color: black;\r\n}\r\n\r\n.mat-form-field {\r\n  font-size: 14px;\r\n  width: 100%;\r\n}\r\n\r\n.componente-solicitudes {\r\n  padding: 20px;\r\n}\r\n"
 
 /***/ }),
 
@@ -1245,7 +1451,7 @@ module.exports = "table {\r\n  width: 100%;\r\n}\r\n\r\nth.mat-sort-header-sorte
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"cont\">\n  <mat-form-field>\n    <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Buscar...\">\n  </mat-form-field>\n  <div class=\"mat-elevation-z8\">\n    <table mat-table [dataSource]=\"lsSolicitudes\" matSort class=\"mat-elevation-z8\">\n      <ng-container matColumnDef=\"id\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>\n        <td mat-cell *matCellDef=\"let element\"> {{element.id}} </td>\n      </ng-container>\n      <ng-container matColumnDef=\"paciente_id\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre paciente </th>\n        <td mat-cell *matCellDef=\"let element\"> {{element.paciente.nombre}} </td>\n      </ng-container>\n      <ng-container matColumnDef=\"categoria_id\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header> Categoría </th>\n        <td mat-cell *matCellDef=\"let element\"> {{element.categoria.nombre}} </td>\n      </ng-container>\n      <ng-container matColumnDef=\"clasificacion_id\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header> Clasificación </th>\n        <td mat-cell *matCellDef=\"let element\"> {{element.clasificacion.nombre}} </td>\n      </ng-container>\n      <ng-container matColumnDef=\"descripcion\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>\n        <td mat-cell *matCellDef=\"let element\"> {{element.descripcion}} </td>\n      </ng-container>\n      <ng-container matColumnDef=\"createdAt\">\n        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>\n        <td mat-cell *matCellDef=\"let element\"> {{element.createdAt | date}} </td>\n      </ng-container>\n\n      <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n      <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n    </table>\n    <mat-paginator [pageSizeOptions]=\"[5, 10, 20]\" showFirstLastButtons></mat-paginator>\n  </div>\n</div>\n"
+module.exports = "<div class=\"componente-solicitudes\">\n  <mat-card>\n    <mat-form-field>\n      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Buscar...\">\n    </mat-form-field>\n    <div class=\"mat-elevation-z8\">\n      <mat-table [dataSource]=\"lsSolicitudes\" matSort>\n        <ng-container matColumnDef=\"id\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.id}} </mat-cell>\n        </ng-container>\n        <ng-container matColumnDef=\"paciente_id\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre paciente </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.paciente.nombre}} </mat-cell>\n        </ng-container>\n        <ng-container matColumnDef=\"categoria_id\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Categoría </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.categoria.nombre}} </mat-cell>\n        </ng-container>\n        <ng-container matColumnDef=\"clasificacion_id\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Clasificación </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.clasificacion.nombre}} </mat-cell>\n        </ng-container>\n        <ng-container matColumnDef=\"descripcion\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.descripcion}} </mat-cell>\n        </ng-container>\n        <ng-container matColumnDef=\"createdAt\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.createdAt | date}} </mat-cell>\n        </ng-container>\n\n        <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n        <mat-row *matRowDef=\"let row; columns: displayedColumns;\" (click)=\"filaSeleccionada(row)\"></mat-row>\n\n      </mat-table>\n      <mat-paginator [pageSizeOptions]=\"[5, 10, 20]\" showFirstLastButtons></mat-paginator>\n    </div>\n  </mat-card>\n</div>\n"
 
 /***/ }),
 
@@ -1263,6 +1469,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./servicios/solicitudes.service */ "./src/app/modulos/solicitudes/servicios/solicitudes.service.ts");
 /* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared */ "./src/app/shared/index.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1276,10 +1483,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SolicitudesComponent = /** @class */ (function () {
-    function SolicitudesComponent(_solicitudesService, utilServ) {
+    function SolicitudesComponent(_solicitudesService, utilServ, router, route) {
         this._solicitudesService = _solicitudesService;
         this.utilServ = utilServ;
+        this.router = router;
+        this.route = route;
         this.displayedColumns = ['id', 'paciente_id', 'categoria_id', 'clasificacion_id', 'descripcion', 'createdAt'];
     }
     SolicitudesComponent.prototype.ngOnInit = function () {
@@ -1298,12 +1508,15 @@ var SolicitudesComponent = /** @class */ (function () {
     };
     SolicitudesComponent.prototype.cargarSolicitudes = function () {
         var _this = this;
+        this.utilServ.mostrarCargando(true);
         this._solicitudesService.getAllSolicitudes().subscribe(function (lsSoli) {
             _this.lsSolicitudes = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTableDataSource"](lsSoli);
             _this.lsSolicitudes.paginator = _this.paginator;
             _this.lsSolicitudes.sort = _this.sort;
+            _this.utilServ.mostrarCargando(false);
         }, function (err) {
-            console.log('Ha ocurrido un error');
+            _this.utilServ.mostrarCargando(false);
+            console.log('Ha ocurrido un error', err);
         });
     };
     SolicitudesComponent.prototype.applyFilter = function (filterValue) {
@@ -1311,6 +1524,9 @@ var SolicitudesComponent = /** @class */ (function () {
         if (this.lsSolicitudes.paginator) {
             this.lsSolicitudes.paginator.firstPage();
         }
+    };
+    SolicitudesComponent.prototype.filaSeleccionada = function (row) {
+        this.router.navigate(['./', row.id], { relativeTo: this.route });
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSort"]),
@@ -1326,7 +1542,10 @@ var SolicitudesComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./solicitudes.component.html */ "./src/app/modulos/solicitudes/solicitudes.component.html"),
             styles: [__webpack_require__(/*! ./solicitudes.component.css */ "./src/app/modulos/solicitudes/solicitudes.component.css")]
         }),
-        __metadata("design:paramtypes", [_servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_2__["SolicitudesService"], _shared__WEBPACK_IMPORTED_MODULE_3__["UtilsService"]])
+        __metadata("design:paramtypes", [_servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_2__["SolicitudesService"],
+            _shared__WEBPACK_IMPORTED_MODULE_3__["UtilsService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
     ], SolicitudesComponent);
     return SolicitudesComponent;
 }());
@@ -1351,6 +1570,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared */ "./src/app/shared/index.ts");
 /* harmony import */ var _servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./servicios/solicitudes.service */ "./src/app/modulos/solicitudes/servicios/solicitudes.service.ts");
+/* harmony import */ var _info_solicitud_info_solicitud_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./info-solicitud/info-solicitud.component */ "./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1363,8 +1583,10 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var routes = [
-    { path: '', component: _solicitudes_component__WEBPACK_IMPORTED_MODULE_2__["SolicitudesComponent"] }
+    { path: '', component: _solicitudes_component__WEBPACK_IMPORTED_MODULE_2__["SolicitudesComponent"] },
+    { path: ':id', component: _info_solicitud_info_solicitud_component__WEBPACK_IMPORTED_MODULE_6__["InfoSolicitudComponent"] }
 ];
 var SolicitudesModule = /** @class */ (function () {
     function SolicitudesModule() {
@@ -1376,7 +1598,7 @@ var SolicitudesModule = /** @class */ (function () {
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forChild(routes),
                 _shared__WEBPACK_IMPORTED_MODULE_4__["MaterialModule"],
             ],
-            declarations: [_solicitudes_component__WEBPACK_IMPORTED_MODULE_2__["SolicitudesComponent"]],
+            declarations: [_solicitudes_component__WEBPACK_IMPORTED_MODULE_2__["SolicitudesComponent"], _info_solicitud_info_solicitud_component__WEBPACK_IMPORTED_MODULE_6__["InfoSolicitudComponent"]],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"]],
             providers: [_servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_5__["SolicitudesService"]]
         })
@@ -1578,11 +1800,13 @@ var UtilsService = /** @class */ (function () {
     function UtilsService(http) {
         var _this = this;
         this.http = http;
-        this.urlServidor = 'http://localhost:3000/';
-        this.urlSocket = 'http://localhost:1000/';
+        this.rutasServicios = {
+            urlServidor: 'http://localhost:3000/',
+            urlSocket: 'http://localhost:1000/',
+        };
         this.cambioCargando = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
         this.cargarRutaServidor();
-        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_3__["connect"](this.urlSocket);
+        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_3__["connect"](this.rutasServicios.urlSocket);
         this.obNuevaSolicitud = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
             _this.socket.on('nuevaSolicitud', function (data) {
                 observer.next(data);
@@ -1591,11 +1815,10 @@ var UtilsService = /** @class */ (function () {
     }
     UtilsService.prototype.cargarRutaServidor = function () {
         var _this = this;
-        if (!this.urlServidor) {
+        if (!this.rutasServicios) {
             this.http.get('src/assets/config.json')
                 .subscribe(function (config) {
-                _this.urlServidor = config.urlServidor;
-                _this.urlSocket = config.urlSocket;
+                _this.rutasServicios = config;
             });
         }
     };

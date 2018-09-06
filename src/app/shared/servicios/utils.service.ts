@@ -10,7 +10,7 @@ import * as io from 'socket.io-client';
 export class UtilsService {
   rutasServicios: RutasServicios = {
     urlServidor: 'http://localhost:3000/',
-    urlSocket: 'http://localhost:1000/',
+    urlSocket: 'http://localhost:3000/',
   };
   cambioCargando = new BehaviorSubject<boolean>(false);
   private socket;
