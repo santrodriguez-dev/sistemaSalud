@@ -1,4 +1,4 @@
 {
-  "urlServidor": "http://localhost:3000/",
-  "urlSocket": "http://localhost:3000/"
+  "urlServidor": "https://accesibilidad-back-end.herokuapp.com/",
+  "urlSocket": "https://accesibilidad-back-end.herokuapp.com/"
 }
