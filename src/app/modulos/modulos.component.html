@@ -7,7 +7,7 @@
         <mat-icon>menu</mat-icon>
       </button>
       <h1 class="example-app-name">Sistema de salud</h1>
-      <span class="example-spacer"></span>
+      <span class="flex-spacer"></span>
       <button *ngIf="lsNotificaciones.length" mat-icon-button [matMenuTriggerFor]="menuSolicitudes" [matBadge]="lsNotificaciones.length"
         matBadgePosition="after" matBadgeColor="accent">
         <mat-icon>accessible_forward</mat-icon>
@@ -34,11 +34,13 @@
   <mat-progress-bar mode="indeterminate" [hidden]="!cargando"></mat-progress-bar>
 
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56">
       <mat-nav-list *ngFor="let nav of rutas">
         <a mat-list-item [routerLink]="nav.url" routerLinkActive="active-link">
           <mat-icon mat-list-icon>{{nav.icono}}</mat-icon>
-          {{nav.nombre}}</a>
+          {{nav.nombre}}
+        </a>
       </mat-nav-list>
     </mat-sidenav>
 

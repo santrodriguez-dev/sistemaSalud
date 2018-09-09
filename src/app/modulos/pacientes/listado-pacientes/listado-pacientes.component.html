@@ -1,8 +1,14 @@
-<div>
-  <h3>Lista de pacientes</h3>
-</div>
+<mat-toolbar color="primary">
+  <span>Lista de pacientes</span>
 
-<mat-card class="card">
+  <span class="flex-spacer"></span>
+  
+  <button mat-icon-button (click)="nuevoPaciente()">
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-card class="card m-4">
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar...">
   </mat-form-field>
@@ -28,10 +34,10 @@
         <mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.nom_usuario}} </mat-cell>
       </ng-container>
-      <ng-container matColumnDef="foto">
+      <!-- <ng-container matColumnDef="foto">
         <mat-header-cell *matHeaderCellDef> Foto </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.foto}} </mat-cell>
-      </ng-container>
+      </ng-container> -->
       <ng-container matColumnDef="acciones">
         <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
         <mat-cell *matCellDef="let element">

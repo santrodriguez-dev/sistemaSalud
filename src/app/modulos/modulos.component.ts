@@ -42,14 +42,14 @@ export class ModulosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subsObtSoli = this.utilServ.obNuevaSolicitud.subscribe(socket => {
-      this.openSnackBar(`Se ha creado una nueva solicitud por ${socket.paciente_id}`, 'Exitoso');
-      this.lsNotificaciones.push(socket);
-    });
+    // this.subsObtSoli = this.utilServ.obNuevaSolicitud.subscribe(socket => {
+    //   this.openSnackBar(`Se ha creado una nueva solicitud por ${socket.paciente_id}`, 'Exitoso');
+    //   this.lsNotificaciones.push(socket);
+    // });
   }
 
   ngOnDestroy(): void {
-    this.subsObtSoli.unsubscribe();
+    // this.subsObtSoli.unsubscribe();
   }
 
   sideNavToggle() {

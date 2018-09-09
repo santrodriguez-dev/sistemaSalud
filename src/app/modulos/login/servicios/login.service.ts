@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Credenciales } from '../interfaces/credenciales';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UtilsService, RespuestaServidor, Usuario } from '../../../shared';
+import { RespuestaServidor, Usuario, RutasService } from '../../../shared';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -10,10 +10,11 @@ import { map } from 'rxjs/operators';
 })
 export class LoginService {
 
-  constructor(private http: HttpClient, private util: UtilsService) { }
+  constructor(private http: HttpClient,
+    private rutas: RutasService) { }
 
   validarCredenciales(credenciales: Credenciales): Observable<Boolean> {
-    return this.http.post<RespuestaServidor>(this.util.rutasServicios.urlServidor + 'usuarios/login', credenciales)
+    return this.http.post<RespuestaServidor>(this.rutas.rutasServicios.urlServidor + 'usuarios/login', credenciales)
       .pipe(map(res => {
         if (res.satisfactorio) {
           if (res.resultado !== null) {

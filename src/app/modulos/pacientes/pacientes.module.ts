@@ -9,8 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListadoPacientesComponent } from './listado-pacientes/listado-pacientes.component';
 
 const routes: Routes = [
-  { path: '', component: PacientesComponent },
-  { path: 'registro', component: RegistroPacientesComponent },
+  // { path: '', component: PacientesComponent },
+  {
+    path: '', children: [
+      { path: '', component: ListadoPacientesComponent },
+      { path: 'modificar/:id', component: RegistroPacientesComponent },
+      { path: 'crear', component: RegistroPacientesComponent },
+      { path: '**', redirectTo: '' }
+    ]
+  },
 ];
 
 @NgModule({

@@ -14,6 +14,7 @@ export class LoginComponent {
 
   loginForm: FormGroup;
   hide = true;
+  cargando: boolean;
 
   constructor(private fb: FormBuilder,
     private router: Router,
@@ -23,7 +24,6 @@ export class LoginComponent {
       nom_usuario: ['', Validators.required],
       contrasena: ['', [Validators.required, Validators.minLength(8)]]
     });
-
   }
 
   get nom_usuario() { return this.loginForm.get('nom_usuario'); }
@@ -40,17 +40,21 @@ export class LoginComponent {
   get f(): any { return this.loginForm.controls; }
 
   validarCredenciales() {
+    this.cargando = true;
     const cred: Credenciales = this.loginForm.value;
 
     this._loginService.validarCredenciales(cred)
       .subscribe(isLogged => {
         if (isLogged) {
           this.router.navigate(['intro']);
+          this.cargando = false;
           return;
         }
         this.openSnackBar('Usuario o contraseña inválidos', '');
+        this.cargando = false;
       }, err => {
         this.openSnackBar(err, '');
+        this.cargando = false;
         console.log(err);
       });
   }

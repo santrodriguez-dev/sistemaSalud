@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, Validators, FormGroup, FormGroupDirective, NgForm } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { Paciente } from '../interfaces/paciente';
 import { PacientesService } from '../servicios/pacientes.service';
@@ -13,14 +13,9 @@ import { UtilsService } from '../../../shared';
 })
 export class RegistroPacientesComponent implements OnInit {
 
-  registroPacForm: FormGroup;
-  modoEditable: boolean;
-  hidePass = true;
-  @Output() recargarPacientes: EventEmitter<any> = new EventEmitter();
-  @Input() paciente: Paciente;
-
   constructor(private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     public snackBar: MatSnackBar,
     private _pacientesService: PacientesService,
     private utilServ: UtilsService) {
@@ -34,23 +29,28 @@ export class RegistroPacientesComponent implements OnInit {
     });
   }
 
-  resetForm() {
-    if (this.modoEditable) {
-      this.registroPacForm.patchValue(this.paciente);
-      return;
-    }
-    this.registroPacForm.reset();
-    this.registroPacForm.clearValidators();
-  }
+  registroPacForm: FormGroup;
+  modoEditable: boolean;
+  hidePass = true;
+  private idPaciente: string;
 
   ngOnInit() {
-    if (this.paciente) {
-      this.registroPacForm.patchValue(this.paciente);
-      this.modoEditable = true;
-    }
+    this.route.params.subscribe(params => {
+      this.idPaciente = params['id'];
+      if (this.idPaciente) {
+        this.modoEditable = true;
+        this.cargarPaciente();
+      }
+    });
   }
 
-  onSubmit() {
+  cargarPaciente() {
+    this._pacientesService.cargarPaciente(this.idPaciente).subscribe(resBD => {
+      this.registroPacForm.patchValue(resBD);
+    });
+  }
+
+  onSubmit(regForm) {
     if (this.registroPacForm.invalid) {
       return;
     }
@@ -61,15 +61,25 @@ export class RegistroPacientesComponent implements OnInit {
     this.actualizarPaciente(this.registroPacForm.value);
   }
 
+  resetForm(formDirective: FormGroupDirective) {
+    if (this.modoEditable) {
+      this.cargarPaciente();
+      return;
+    }
+    this.registroPacForm.reset();
+    formDirective.resetForm();
+    // this.registroPacForm.dirty = false;
+  }
+
+
   crearPaciente(paciente: Paciente) {
     this.utilServ.mostrarCargando(true);
     this._pacientesService.crearPaciente(paciente).subscribe(resdb => {
       if (resdb === true) {
-        this.registroPacForm.reset();
         this.utilServ.mostrarCargando(false);
+        this._pacientesService.cargarPacientes();
+        this.volverAtras();
         this.openSnackBar('El paciente se ha registrado con éxito', '');
-        this.recargarPacientes.emit();
-        this.registroPacForm.clearAsyncValidators();
       } else {
         this.utilServ.mostrarCargando(false);
         this.openSnackBar('No se ha podido registrar el paciente', 'Error');
@@ -84,8 +94,9 @@ export class RegistroPacientesComponent implements OnInit {
     this._pacientesService.actualizarPaciente(paciente).subscribe(resdb => {
       if (resdb === true) {
         this.utilServ.mostrarCargando(false);
+        this._pacientesService.cargarPacientes();
+        this.volverAtras();
         this.openSnackBar('El paciente se ha actualizado con éxito', '');
-        this.recargarPacientes.emit();
       } else {
         this.utilServ.mostrarCargando(false);
         this.openSnackBar('No se ha podido actualizar el paciente', 'Error');
@@ -93,6 +104,21 @@ export class RegistroPacientesComponent implements OnInit {
     }, err => {
       console.error(err);
     });
+  }
+
+  volverAtras() {
+    if (this.modoEditable) {
+      this.router.navigate(['../../'], { relativeTo: this.route });
+      return;
+    }
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  obtenerTitulo(): string {
+    if (this.modoEditable) {
+      return 'Modificar paciente';
+    }
+    return 'Crear paciente';
   }
 
   openSnackBar(message: string, action: string) {

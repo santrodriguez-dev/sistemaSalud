@@ -27,13 +27,13 @@ export class SolicitudesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.cargarSolicitudes();
-    this.subsObtSoli = this.utilServ.obNuevaSolicitud.subscribe(socket => {
-      this.cargarSolicitudes();
-    });
+    // this.subsObtSoli = this.utilServ.obNuevaSolicitud.subscribe(socket => {
+    //   this.cargarSolicitudes();
+    // });
   }
 
   ngOnDestroy(): void {
-    this.subsObtSoli.unsubscribe();
+    // this.subsObtSoli.unsubscribe();
   }
 
   // EMITTER

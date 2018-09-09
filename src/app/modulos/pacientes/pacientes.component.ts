@@ -36,7 +36,6 @@ export class PacientesComponent implements OnInit, OnDestroy {
 
   recargarPacientes() {
     this._pacientesService.cargarPacientes();
-    // this.cargarPacientes();
     this.tabIndex = 0;
   }
 

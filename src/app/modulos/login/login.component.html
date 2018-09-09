@@ -10,13 +10,17 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput placeholder="Contraseña" [type]="hide ? 'password' : 'text'" formControlName="contrasena" required>
+        <input matInput placeholder="Contraseña" [type]="hide ? 'password' : 'text'" formControlName="contrasena"
+          required>
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
         <mat-error *ngIf="contrasena.errors?.required">La contraseña es requerida</mat-error>
         <mat-error *ngIf="contrasena.errors?.minlength">Debe ser mayor a 8 caracteres</mat-error>
       </mat-form-field>
       <br>
-      <button mat-raised-button color="primary">Iniciar sesión</button>
+      <button mat-raised-button color="primary" *ngIf="!cargando">Iniciar sesión</button>
+      <div class="d-flex justify-content-center" *ngIf="cargando">
+        <mat-spinner [diameter]="35" [strokeWidth]="4"></mat-spinner>
+      </div>
     </form>
 
   </mat-card>

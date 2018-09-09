@@ -21,7 +21,7 @@ const routes: Routes = [
       { path: 'home', loadChildren: () => HomeModule },
       { path: 'pacientes', loadChildren: () => PacientesModule },
       { path: 'solicitudes', loadChildren: () => SolicitudesModule },
-      { path: '**', redirectTo: 'home' }
+      { path: '**', redirectTo: 'pacientes' }
 
     ]
   }

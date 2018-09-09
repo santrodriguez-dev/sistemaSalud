@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './shared/auth/auth.guard';
 import { UtilsService } from './shared/servicios/utils.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RutasService } from './shared';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [AuthGuard, UtilsService],
+  providers: [AuthGuard, UtilsService, RutasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

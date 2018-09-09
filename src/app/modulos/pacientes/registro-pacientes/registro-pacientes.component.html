@@ -1,6 +1,22 @@
-<mat-card class="card">
-  <form class="example-container d-flex flex-column" [formGroup]="registroPacForm" (ngSubmit)="onSubmit()">
-    <h2 class="text-center">Registrar paciente</h2>
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="volverAtras()" class="mr-2">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span>{{obtenerTitulo()}}</span>
+
+  <span class="flex-spacer"></span>
+
+  <button mat-icon-button class="mr-2" form="ngForm">
+    <mat-icon>check</mat-icon>
+  </button>
+  <button mat-icon-button (click)="resetForm(regForm)">
+    <mat-icon>refresh</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-card class="card m-4">
+  <form class="example-container d-flex flex-column" #regForm="ngForm" [formGroup]="registroPacForm" (ngSubmit)="onSubmit(regForm)" id="ngForm">
+    <!-- <h2 class="text-center">Registrar paciente</h2> -->
     <mat-form-field>
       <input matInput placeholder="Nombre" formControlName="nombre" required>
       <mat-icon matSuffix>person</mat-icon>
@@ -25,7 +41,8 @@
       <mat-error>El correo no es válido</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Contraseña" [type]="hidePass ? 'password' : 'text'" formControlName="contrasena" required>
+      <input matInput placeholder="Contraseña" [type]="hidePass ? 'password' : 'text'" formControlName="contrasena"
+        required>
       <mat-icon matSuffix (click)="hidePass = !hidePass">{{hidePass ? 'visibility' : 'visibility_off'}}</mat-icon>
       <mat-error>La conttraseña no es válida</mat-error>
     </mat-form-field>
@@ -35,14 +52,14 @@
       <mat-error>El nombre de usuario es requerido</mat-error>
     </mat-form-field> -->
 
-    <div class="d-flex pt-3">
+    <!-- <div class="d-flex pt-3">
       <button mat-raised-button color="primary" class="mr-3" type="submit">
         <i class="material-icons">done</i> Guardar
       </button>
       <button mat-raised-button color="primary" (click)="resetForm()" type="button">
         <i class="material-icons">delete</i> Reestablecer
       </button>
-    </div>
+    </div> -->
 
   </form>
 

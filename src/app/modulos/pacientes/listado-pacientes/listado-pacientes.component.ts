@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import { MatPaginator, MatSort } from '@angular/material';
 import { Paciente } from '../interfaces/paciente';
 import { PacientesService } from '../servicios/pacientes.service';
-import { UtilsService } from '../../../shared';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-listado-pacientes',
@@ -17,27 +17,18 @@ export class ListadoPacientesComponent implements OnInit {
     'nom_usuario',
     'telefono',
     'direccion',
-    'foto',
     'acciones',
   ];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // private _lsPacientes: MatTableDataSource<Paciente>;
-  // @Input()
-  // set lsPacientes(ls: MatTableDataSource<Paciente>) {
-  //   ls.sort = this.sort;
-  //   ls.paginator = this.paginator;
-  //   this._lsPacientes = ls;
-  // }
-
-  // get lsPacientes(): MatTableDataSource<Paciente> {
-  //   return this._lsPacientes;
-  // }
-
-  constructor(public _pacientesService: PacientesService) {
-    _pacientesService.cargarPacientes();
+  constructor(public _pacientesService: PacientesService,
+    private router: Router,
+    private route: ActivatedRoute) {
+    if (!_pacientesService.lsPacientes) {
+      _pacientesService.cargarPacientes();
+    }
   }
 
   ngOnInit() { }
@@ -50,11 +41,11 @@ export class ListadoPacientesComponent implements OnInit {
   }
 
   filaSeleccionada(row) {
-    // console.log(row);
   }
 
   editarPaciente(p: Paciente) {
-    this._pacientesService.redirectEditarPaciente(p);
+    this.router.navigate(['modificar', p.nom_usuario], { relativeTo: this.route });
+    // this._pacientesService.redirectEditarPaciente(p);
   }
 
   eliminarPaciente(p: Paciente) {
@@ -63,6 +54,10 @@ export class ListadoPacientesComponent implements OnInit {
         this._pacientesService.cargarPacientes();
       }
     });
+  }
+
+  nuevoPaciente() {
+    this.router.navigate(['crear'], { relativeTo: this.route });
   }
 
 }
