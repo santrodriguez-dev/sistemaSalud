@@ -23,6 +23,9 @@ import {
   MatSortModule,
   MatBadgeModule,
   MatProgressSpinnerModule,
+  MatTooltipModule,
+  MatBottomSheetModule,
+  MatExpansionModule,
 } from '@angular/material';
 
 @NgModule({
@@ -46,7 +49,10 @@ import {
     MatTabsModule,
     MatSortModule,
     MatBadgeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    MatBottomSheetModule,
+    MatExpansionModule
   ],
   exports: [
     MatButtonModule,
@@ -68,7 +74,10 @@ import {
     MatTabsModule,
     MatSortModule,
     MatBadgeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    MatBottomSheetModule,
+    MatExpansionModule
   ],
   declarations: []
 })

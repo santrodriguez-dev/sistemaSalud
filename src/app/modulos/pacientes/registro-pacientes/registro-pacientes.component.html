@@ -6,16 +6,17 @@
 
   <span class="flex-spacer"></span>
 
-  <button mat-icon-button class="mr-2" form="ngForm">
-    <mat-icon>check</mat-icon>
-  </button>
   <button mat-icon-button (click)="resetForm(regForm)">
     <mat-icon>refresh</mat-icon>
+  </button>
+  <button mat-icon-button class="mr-2" form="ngForm">
+    <mat-icon>check</mat-icon>
   </button>
 </mat-toolbar>
 
 <mat-card class="card m-4">
-  <form class="example-container d-flex flex-column" #regForm="ngForm" [formGroup]="registroPacForm" (ngSubmit)="onSubmit(regForm)" id="ngForm">
+  <form class="example-container d-flex flex-column" #regForm="ngForm" [formGroup]="registroPacForm" (ngSubmit)="onSubmit(regForm)"
+    id="ngForm">
     <!-- <h2 class="text-center">Registrar paciente</h2> -->
     <mat-form-field>
       <input matInput placeholder="Nombre" formControlName="nombre" required>

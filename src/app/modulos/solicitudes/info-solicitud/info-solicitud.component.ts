@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SolicitudesService } from '../servicios/solicitudes.service';
+import { Solicitud } from '../interfaces/Solicitud';
+import { UtilsService } from '../../../shared';
 
 @Component({
   selector: 'app-info-solicitud',
@@ -9,20 +11,49 @@ import { SolicitudesService } from '../servicios/solicitudes.service';
 })
 export class InfoSolicitudComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private _solicitudesService: SolicitudesService) { }
   id: number;
+  solicitud: Solicitud;
+
+  constructor(private route: ActivatedRoute,
+    private _solicitudesService: SolicitudesService,
+    private router: Router,
+    private utilServ: UtilsService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      this.cargarSeguimiento(this.id);
+      this.cargarInfo();
     });
   }
 
-  cargarSeguimiento(id: number) {
-    this._solicitudesService.obtenerSeguimientoSolicitud(id).subscribe(resp => {
-      console.log(resp);
-    }, err => console.log(err));
+  cargarSeguimiento() {
+    this.utilServ.mostrarCargando(true);
+    this._solicitudesService.obtenerSeguimientoSolicitud(this.id).subscribe(resp => {
+      this.utilServ.mostrarCargando(false);
+    }, err => {
+      console.log(err);
+      this.utilServ.mostrarCargando(false);
+    });
+  }
+
+  cargarSolicitud() {
+    this.utilServ.mostrarCargando(true);
+    this._solicitudesService.getSolicitud(this.id).subscribe(resp => {
+      this.solicitud = resp;
+      this.utilServ.mostrarCargando(false);
+    }, err => {
+      console.log(err);
+      this.utilServ.mostrarCargando(false);
+    });
+  }
+
+  cargarInfo() {
+    this.cargarSeguimiento();
+    this.cargarSolicitud();
+  }
+
+  volverAtras() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
 }

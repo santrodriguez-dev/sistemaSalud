@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatBottomSheet } from '@angular/material';
 import { SolicitudesService } from './servicios/solicitudes.service';
 import { Solicitud } from './interfaces/Solicitud';
 import { UtilsService } from '../../shared';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { BottomSheetSolicitudComponent } from './bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component';
 
 @Component({
   selector: 'app-solicitudes',
@@ -13,7 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SolicitudesComponent implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['id', 'paciente_id', 'categoria_id', 'clasificacion_id', 'descripcion', 'createdAt'];
+  displayedColumns: string[] = ['id', 'paciente_id', 'clasificacion_id', 'descripcion', 'createdAt'];
   lsSolicitudes: MatTableDataSource<Solicitud>;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -23,10 +24,13 @@ export class SolicitudesComponent implements OnInit, OnDestroy {
     private _solicitudesService: SolicitudesService,
     private utilServ: UtilsService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
-    this.cargarSolicitudes();
+    if (!this.lsSolicitudes) {
+      this.cargarSolicitudes();
+    }
     // this.subsObtSoli = this.utilServ.obNuevaSolicitud.subscribe(socket => {
     //   this.cargarSolicitudes();
     // });
@@ -62,7 +66,9 @@ export class SolicitudesComponent implements OnInit, OnDestroy {
   }
 
   filaSeleccionada(row: Solicitud) {
-    this.router.navigate(['./', row.id], { relativeTo: this.route });
+    // this.router.navigate(['./', row.id], { relativeTo: this.route });
+    const o = this.bottomSheet.open(BottomSheetSolicitudComponent, { data: row });
   }
 
 }
+

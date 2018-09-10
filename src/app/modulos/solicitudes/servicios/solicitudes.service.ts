@@ -23,6 +23,14 @@ export class SolicitudesService {
     }));
   }
 
+  getSolicitud(idSolicitud: number): Observable<Solicitud> {
+    return this.http.get<RespuestaServidor>(this.rutas.rutasServicios.urlServidor + 'solicitudes/get/' + idSolicitud).pipe(map(res => {
+      if (res.satisfactorio) {
+        return res.resultado;
+      }
+    }));
+  }
+
   obtenerSeguimientoSolicitud(id: number): Observable<SeguimSolicitud[]> {
     return this.http.get<RespuestaServidor>(this.rutas.rutasServicios.urlServidor + 'seguimsolicitud/getall/' + id).pipe(map(res => {
       if (res.satisfactorio) {

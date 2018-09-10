@@ -1,0 +1,11 @@
+<mat-nav-list>
+  <a mat-list-item [routerLink]="['intro','solicitudes', solicitud.id]" (click)="openLink()">
+    <span mat-line>Abrir seguimiento</span>
+    <span mat-line>Detalles</span>
+  </a>
+
+  <a href="https://keep.google.com/" mat-list-item (click)="openLink()">
+    <span mat-line>Abrir ubicacion</span>
+    <span mat-line>Google maps</span>
+  </a>
+</mat-nav-list>

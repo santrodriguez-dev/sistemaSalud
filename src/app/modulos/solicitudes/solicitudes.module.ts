@@ -5,6 +5,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../shared';
 import { SolicitudesService } from './servicios/solicitudes.service';
 import { InfoSolicitudComponent } from './info-solicitud/info-solicitud.component';
+import { BottomSheetSolicitudComponent } from './bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component';
+import { AgmCoreModule } from '@agm/core';
 
 const routes: Routes = [
   { path: '', component: SolicitudesComponent },
@@ -16,8 +18,16 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     MaterialModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'appreuniones-1508700009664'
+    })
   ],
-  declarations: [SolicitudesComponent, InfoSolicitudComponent],
+  entryComponents: [BottomSheetSolicitudComponent],
+  declarations: [
+    SolicitudesComponent,
+    InfoSolicitudComponent,
+    BottomSheetSolicitudComponent
+  ],
   exports: [RouterModule],
   providers: [SolicitudesService]
 })

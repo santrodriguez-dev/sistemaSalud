@@ -2,7 +2,10 @@
   <span>Lista de pacientes</span>
 
   <span class="flex-spacer"></span>
-  
+
+  <button mat-icon-button (click)="_pacientesService.cargarPacientes()">
+    <mat-icon matTooltip="Recargar" matTooltipPosition="above">refresh</mat-icon>
+  </button>
   <button mat-icon-button (click)="nuevoPaciente()">
     <mat-icon>add</mat-icon>
   </button>

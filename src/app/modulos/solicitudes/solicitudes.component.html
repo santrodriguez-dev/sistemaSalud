@@ -2,6 +2,10 @@
   <span>Lista de Solicitudes</span>
 
   <span class="flex-spacer"></span>
+
+  <button mat-icon-button (click)="cargarSolicitudes()">
+    <mat-icon matTooltip="Recargar" matTooltipPosition="above">refresh</mat-icon>
+  </button>
 </mat-toolbar>
 
 <div class="componente-solicitudes">
@@ -19,10 +23,10 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre paciente </mat-header-cell>>
           <mat-cell *matCellDef="let element"> {{element.paciente.nombre}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="categoria_id">
+        <!-- <ng-container matColumnDef="categoria_id">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Categoría </mat-header-cell>>
           <mat-cell *matCellDef="let element"> {{element.categoria.nombre}} </mat-cell>
-        </ng-container>
+        </ng-container> -->
         <ng-container matColumnDef="clasificacion_id">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Clasificación </mat-header-cell>>
           <mat-cell *matCellDef="let element"> {{element.clasificacion.nombre}} </mat-cell>
@@ -32,8 +36,8 @@
           <mat-cell *matCellDef="let element"> {{element.descripcion}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="createdAt">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>>
-          <mat-cell *matCellDef="let element"> {{element.createdAt | date}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha y hora </mat-header-cell>>
+          <mat-cell *matCellDef="let element"> {{element.createdAt | date: 'dd/MM/yyyy h:MM:ss'}} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
