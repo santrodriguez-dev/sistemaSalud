@@ -797,7 +797,7 @@ module.exports = "table {\r\n  width: 100%;\r\n}\r\n\r\nth.mat-sort-header-sorte
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar color=\"primary\">\n  <span>Lista de pacientes</span>\n\n  <span class=\"flex-spacer\"></span>\n  \n  <button mat-icon-button (click)=\"nuevoPaciente()\">\n    <mat-icon>add</mat-icon>\n  </button>\n</mat-toolbar>\n\n<mat-card class=\"card m-4\">\n  <mat-form-field>\n    <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Buscar...\">\n  </mat-form-field>\n  <div class=\"mat-elevation-z8\">\n    <mat-table [dataSource]=\"_pacientesService.lsPacientes\" matSort>\n      <ng-container matColumnDef=\"nombre\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.nombre}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"documento\">\n        <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.documento}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"telefono\">\n        <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.telefono}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"direccion\">\n        <mat-header-cell *matHeaderCellDef> Dirección </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.direccion}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"nom_usuario\">\n        <mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.nom_usuario}} </mat-cell>\n      </ng-container>\n      <!-- <ng-container matColumnDef=\"foto\">\n        <mat-header-cell *matHeaderCellDef> Foto </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.foto}} </mat-cell>\n      </ng-container> -->\n      <ng-container matColumnDef=\"acciones\">\n        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\">\n          <button mat-icon-button [matMenuTriggerFor]=\"menu\">\n            <mat-icon>more_vert</mat-icon>\n          </button>\n          <mat-menu #menu=\"matMenu\">\n            <button mat-menu-item (click)=\"editarPaciente(element)\">\n              <mat-icon color=\"secondary\">edit</mat-icon>\n              <span>Editar</span>\n            </button>\n            <button mat-menu-item (click)=\"eliminarPaciente(element)\">\n              <mat-icon>delete</mat-icon>\n              <span color=\"primary\">Eliminar</span>\n            </button>\n          </mat-menu>\n        </mat-cell>\n      </ng-container>\n\n      <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n      <mat-row *matRowDef=\"let row; columns: displayedColumns;\" (click)=\"filaSeleccionada(row)\"></mat-row>\n\n    </mat-table>\n    <mat-paginator [pageSizeOptions]=\"[3, 5, 10]\" showFirstLastButtons></mat-paginator>\n  </div>\n</mat-card>\n"
+module.exports = "<mat-toolbar color=\"primary\">\n  <span>Lista de pacientes</span>\n\n  <span class=\"flex-spacer\"></span>\n\n  <button mat-icon-button (click)=\"_pacientesService.cargarPacientes()\">\n    <mat-icon matTooltip=\"Recargar\" matTooltipPosition=\"above\">refresh</mat-icon>\n  </button>\n  <button mat-icon-button (click)=\"nuevoPaciente()\">\n    <mat-icon>add</mat-icon>\n  </button>\n</mat-toolbar>\n\n<mat-card class=\"card m-4\">\n  <mat-form-field>\n    <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Buscar...\">\n  </mat-form-field>\n  <div class=\"mat-elevation-z8\">\n    <mat-table [dataSource]=\"_pacientesService.lsPacientes\" matSort>\n      <ng-container matColumnDef=\"nombre\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.nombre}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"documento\">\n        <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.documento}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"telefono\">\n        <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.telefono}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"direccion\">\n        <mat-header-cell *matHeaderCellDef> Dirección </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.direccion}} </mat-cell>\n      </ng-container>\n      <ng-container matColumnDef=\"nom_usuario\">\n        <mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.nom_usuario}} </mat-cell>\n      </ng-container>\n      <!-- <ng-container matColumnDef=\"foto\">\n        <mat-header-cell *matHeaderCellDef> Foto </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\"> {{element.foto}} </mat-cell>\n      </ng-container> -->\n      <ng-container matColumnDef=\"acciones\">\n        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>\n        <mat-cell *matCellDef=\"let element\">\n          <button mat-icon-button [matMenuTriggerFor]=\"menu\">\n            <mat-icon>more_vert</mat-icon>\n          </button>\n          <mat-menu #menu=\"matMenu\">\n            <button mat-menu-item (click)=\"editarPaciente(element)\">\n              <mat-icon color=\"secondary\">edit</mat-icon>\n              <span>Editar</span>\n            </button>\n            <button mat-menu-item (click)=\"eliminarPaciente(element)\">\n              <mat-icon>delete</mat-icon>\n              <span color=\"primary\">Eliminar</span>\n            </button>\n          </mat-menu>\n        </mat-cell>\n      </ng-container>\n\n      <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n      <mat-row *matRowDef=\"let row; columns: displayedColumns;\" (click)=\"filaSeleccionada(row)\"></mat-row>\n\n    </mat-table>\n    <mat-paginator [pageSizeOptions]=\"[3, 5, 10]\" showFirstLastButtons></mat-paginator>\n  </div>\n</mat-card>\n"
 
 /***/ }),
 
@@ -1072,7 +1072,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar color=\"primary\">\n  <button mat-icon-button (click)=\"volverAtras()\" class=\"mr-2\">\n    <mat-icon>arrow_back</mat-icon>\n  </button>\n  <span>{{obtenerTitulo()}}</span>\n\n  <span class=\"flex-spacer\"></span>\n\n  <button mat-icon-button class=\"mr-2\" form=\"ngForm\">\n    <mat-icon>check</mat-icon>\n  </button>\n  <button mat-icon-button (click)=\"resetForm(regForm)\">\n    <mat-icon>refresh</mat-icon>\n  </button>\n</mat-toolbar>\n\n<mat-card class=\"card m-4\">\n  <form class=\"example-container d-flex flex-column\" #regForm=\"ngForm\" [formGroup]=\"registroPacForm\" (ngSubmit)=\"onSubmit(regForm)\" id=\"ngForm\">\n    <!-- <h2 class=\"text-center\">Registrar paciente</h2> -->\n    <mat-form-field>\n      <input matInput placeholder=\"Nombre\" formControlName=\"nombre\" required>\n      <mat-icon matSuffix>person</mat-icon>\n      <mat-error>El nombre de usuario es requerido</mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Documento\" formControlName=\"documento\" required>\n      <mat-icon matSuffix>vpn_key</mat-icon>\n      <mat-error>El nombre de usuario es requerido</mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Teléfono\" formControlName=\"telefono\">\n      <mat-icon matSuffix>phone</mat-icon>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Dirección\" formControlName=\"direccion\">\n      <mat-icon matSuffix>location_on</mat-icon>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Correo\" formControlName=\"nom_usuario\" required>\n      <mat-icon matSuffix>email</mat-icon>\n      <mat-error>El correo no es válido</mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Contraseña\" [type]=\"hidePass ? 'password' : 'text'\" formControlName=\"contrasena\"\n        required>\n      <mat-icon matSuffix (click)=\"hidePass = !hidePass\">{{hidePass ? 'visibility' : 'visibility_off'}}</mat-icon>\n      <mat-error>La conttraseña no es válida</mat-error>\n    </mat-form-field>\n    <!-- <mat-form-field>\n      <input matInput placeholder=\"Foto\" formControlName=\"username\" required>\n      <mat-icon matSuffix>person</mat-icon>\n      <mat-error>El nombre de usuario es requerido</mat-error>\n    </mat-form-field> -->\n\n    <!-- <div class=\"d-flex pt-3\">\n      <button mat-raised-button color=\"primary\" class=\"mr-3\" type=\"submit\">\n        <i class=\"material-icons\">done</i> Guardar\n      </button>\n      <button mat-raised-button color=\"primary\" (click)=\"resetForm()\" type=\"button\">\n        <i class=\"material-icons\">delete</i> Reestablecer\n      </button>\n    </div> -->\n\n  </form>\n\n</mat-card>\n"
+module.exports = "<mat-toolbar color=\"primary\">\n  <button mat-icon-button (click)=\"volverAtras()\" class=\"mr-2\">\n    <mat-icon>arrow_back</mat-icon>\n  </button>\n  <span>{{obtenerTitulo()}}</span>\n\n  <span class=\"flex-spacer\"></span>\n\n  <button mat-icon-button (click)=\"resetForm(regForm)\">\n    <mat-icon>refresh</mat-icon>\n  </button>\n  <button mat-icon-button class=\"mr-2\" form=\"ngForm\">\n    <mat-icon>check</mat-icon>\n  </button>\n</mat-toolbar>\n\n<mat-card class=\"card m-4\">\n  <form class=\"example-container d-flex flex-column\" #regForm=\"ngForm\" [formGroup]=\"registroPacForm\" (ngSubmit)=\"onSubmit(regForm)\"\n    id=\"ngForm\">\n    <!-- <h2 class=\"text-center\">Registrar paciente</h2> -->\n    <mat-form-field>\n      <input matInput placeholder=\"Nombre\" formControlName=\"nombre\" required>\n      <mat-icon matSuffix>person</mat-icon>\n      <mat-error>El nombre de usuario es requerido</mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Documento\" formControlName=\"documento\" required>\n      <mat-icon matSuffix>vpn_key</mat-icon>\n      <mat-error>El nombre de usuario es requerido</mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Teléfono\" formControlName=\"telefono\">\n      <mat-icon matSuffix>phone</mat-icon>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Dirección\" formControlName=\"direccion\">\n      <mat-icon matSuffix>location_on</mat-icon>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Correo\" formControlName=\"nom_usuario\" required>\n      <mat-icon matSuffix>email</mat-icon>\n      <mat-error>El correo no es válido</mat-error>\n    </mat-form-field>\n    <mat-form-field>\n      <input matInput placeholder=\"Contraseña\" [type]=\"hidePass ? 'password' : 'text'\" formControlName=\"contrasena\"\n        required>\n      <mat-icon matSuffix (click)=\"hidePass = !hidePass\">{{hidePass ? 'visibility' : 'visibility_off'}}</mat-icon>\n      <mat-error>La conttraseña no es válida</mat-error>\n    </mat-form-field>\n    <!-- <mat-form-field>\n      <input matInput placeholder=\"Foto\" formControlName=\"username\" required>\n      <mat-icon matSuffix>person</mat-icon>\n      <mat-error>El nombre de usuario es requerido</mat-error>\n    </mat-form-field> -->\n\n    <!-- <div class=\"d-flex pt-3\">\n      <button mat-raised-button color=\"primary\" class=\"mr-3\" type=\"submit\">\n        <i class=\"material-icons\">done</i> Guardar\n      </button>\n      <button mat-raised-button color=\"primary\" (click)=\"resetForm()\" type=\"button\">\n        <i class=\"material-icons\">delete</i> Reestablecer\n      </button>\n    </div> -->\n\n  </form>\n\n</mat-card>\n"
 
 /***/ }),
 
@@ -1332,6 +1332,79 @@ var PacientesService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/modulos/solicitudes/bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component.css":
+/*!***************************************************************************************************************!*\
+  !*** ./src/app/modulos/solicitudes/bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component.css ***!
+  \***************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/modulos/solicitudes/bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component.html":
+/*!****************************************************************************************************************!*\
+  !*** ./src/app/modulos/solicitudes/bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component.html ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-nav-list>\n  <a mat-list-item [routerLink]=\"['intro','solicitudes', solicitud.id]\" (click)=\"openLink()\">\n    <span mat-line>Abrir seguimiento</span>\n    <span mat-line>Detalles</span>\n  </a>\n\n  <a href=\"https://keep.google.com/\" mat-list-item (click)=\"openLink()\">\n    <span mat-line>Abrir ubicacion</span>\n    <span mat-line>Google maps</span>\n  </a>\n</mat-nav-list>\n"
+
+/***/ }),
+
+/***/ "./src/app/modulos/solicitudes/bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component.ts":
+/*!**************************************************************************************************************!*\
+  !*** ./src/app/modulos/solicitudes/bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component.ts ***!
+  \**************************************************************************************************************/
+/*! exports provided: BottomSheetSolicitudComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BottomSheetSolicitudComponent", function() { return BottomSheetSolicitudComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+var BottomSheetSolicitudComponent = /** @class */ (function () {
+    function BottomSheetSolicitudComponent(bottomSheetRef, solicitud) {
+        this.bottomSheetRef = bottomSheetRef;
+        this.solicitud = solicitud;
+    }
+    BottomSheetSolicitudComponent.prototype.ngOnInit = function () { };
+    BottomSheetSolicitudComponent.prototype.openLink = function () {
+        this.bottomSheetRef.dismiss();
+    };
+    BottomSheetSolicitudComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-bottom-sheet-solicitud',
+            template: __webpack_require__(/*! ./bottom-sheet-solicitud.component.html */ "./src/app/modulos/solicitudes/bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component.html"),
+            styles: [__webpack_require__(/*! ./bottom-sheet-solicitud.component.css */ "./src/app/modulos/solicitudes/bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component.css")]
+        }),
+        __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_BOTTOM_SHEET_DATA"])),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatBottomSheetRef"], Object])
+    ], BottomSheetSolicitudComponent);
+    return BottomSheetSolicitudComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.css":
 /*!*********************************************************************************!*\
   !*** ./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.css ***!
@@ -1339,7 +1412,7 @@ var PacientesService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "agm-map {\r\n  height: 300px;\r\n}\r\n"
 
 /***/ }),
 
@@ -1350,7 +1423,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"componente-seguimiento-solicitud\">\n  <mat-card>\n    seguimiento-solicitud\n  </mat-card>\n</div>\n"
+module.exports = "<mat-toolbar color=\"primary\">\n  <button mat-icon-button (click)=\"volverAtras()\" class=\"mr-2\">\n    <mat-icon matTooltip=\"Volver\" matTooltipPosition=\"above\">arrow_back</mat-icon>\n  </button>\n  <span>{{solicitud?.descripcion}}</span>\n\n  <span class=\"flex-spacer\"></span>\n\n  <button mat-icon-button class=\"mr-2\" form=\"ngForm\">\n    <mat-icon matTooltip=\"Guardar cambios\" matTooltipPosition=\"above\">check</mat-icon>\n  </button>\n  <button mat-icon-button (click)=\"cargarInfo()\">\n    <mat-icon matTooltip=\"Recargar\" matTooltipPosition=\"above\">refresh</mat-icon>\n  </button>\n</mat-toolbar>\n\n<mat-card class=\"m-4\">\n \n</mat-card>\n<mat-card class=\"m-4\">\n \n</mat-card>\n"
 
 /***/ }),
 
@@ -1367,6 +1440,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../servicios/solicitudes.service */ "./src/app/modulos/solicitudes/servicios/solicitudes.service.ts");
+/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared */ "./src/app/shared/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1379,22 +1453,48 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var InfoSolicitudComponent = /** @class */ (function () {
-    function InfoSolicitudComponent(route, _solicitudesService) {
+    function InfoSolicitudComponent(route, _solicitudesService, router, utilServ) {
         this.route = route;
         this._solicitudesService = _solicitudesService;
+        this.router = router;
+        this.utilServ = utilServ;
     }
     InfoSolicitudComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
             _this.id = params['id'];
-            _this.cargarSeguimiento(_this.id);
+            _this.cargarInfo();
         });
     };
-    InfoSolicitudComponent.prototype.cargarSeguimiento = function (id) {
-        this._solicitudesService.obtenerSeguimientoSolicitud(id).subscribe(function (resp) {
-            console.log(resp);
-        }, function (err) { return console.log(err); });
+    InfoSolicitudComponent.prototype.cargarSeguimiento = function () {
+        var _this = this;
+        this.utilServ.mostrarCargando(true);
+        this._solicitudesService.obtenerSeguimientoSolicitud(this.id).subscribe(function (resp) {
+            _this.utilServ.mostrarCargando(false);
+        }, function (err) {
+            console.log(err);
+            _this.utilServ.mostrarCargando(false);
+        });
+    };
+    InfoSolicitudComponent.prototype.cargarSolicitud = function () {
+        var _this = this;
+        this.utilServ.mostrarCargando(true);
+        this._solicitudesService.getSolicitud(this.id).subscribe(function (resp) {
+            _this.solicitud = resp;
+            _this.utilServ.mostrarCargando(false);
+        }, function (err) {
+            console.log(err);
+            _this.utilServ.mostrarCargando(false);
+        });
+    };
+    InfoSolicitudComponent.prototype.cargarInfo = function () {
+        this.cargarSeguimiento();
+        this.cargarSolicitud();
+    };
+    InfoSolicitudComponent.prototype.volverAtras = function () {
+        this.router.navigate(['../'], { relativeTo: this.route });
     };
     InfoSolicitudComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1402,7 +1502,10 @@ var InfoSolicitudComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./info-solicitud.component.html */ "./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.html"),
             styles: [__webpack_require__(/*! ./info-solicitud.component.css */ "./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_2__["SolicitudesService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            _servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_2__["SolicitudesService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _shared__WEBPACK_IMPORTED_MODULE_3__["UtilsService"]])
     ], InfoSolicitudComponent);
     return InfoSolicitudComponent;
 }());
@@ -1451,6 +1554,13 @@ var SolicitudesService = /** @class */ (function () {
             }
         }));
     };
+    SolicitudesService.prototype.getSolicitud = function (idSolicitud) {
+        return this.http.get(this.rutas.rutasServicios.urlServidor + 'solicitudes/get/' + idSolicitud).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
+            if (res.satisfactorio) {
+                return res.resultado;
+            }
+        }));
+    };
     SolicitudesService.prototype.obtenerSeguimientoSolicitud = function (id) {
         return this.http.get(this.rutas.rutasServicios.urlServidor + 'seguimsolicitud/getall/' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
             if (res.satisfactorio) {
@@ -1491,7 +1601,7 @@ module.exports = "table {\r\n  width: 100%;\r\n}\r\n\r\nth.mat-sort-header-sorte
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar color=\"primary\">\n  <span>Lista de Solicitudes</span>\n\n  <span class=\"flex-spacer\"></span>\n</mat-toolbar>\n\n<div class=\"componente-solicitudes\">\n  <mat-card>\n    <mat-form-field>\n      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Buscar...\">\n    </mat-form-field>\n    <div class=\"mat-elevation-z8\">\n      <mat-table [dataSource]=\"lsSolicitudes\" matSort>\n        <ng-container matColumnDef=\"id\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.id}} </mat-cell>\n        </ng-container>\n        <ng-container matColumnDef=\"paciente_id\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre paciente </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.paciente.nombre}} </mat-cell>\n        </ng-container>\n        <ng-container matColumnDef=\"categoria_id\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Categoría </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.categoria.nombre}} </mat-cell>\n        </ng-container>\n        <ng-container matColumnDef=\"clasificacion_id\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Clasificación </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.clasificacion.nombre}} </mat-cell>\n        </ng-container>\n        <ng-container matColumnDef=\"descripcion\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.descripcion}} </mat-cell>\n        </ng-container>\n        <ng-container matColumnDef=\"createdAt\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.createdAt | date}} </mat-cell>\n        </ng-container>\n\n        <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n        <mat-row *matRowDef=\"let row; columns: displayedColumns;\" (click)=\"filaSeleccionada(row)\"></mat-row>\n\n      </mat-table>\n      <mat-paginator [pageSizeOptions]=\"[5, 10, 20]\" showFirstLastButtons></mat-paginator>\n    </div>\n  </mat-card>\n</div>\n"
+module.exports = "<mat-toolbar color=\"primary\">\n  <span>Lista de Solicitudes</span>\n\n  <span class=\"flex-spacer\"></span>\n\n  <button mat-icon-button (click)=\"cargarSolicitudes()\">\n    <mat-icon matTooltip=\"Recargar\" matTooltipPosition=\"above\">refresh</mat-icon>\n  </button>\n</mat-toolbar>\n\n<div class=\"componente-solicitudes\">\n  <mat-card>\n    <mat-form-field>\n      <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Buscar...\">\n    </mat-form-field>\n    <div class=\"mat-elevation-z8\">\n      <mat-table [dataSource]=\"lsSolicitudes\" matSort>\n        <ng-container matColumnDef=\"id\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.id}} </mat-cell>\n        </ng-container>\n        <ng-container matColumnDef=\"paciente_id\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre paciente </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.paciente.nombre}} </mat-cell>\n        </ng-container>\n        <!-- <ng-container matColumnDef=\"categoria_id\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Categoría </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.categoria.nombre}} </mat-cell>\n        </ng-container> -->\n        <ng-container matColumnDef=\"clasificacion_id\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Clasificación </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.clasificacion.nombre}} </mat-cell>\n        </ng-container>\n        <ng-container matColumnDef=\"descripcion\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.descripcion}} </mat-cell>\n        </ng-container>\n        <ng-container matColumnDef=\"createdAt\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha y hora </mat-header-cell>>\n          <mat-cell *matCellDef=\"let element\"> {{element.createdAt | date: 'dd/MM/yyyy h:MM:ss'}} </mat-cell>\n        </ng-container>\n\n        <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n        <mat-row *matRowDef=\"let row; columns: displayedColumns;\" (click)=\"filaSeleccionada(row)\"></mat-row>\n\n      </mat-table>\n      <mat-paginator [pageSizeOptions]=\"[5, 10, 20]\" showFirstLastButtons></mat-paginator>\n    </div>\n  </mat-card>\n</div>\n"
 
 /***/ }),
 
@@ -1510,6 +1620,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./servicios/solicitudes.service */ "./src/app/modulos/solicitudes/servicios/solicitudes.service.ts");
 /* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared */ "./src/app/shared/index.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _bottom_sheets_bottom_sheet_solicitud_bottom_sheet_solicitud_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component */ "./src/app/modulos/solicitudes/bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1524,16 +1635,20 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SolicitudesComponent = /** @class */ (function () {
-    function SolicitudesComponent(_solicitudesService, utilServ, router, route) {
+    function SolicitudesComponent(_solicitudesService, utilServ, router, route, bottomSheet) {
         this._solicitudesService = _solicitudesService;
         this.utilServ = utilServ;
         this.router = router;
         this.route = route;
-        this.displayedColumns = ['id', 'paciente_id', 'categoria_id', 'clasificacion_id', 'descripcion', 'createdAt'];
+        this.bottomSheet = bottomSheet;
+        this.displayedColumns = ['id', 'paciente_id', 'clasificacion_id', 'descripcion', 'createdAt'];
     }
     SolicitudesComponent.prototype.ngOnInit = function () {
-        this.cargarSolicitudes();
+        if (!this.lsSolicitudes) {
+            this.cargarSolicitudes();
+        }
         // this.subsObtSoli = this.utilServ.obNuevaSolicitud.subscribe(socket => {
         //   this.cargarSolicitudes();
         // });
@@ -1565,7 +1680,8 @@ var SolicitudesComponent = /** @class */ (function () {
         }
     };
     SolicitudesComponent.prototype.filaSeleccionada = function (row) {
-        this.router.navigate(['./', row.id], { relativeTo: this.route });
+        // this.router.navigate(['./', row.id], { relativeTo: this.route });
+        var o = this.bottomSheet.open(_bottom_sheets_bottom_sheet_solicitud_bottom_sheet_solicitud_component__WEBPACK_IMPORTED_MODULE_5__["BottomSheetSolicitudComponent"], { data: row });
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSort"]),
@@ -1584,7 +1700,8 @@ var SolicitudesComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_2__["SolicitudesService"],
             _shared__WEBPACK_IMPORTED_MODULE_3__["UtilsService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatBottomSheet"]])
     ], SolicitudesComponent);
     return SolicitudesComponent;
 }());
@@ -1610,12 +1727,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared */ "./src/app/shared/index.ts");
 /* harmony import */ var _servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./servicios/solicitudes.service */ "./src/app/modulos/solicitudes/servicios/solicitudes.service.ts");
 /* harmony import */ var _info_solicitud_info_solicitud_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./info-solicitud/info-solicitud.component */ "./src/app/modulos/solicitudes/info-solicitud/info-solicitud.component.ts");
+/* harmony import */ var _bottom_sheets_bottom_sheet_solicitud_bottom_sheet_solicitud_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component */ "./src/app/modulos/solicitudes/bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component.ts");
+/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -1636,8 +1757,16 @@ var SolicitudesModule = /** @class */ (function () {
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forChild(routes),
                 _shared__WEBPACK_IMPORTED_MODULE_4__["MaterialModule"],
+                _agm_core__WEBPACK_IMPORTED_MODULE_8__["AgmCoreModule"].forRoot({
+                    apiKey: 'appreuniones-1508700009664'
+                })
             ],
-            declarations: [_solicitudes_component__WEBPACK_IMPORTED_MODULE_2__["SolicitudesComponent"], _info_solicitud_info_solicitud_component__WEBPACK_IMPORTED_MODULE_6__["InfoSolicitudComponent"]],
+            entryComponents: [_bottom_sheets_bottom_sheet_solicitud_bottom_sheet_solicitud_component__WEBPACK_IMPORTED_MODULE_7__["BottomSheetSolicitudComponent"]],
+            declarations: [
+                _solicitudes_component__WEBPACK_IMPORTED_MODULE_2__["SolicitudesComponent"],
+                _info_solicitud_info_solicitud_component__WEBPACK_IMPORTED_MODULE_6__["InfoSolicitudComponent"],
+                _bottom_sheets_bottom_sheet_solicitud_bottom_sheet_solicitud_component__WEBPACK_IMPORTED_MODULE_7__["BottomSheetSolicitudComponent"]
+            ],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"]],
             providers: [_servicios_solicitudes_service__WEBPACK_IMPORTED_MODULE_5__["SolicitudesService"]]
         })
@@ -1779,7 +1908,10 @@ var MaterialModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTabsModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSortModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatBadgeModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatProgressSpinnerModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatProgressSpinnerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatBottomSheetModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatExpansionModule"]
             ],
             exports: [
                 _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatButtonModule"],
@@ -1801,7 +1933,10 @@ var MaterialModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTabsModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSortModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatBadgeModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatProgressSpinnerModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatProgressSpinnerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatBottomSheetModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatExpansionModule"]
             ],
             declarations: []
         })
