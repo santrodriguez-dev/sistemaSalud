@@ -13,6 +13,9 @@ export class InfoSolicitudComponent implements OnInit {
 
   id: number;
   solicitud: Solicitud;
+  title = 'My first AGM project';
+  lat = 51.678418;
+  lng = 7.809007;
 
   constructor(private route: ActivatedRoute,
     private _solicitudesService: SolicitudesService,

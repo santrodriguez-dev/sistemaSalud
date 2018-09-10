@@ -15,8 +15,13 @@
 </mat-toolbar>
 
 <mat-card class="m-4">
- 
+
 </mat-card>
 <mat-card class="m-4">
- 
+
+</mat-card>
+<mat-card class="m-4">
+  <agm-map [latitude]="lat" [longitude]="lng">
+    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  </agm-map>
 </mat-card>

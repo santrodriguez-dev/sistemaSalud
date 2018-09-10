@@ -19,7 +19,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule,
     AgmCoreModule.forRoot({
-      apiKey: 'appreuniones-1508700009664'
+      apiKey: 'AIzaSyDt4NvJtVZeAFY7Oc_JwbIkcoF7cOswOPk'
     })
   ],
   entryComponents: [BottomSheetSolicitudComponent],
