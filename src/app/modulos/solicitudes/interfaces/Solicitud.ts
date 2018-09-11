@@ -9,6 +9,8 @@ export interface Solicitud {
     categoria?: Categoria;
     clasificacion?: Clasificacion;
     paciente?: Paciente;
+    coordLat: number;
+    coordLong: number;
     createdAt: Date;
 }
 

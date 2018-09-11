@@ -10,7 +10,7 @@ import { Solicitud } from '../../interfaces/Solicitud';
 export class BottomSheetSolicitudComponent implements OnInit {
 
   constructor(private bottomSheetRef: MatBottomSheetRef<BottomSheetSolicitudComponent>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) private solicitud: Solicitud) { }
+    @Inject(MAT_BOTTOM_SHEET_DATA) public solicitud: Solicitud) { }
 
   ngOnInit() { }
 
