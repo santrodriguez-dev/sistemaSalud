@@ -14,6 +14,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HomeModule } from './home/home.module';
 import { PacientesModule } from './pacientes/pacientes.module';
 import { SolicitudesModule } from './solicitudes/solicitudes.module';
+import { PruebasComponent } from './pruebas/pruebas.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'home', loadChildren: () => HomeModule },
       { path: 'pacientes', loadChildren: () => PacientesModule },
       { path: 'solicitudes', loadChildren: () => SolicitudesModule },
+      { path: 'pruebas', component: PruebasComponent },
       { path: '**', redirectTo: 'pacientes' }
 
     ]
@@ -32,9 +34,9 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     MaterialModule,
-    MatProgressBarModule
+    MatProgressBarModule,
   ],
-  declarations: [ModulosComponent],
+  declarations: [ModulosComponent, PruebasComponent],
   exports: [RouterModule]
 })
 export class ModulosModule { }
