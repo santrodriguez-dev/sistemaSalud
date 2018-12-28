@@ -1,9 +1,41 @@
+<div class="body">
+  <div class="principal">
+    <div class="content-card">
+      <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking
+        at
+        its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
+      </p>
+
+      <div class="info">
+        <span>Informacion adicional</span>
+      </div>
+
+    </div>
+  </div>
+  <footer>Contenido de footer</footer>
+
+</div>
+
+
+<!-- <mat-selection-list #shoes [(ngModel)]="selectedOptions" (ngModelChange)="onNgModelChange($event)">
+  <mat-list-option *ngFor="let shoe of typesOfShoes" [(selected)]="shoe.selected" [value]="shoe">
+    {{shoe.name}}
+  </mat-list-option>
+</mat-selection-list>
+
+<p>
+  Options selected: {{shoes.selectedOptions.selected.length}}
+</p>
+
+{{selectedOption | json}}
+
+
+
 <mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field>
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <!-- Checkbox Column -->
   <ng-container matColumnDef="select">
     <mat-header-cell *matHeaderCellDef>
       <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
@@ -16,25 +48,21 @@
     </mat-cell>
   </ng-container>
 
-  <!-- Position Column -->
   <ng-container matColumnDef="position">
     <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
   </ng-container>
 
-  <!-- Name Column -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
   </ng-container>
 
-  <!-- Weight Column -->
   <ng-container matColumnDef="weight">
     <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
   </ng-container>
 
-  <!-- Symbol Column -->
   <ng-container matColumnDef="symbol">
     <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
@@ -45,4 +73,4 @@
 </mat-table>
 {{selection.selected | json}}
 
-<button mat-mini-fab color="primary" (click)="saveSelection()">Primary</button>
+<button mat-mini-fab color="primary" (click)="saveSelection()">Primary</button> -->

@@ -15,6 +15,7 @@ import { HomeModule } from './home/home.module';
 import { PacientesModule } from './pacientes/pacientes.module';
 import { SolicitudesModule } from './solicitudes/solicitudes.module';
 import { PruebasComponent } from './pruebas/pruebas.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    FormsModule,
     CommonModule,
     RouterModule.forChild(routes),
     MaterialModule,

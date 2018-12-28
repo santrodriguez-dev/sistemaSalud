@@ -30,20 +30,33 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class PruebasComponent implements OnInit {
 
+  typesOfShoes: any[] = [{ name: 'nombre 1', val: 'val1', selected: true }, { name: 'nombre 2', val: 'val2' }];
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
   dataSource: MatTableDataSource<PeriodicElement>;
   selection: SelectionModel<PeriodicElement>;
+  selection2: SelectionModel<string>;
+
+  selectedOptions = [];
+  selectedOption;
 
   constructor() {
     this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
     this.selection = new SelectionModel<PeriodicElement>(true, [ELEMENT_DATA[2]]);
+    this.selection2 = new SelectionModel<string>(true, [this.typesOfShoes[2]]);
   }
 
   ngOnInit(): void {
   }
+
+  onNgModelChange($event) {
+    console.log($event);
+    this.selectedOption = $event;
+
+  }
+
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    const numSelected = this.selection.selected.length;
+    const numSelected = this.selection2.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
