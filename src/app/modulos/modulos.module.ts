@@ -15,7 +15,7 @@ import { HomeModule } from './home/home.module';
 import { PacientesModule } from './pacientes/pacientes.module';
 import { SolicitudesModule } from './solicitudes/solicitudes.module';
 import { PruebasComponent } from './pruebas/pruebas.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -33,10 +33,10 @@ const routes: Routes = [
 @NgModule({
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     RouterModule.forChild(routes),
     MaterialModule,
-    MatProgressBarModule,
   ],
   declarations: [ModulosComponent, PruebasComponent],
   exports: [RouterModule]

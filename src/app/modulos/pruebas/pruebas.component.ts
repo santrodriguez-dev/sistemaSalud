@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 export interface PeriodicElement {
   name: string;
@@ -38,14 +41,57 @@ export class PruebasComponent implements OnInit {
 
   selectedOptions = [];
   selectedOption;
+  registerForm: FormGroup;
+  options: any[] = [
+    { id: 1, name: 'Mary' },
+    { id: 2, name: 'Shelley' },
+    { id: 3, name: 'Igor' }
+  ];
+  // options: User[] = [
+  //   { name: 'Mary' },
+  //   { name: 'Shelley' },
+  //   { name: 'Igor' }
+  // ];
+  filteredOptions: Observable<any[]>;
 
-  constructor() {
+  constructor(private formBuilder: FormBuilder) {
     this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
     this.selection = new SelectionModel<PeriodicElement>(true, [ELEMENT_DATA[2]]);
     this.selection2 = new SelectionModel<string>(true, [this.typesOfShoes[2]]);
   }
 
   ngOnInit(): void {
+    this.registerForm = this.formBuilder.group({
+      firstName: ['', [Validators.required, Validators.pattern(/^([a-zA-Z0-9])*$/)]],
+      lastName: ['', Validators.required],
+      options: ['', [Validators.required]]
+    });
+    this.filteredOptions = this.registerForm.controls.options.valueChanges
+      .pipe(
+        startWith<string | any>(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this._filter(name) : this.options.slice())
+      );
+  }
+
+  private _filter(name: string): any[] {
+    const filterValue = name.toLowerCase();
+
+    return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  displayFn(user?: any) {
+    console.log(user);
+    return user ? `${user.id} ${user.name}` : undefined;
+  }
+
+  getErrorMessage(control: AbstractControl) {
+    return control.hasError('required') ? 'You must enter a value' :
+      control.hasError('pattern') ? 'Not a valid pattern' : '';
+  }
+
+  onSubmit() {
+    console.log(this.registerForm);
   }
 
   onNgModelChange($event) {

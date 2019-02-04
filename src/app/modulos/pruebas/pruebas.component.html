@@ -12,6 +12,27 @@
 
     </div>
   </div>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Favorite food" formControlName="firstName">
+      <mat-error *ngIf="registerForm.controls.firstName.invalid">{{getErrorMessage(registerForm.controls.firstName)}}</mat-error>
+      <!-- <mat-error>{{errors.fullName}}</mat-error> -->
+      <!-- <mat-error>Debe ser alfanumerico</mat-error> -->
+      <!-- <mat-error>Debe ser alfanumerico</mat-error> -->
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input type="text" placeholder="Assignee" aria-label="Assignee" matInput formControlName="options"
+        [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" [autoActiveFirstOption]="true" [id]="'id'">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button>enviar</button>
+  </form>
+
+  {{registerForm.value| json}}
   <footer>Contenido de footer</footer>
 
 </div>
