@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Solicitud } from '../../modulos/solicitudes/interfaces/Solicitud';
 import * as io from 'socket.io-client';
 import { RutasService } from './rutas.service';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,15 @@ export class UtilsService {
 
   mostrarCargando(flag: boolean) {
     this.cambioCargando.next(flag);
+  }
+
+  getUser(): User {
+    try {
+      return JSON.parse(localStorage.getItem('session'))
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
 }

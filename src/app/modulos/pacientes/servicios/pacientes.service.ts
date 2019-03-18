@@ -13,10 +13,12 @@ export class PacientesService {
 
   obEditarPaciente = new BehaviorSubject<Paciente>(null);
   lsPacientes: MatTableDataSource<Paciente>;
+  urlServices: string;
 
   constructor(private http: HttpClient,
     private util: UtilsService,
-    private rutas: RutasService) {
+    private routesService: RutasService) {
+    this.urlServices = routesService.routes.urlServices;
   }
 
   cargarPacientes() {
@@ -31,7 +33,7 @@ export class PacientesService {
   }
 
   private getAllPacientes(): Observable<Paciente[]> {
-    return this.http.get<RespuestaServidor>(this.rutas.rutasServicios.urlServidor + 'pacientes/getall').pipe(map(res => {
+    return this.http.get<RespuestaServidor>(this.urlServices + 'pacientes/getall').pipe(map(res => {
       if (res.satisfactorio) {
         return res.resultado;
       }
@@ -40,7 +42,7 @@ export class PacientesService {
 
 
   cargarPaciente(idPaciente: string): Observable<Paciente[]> {
-    return this.http.get<RespuestaServidor>(this.rutas.rutasServicios.urlServidor + 'pacientes/get/' + idPaciente).pipe(map(res => {
+    return this.http.get<RespuestaServidor>(this.urlServices + 'pacientes/get/' + idPaciente).pipe(map(res => {
       if (res.satisfactorio) {
         return res.resultado;
       }
@@ -48,20 +50,20 @@ export class PacientesService {
   }
 
   crearPaciente(paciente: Paciente): Observable<boolean> {
-    return this.http.post<RespuestaServidor>(this.rutas.rutasServicios.urlServidor + 'pacientes/new', paciente).pipe(map(res => {
+    return this.http.post<RespuestaServidor>(this.urlServices + 'pacientes/new', paciente).pipe(map(res => {
       return res.satisfactorio;
     }));
   }
 
   eliminarPaciente(paciente: Paciente): Observable<boolean> {
-    return this.http.delete<RespuestaServidor>(this.rutas.rutasServicios.urlServidor + 'pacientes/delete/' + paciente.nom_usuario)
+    return this.http.delete<RespuestaServidor>(this.urlServices + 'pacientes/delete/' + paciente.nom_usuario)
       .pipe(map(res => {
         return res.satisfactorio;
       }));
   }
 
   actualizarPaciente(paciente: Paciente): Observable<boolean> {
-    return this.http.put<RespuestaServidor>(this.rutas.rutasServicios.urlServidor + 'pacientes/update/', paciente)
+    return this.http.put<RespuestaServidor>(this.urlServices + 'pacientes/update/', paciente)
       .pipe(map(res => {
         return res.satisfactorio;
       }));

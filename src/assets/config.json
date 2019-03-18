@@ -1,4 +1,4 @@
 {
-  "urlServidor": "https://accesibilidad-back-end.herokuapp.com/",
+  "urlServices": "https://accesibilidad-back-end.herokuapp.com/",
   "urlSocket": "https://accesibilidad-back-end.herokuapp.com/"
 }

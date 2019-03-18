@@ -11,12 +11,16 @@ import { SeguimSolicitud } from '../interfaces/Seguim_Solicitud';
 })
 export class SolicitudesService {
 
+  private urlServices: string;
+
   constructor(private http: HttpClient,
     private util: UtilsService,
-    private rutas: RutasService) { }
+    private routesService: RutasService) {
+    this.urlServices = routesService.routes.urlServices;
+  }
 
   getAllSolicitudes(): Observable<Solicitud[]> {
-    return this.http.get<RespuestaServidor>(this.rutas.rutasServicios.urlServidor + 'solicitudes/getall').pipe(map(res => {
+    return this.http.get<RespuestaServidor>(this.urlServices + 'solicitudes/getall').pipe(map(res => {
       if (res.satisfactorio) {
         return res.resultado;
       }
@@ -24,7 +28,7 @@ export class SolicitudesService {
   }
 
   getSolicitud(idSolicitud: number): Observable<Solicitud> {
-    return this.http.get<RespuestaServidor>(this.rutas.rutasServicios.urlServidor + 'solicitudes/get/' + idSolicitud).pipe(map(res => {
+    return this.http.get<RespuestaServidor>(this.urlServices + 'solicitudes/get/' + idSolicitud).pipe(map(res => {
       if (res.satisfactorio) {
         return res.resultado;
       }
@@ -32,7 +36,7 @@ export class SolicitudesService {
   }
 
   obtenerSeguimientoSolicitud(id: number): Observable<SeguimSolicitud[]> {
-    return this.http.get<RespuestaServidor>(this.rutas.rutasServicios.urlServidor + 'seguimsolicitud/getall/' + id).pipe(map(res => {
+    return this.http.get<RespuestaServidor>(this.urlServices + 'seguimsolicitud/getall/' + id).pipe(map(res => {
       if (res.satisfactorio) {
         return res.resultado;
       }

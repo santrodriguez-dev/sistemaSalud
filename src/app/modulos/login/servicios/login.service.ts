@@ -10,11 +10,15 @@ import { map } from 'rxjs/operators';
 })
 export class LoginService {
 
+  urlServices: string;
+
   constructor(private http: HttpClient,
-    private rutas: RutasService) { }
+    private routesService: RutasService) {
+    this.urlServices = routesService.routes.urlServices;
+  }
 
   validarCredenciales(credenciales: Credenciales): Observable<Boolean> {
-    return this.http.post<RespuestaServidor>(this.rutas.rutasServicios.urlServidor + 'usuarios/login', credenciales)
+    return this.http.post<RespuestaServidor>(this.urlServices + 'usuarios/login', credenciales)
       .pipe(map(res => {
         if (res.satisfactorio) {
           if (res.resultado !== null) {

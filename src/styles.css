@@ -23,21 +23,6 @@ button:focus {
   width: 4px;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, .22);
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: rgb(109, 109, 109);
-}
-
 *,
 ::after,
 ::before {

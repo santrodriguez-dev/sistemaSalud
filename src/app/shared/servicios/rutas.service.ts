@@ -6,31 +6,35 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RutasService {
 
-  public rutasServicios: RutasServicios = {
-    urlServidor: 'https://accesibilidad-back-end.herokuapp.com/',
-    urlSocket: 'https://accesibilidad-back-end.herokuapp.com/'
-  };
+  routes: RutasServicios;
+
+  // public rutasServicios: RutasServicios = {
+  //   urlServidor: 'https://accesibilidad-back-end.herokuapp.com/',
+  //   urlSocket: 'https://accesibilidad-back-end.herokuapp.com/'
+  // };
   // public rutasServicios: RutasServicios = {
   //   urlServidor: 'http://localhost:3000/',
   //   urlSocket: 'http://localhost:3001/'
   // };
 
   constructor(private http: HttpClient) {
-    this.cargarRutaServidor();
+    this.getRoutes();
   }
 
-  private cargarRutaServidor() {
-    if (!this.rutasServicios) {
-      this.http.get<RutasServicios>('src/assets/config.json')
-        .subscribe(config => {
-          this.rutasServicios = config;
-        });
+  getRoutes() {
+    if (this.routes) {
+      return this.routes;
     }
+    this.getAllRoutes();
+  }
+
+  getAllRoutes() {
+    return this.http.get<RutasServicios>('assets/config.json').subscribe(routes => this.routes = routes);
   }
 
 }
 
-interface RutasServicios {
-  urlServidor: string;
+class RutasServicios {
+  urlServices: string;
   urlSocket: string;
 }
