@@ -10,13 +10,15 @@ import { PacientesModule } from './pacientes/pacientes.module';
 import { SolicitudesModule } from './solicitudes/solicitudes.module';
 import { PruebasComponent } from './pruebas/pruebas.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MedicalCentersModule } from './medical-centers/medical-centers.module';
 
 const routes: Routes = [
   {
     path: '', component: ModulosComponent, children: [
       { path: 'home', loadChildren: () => HomeModule },
       { path: 'pacientes', loadChildren: () => PacientesModule },
-      { path: 'solicitudes', loadChildren: () => SolicitudesModule },
+      { path: 'emergencias', loadChildren: () => SolicitudesModule },
+      { path: 'centros-salud', loadChildren: './medical-centers/medical-centers.module#MedicalCentersModule' },
       { path: 'pruebas', component: PruebasComponent },
       { path: '**', redirectTo: 'pacientes' }
 

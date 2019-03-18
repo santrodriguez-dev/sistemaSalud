@@ -1,3 +1,24 @@
-<p>
-  medical-centers works!
-</p>
+<section class="content-list-cards">
+  <mat-card matRipple *ngFor="let medicalCenter of medicalCenters" class="ophelia-card">
+    <div class="card__header">
+      <a mat-icon-button [routerLink]="['./']">
+        <mat-icon aria-label="Editar">edit</mat-icon>
+      </a>
+      <button mat-icon-button>
+        <mat-icon aria-label="Eliminar">delete</mat-icon>
+      </button>
+      <div class="avatar-container">
+        <img [src]="'image'" alt="">
+        <i class="icon"></i>
+      </div>
+    </div>
+    <div class="card__body">
+      <strong>
+        {{medicalCenter.name}}
+      </strong>
+      <small>
+        {{medicalCenter.address}}
+      </small>
+    </div>
+  </mat-card>
+</section>

@@ -21,7 +21,7 @@ export class ModulosComponent implements OnInit, OnDestroy {
   rutas: Ruta[] = [
     // { url: 'home', nombre: 'Home', icono: 'home' },
     { url: 'pacientes', nombre: 'Pacientes', icono: 'accessibility' },
-    { url: 'solicitudes', nombre: 'Solicitudes', icono: 'alarm' },
+    { url: 'emergencias', nombre: 'Emergecias reportadas', icono: 'alarm' },
     { url: 'centros-salud', nombre: 'Centros de salud', icono: 'local_hospital' }
   ];
 
