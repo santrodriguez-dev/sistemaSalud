@@ -21,10 +21,10 @@ export class SolicitudesComponent implements OnInit, OnDestroy {
   private subsObtSoli: Subscription;
 
   constructor(
-    private _solicitudesService: SolicitudesService,
+    private solicitudesService: SolicitudesService,
     private utilServ: UtilsService,
     private router: Router,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
@@ -47,7 +47,7 @@ export class SolicitudesComponent implements OnInit, OnDestroy {
 
   cargarSolicitudes() {
     this.utilServ.mostrarCargando(true);
-    this._solicitudesService.getAllSolicitudes().subscribe(lsSoli => {
+    this.solicitudesService.getAllSolicitudes().subscribe(lsSoli => {
       this.lsSolicitudes = new MatTableDataSource(lsSoli);
       this.lsSolicitudes.paginator = this.paginator;
       this.lsSolicitudes.sort = this.sort;
@@ -66,8 +66,8 @@ export class SolicitudesComponent implements OnInit, OnDestroy {
   }
 
   filaSeleccionada(row: Solicitud) {
-    // this.router.navigate(['./', row.id], { relativeTo: this.route });
-    const o = this.bottomSheet.open(BottomSheetSolicitudComponent, { data: row });
+    this.router.navigate([row.id], { relativeTo: this.activatedRoute });
+    // this.bottomSheet.open(BottomSheetSolicitudComponent, { data: row });
   }
 
 }

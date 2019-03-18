@@ -4,13 +4,7 @@ import { ModulosComponent } from './modulos.component';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../shared';
 
-/**
- * Modulos no globales
- */
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-/**
- * Submodulos de modulo principal
- */
+// Submodulos de modulo principal
 import { HomeModule } from './home/home.module';
 import { PacientesModule } from './pacientes/pacientes.module';
 import { SolicitudesModule } from './solicitudes/solicitudes.module';
