@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <span>Lista de pacientes</span>
+  <span>Pacientes registrados</span>
 
   <span class="flex-spacer"></span>
 
@@ -48,6 +48,10 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editarPaciente(element)">
+              <mat-icon color="secondary">edit</mat-icon>
+              <span>Ver historial</span>
+            </button>
             <button mat-menu-item (click)="editarPaciente(element)">
               <mat-icon color="secondary">edit</mat-icon>
               <span>Editar</span>

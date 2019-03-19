@@ -19,12 +19,12 @@ button:focus {
 }
 
 /* width */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 4px;
-}
+} */
 
-*,
+/* *,
 ::after,
 ::before {
   box-sizing: initial;
-}
+} */

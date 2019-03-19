@@ -16,7 +16,7 @@
   <mat-tab class="p-4 tabs">
     <ng-template mat-tab-label>
       <mat-icon class="example-tab-icon" class="mr-2">accessible_forward</mat-icon>
-      Información de solicitud
+      General
     </ng-template>
     <mat-card *ngIf="solicitud" class="m-4">
       <mat-list>
@@ -46,7 +46,7 @@
       </mat-list>
     </mat-card>
   </mat-tab>
-  <mat-tab>
+  <!-- <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon class="example-tab-icon" class="mr-2">assignment</mat-icon>
       Seguimiento
@@ -65,10 +65,7 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> Diagnóstico </mat-header-cell>>
             <mat-cell *matCellDef="let element"> {{element.diagnostico}} </mat-cell>
           </ng-container>
-          <!-- <ng-container matColumnDef="categoria_id">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Categoría </mat-header-cell>>
-                <mat-cell *matCellDef="let element"> {{element.categoria.nombre}} </mat-cell>
-              </ng-container> -->
+
           <ng-container matColumnDef="observacion">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Observacion </mat-header-cell>>
             <mat-cell *matCellDef="let element"> {{element.observacion}} </mat-cell>
@@ -85,15 +82,14 @@
         <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
       </div>
     </mat-card>
-  </mat-tab>
+  </mat-tab> -->
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon class="example-tab-icon" class="mr-2">map</mat-icon>
-      Localización
+      Ubicación
     </ng-template>
     <mat-card *ngIf="solicitud" class="m-4">
       <mat-card-header>
-        <!-- <div mat-card-avatar class="example-header-image"></div> -->
         <mat-card-title>Ubicación</mat-card-title>
         <mat-card-subtitle>{{solicitud.paciente?.nombre}}</mat-card-subtitle>
       </mat-card-header>

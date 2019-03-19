@@ -1,24 +1,39 @@
-<section class="content-list-cards">
-  <mat-card matRipple *ngFor="let medicalCenter of medicalCenters" class="ophelia-card">
-    <div class="card__header">
-      <a mat-icon-button [routerLink]="['./']">
-        <mat-icon aria-label="Editar">edit</mat-icon>
-      </a>
-      <button mat-icon-button>
-        <mat-icon aria-label="Eliminar">delete</mat-icon>
-      </button>
-      <div class="avatar-container">
-        <img [src]="'image'" alt="">
-        <i class="icon"></i>
+<mat-toolbar color="primary">
+  <span>Centros de atención medica</span>
+
+  <span class="flex-spacer"></span>
+
+  <button mat-icon-button>
+    <mat-icon matTooltip="Recargar" matTooltipPosition="above">refresh</mat-icon>
+  </button>
+  <button mat-icon-button>
+    <mat-icon matTooltip="Registrar centro médico" matTooltipPosition="above">add</mat-icon>
+  </button>
+</mat-toolbar>
+<div class="content-medical-center">
+  <section class="content-list-cards">
+    <mat-card matRipple *ngFor="let medicalCenter of medicalCenters" class="medical-card">
+      <div class="card__header">
+        <a mat-icon-button [routerLink]="['./']">
+          <mat-icon aria-label="Editar">edit</mat-icon>
+        </a>
+        <button mat-icon-button>
+          <mat-icon aria-label="Eliminar">delete</mat-icon>
+        </button>
+        <!-- <div class="avatar-container">
+          <img [src]="'image'" alt="">
+        </div> -->
       </div>
-    </div>
-    <div class="card__body">
-      <strong>
-        {{medicalCenter.name}}
-      </strong>
-      <small>
-        {{medicalCenter.address}}
-      </small>
-    </div>
-  </mat-card>
-</section>
+      <div class="card__body">
+        <strong>
+          {{medicalCenter.name}}
+        </strong>
+        <small>
+          {{medicalCenter.address}}
+        </small>
+        <!-- <agm-map [latitude]="51.678418" [longitude]="7.809007" [zoom]="15">
+        </agm-map> -->
+      </div>
+    </mat-card>
+  </section>
+</div>

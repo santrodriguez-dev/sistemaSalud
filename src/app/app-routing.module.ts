@@ -5,9 +5,10 @@ import { ModulosModule } from './modulos/modulos.module';
 import { AuthGuard } from './shared/auth/auth.guard';
 
 const routes: Routes = [
-  { path: 'login', loadChildren: () => LoginModule },
+  { path: 'login', loadChildren: () => LoginModule, canActivate: [AuthGuard] },
   { path: 'intro', loadChildren: () => ModulosModule, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: 'login' }
+  // { path: '', redirectTo: 'intro', pathMatch: 'full' },
+  { path: '**', redirectTo: 'intro', pathMatch: 'full' }
 ];
 
 @NgModule({
