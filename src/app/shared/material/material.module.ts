@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
  */
 import {
   MatButtonModule,
+  MatRippleModule,
   MatCheckboxModule,
   MatButtonToggleModule,
   MatToolbarModule,
@@ -33,6 +34,7 @@ import {
 @NgModule({
   imports: [
     MatButtonModule,
+    MatRippleModule,
     MatCheckboxModule,
     MatButtonToggleModule,
     MatToolbarModule,
@@ -60,6 +62,7 @@ import {
   ],
   exports: [
     MatButtonModule,
+    MatRippleModule,
     MatCheckboxModule,
     MatButtonToggleModule,
     MatToolbarModule,

@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SolicitudesService } from '../servicios/solicitudes.service';
 import { Solicitud } from '../interfaces/Solicitud';
 import { UtilsService } from '../../../shared';
 import { GoogleMapsAPIWrapper, LatLngLiteral } from '@agm/core';
 import { SeguimSolicitud } from '../interfaces/Seguim_Solicitud';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { SolicitudesService } from '../services/solicitudes.service';
 
 @Component({
   selector: 'app-info-solicitud',

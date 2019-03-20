@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Solicitud } from '../../modulos/solicitudes/interfaces/Solicitud';
 import * as io from 'socket.io-client';
 import { RutasService } from './rutas.service';
 import { User } from '../models/User';
+import { Solicitud } from 'src/app/modules/reported-emergencies/interfaces/Solicitud';
 
 @Injectable({
   providedIn: 'root'

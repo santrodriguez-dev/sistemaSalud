@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator, MatBottomSheet } from '@angular/material';
-import { SolicitudesService } from './servicios/solicitudes.service';
+import { SolicitudesService } from './services/solicitudes.service';
 import { Solicitud } from './interfaces/Solicitud';
 import { UtilsService } from '../../shared';
 import { Subscription } from 'rxjs';
@@ -8,11 +8,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BottomSheetSolicitudComponent } from './bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component';
 
 @Component({
-  selector: 'app-solicitudes',
-  templateUrl: './solicitudes.component.html',
-  styleUrls: ['./solicitudes.component.css']
+  selector: 'app-reported-emergencies',
+  templateUrl: './reported-emergencies.component.html',
+  styleUrls: ['./reported-emergencies.component.css']
 })
-export class SolicitudesComponent implements OnInit, OnDestroy {
+export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['id', 'paciente_id', 'clasificacion_id', 'descripcion', 'createdAt'];
   lsSolicitudes: MatTableDataSource<Solicitud>;

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SolicitudesComponent } from './solicitudes.component';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../shared';
-import { SolicitudesService } from './servicios/solicitudes.service';
 import { InfoSolicitudComponent } from './info-solicitud/info-solicitud.component';
 import { BottomSheetSolicitudComponent } from './bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component';
 import { AgmCoreModule } from '@agm/core';
+import { SolicitudesService } from './services/solicitudes.service';
+import { ReportedEmergenciesComponent } from './reported-emergencies.component';
 
 const routes: Routes = [
-  { path: '', component: SolicitudesComponent },
+  { path: '', component: ReportedEmergenciesComponent },
   { path: ':id', component: InfoSolicitudComponent }
 ];
 
@@ -24,11 +24,11 @@ const routes: Routes = [
   ],
   entryComponents: [BottomSheetSolicitudComponent],
   declarations: [
-    SolicitudesComponent,
+    ReportedEmergenciesComponent,
     InfoSolicitudComponent,
     BottomSheetSolicitudComponent
   ],
   exports: [RouterModule],
   providers: [SolicitudesService]
 })
-export class SolicitudesModule { }
+export class ReportedEmergenciesModule { }

@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared/auth/auth.guard';
-import { UtilsService } from './shared/servicios/utils.service';
+import { UtilsService } from './shared/services/utils.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RutasService } from './shared';
 

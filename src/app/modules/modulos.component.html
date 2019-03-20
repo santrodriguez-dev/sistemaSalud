@@ -8,7 +8,7 @@
       </button>
       <h1 class="example-app-name">Sistema de salud</h1>
       <span class="flex-spacer"></span>
-      <h2>Bienvenido Santiago</h2>
+      <h2>Bienvenido {{user.nombre}}</h2>
       <button *ngIf="lsNotificaciones.length" mat-icon-button [matMenuTriggerFor]="menuSolicitudes" [matBadge]="lsNotificaciones.length"
         matBadgePosition="after" matBadgeColor="accent">
         <mat-icon>accessible_forward</mat-icon>
@@ -37,16 +37,18 @@
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
       fixedTopGap="56">
-      <mat-nav-list *ngFor="let nav of rutas">
-        <a mat-list-item [routerLink]="nav.url" routerLinkActive="active-link">
-          <mat-icon mat-list-icon>{{nav.icono}}</mat-icon>
-          {{nav.nombre}}
+      <mat-nav-list *ngFor="let route of routes">
+        <a mat-list-item [routerLink]="['/',route.url]" routerLinkActive="active-link">
+          <mat-icon mat-list-icon>{{route.icon}}</mat-icon>
+          {{route.name}}
         </a>
       </mat-nav-list>
     </mat-sidenav>
+
 
     <mat-sidenav-content>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
+<pre>{{ routes | json }}</pre>

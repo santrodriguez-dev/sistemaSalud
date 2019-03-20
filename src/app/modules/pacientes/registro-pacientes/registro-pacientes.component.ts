@@ -13,6 +13,11 @@ import { UtilsService } from '../../../shared';
 })
 export class RegistroPacientesComponent implements OnInit {
 
+  registroPacForm: FormGroup;
+  modoEditable: boolean;
+  hidePass = true;
+  private idPaciente: string;
+
   constructor(private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
@@ -28,11 +33,6 @@ export class RegistroPacientesComponent implements OnInit {
       contrasena: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
-
-  registroPacForm: FormGroup;
-  modoEditable: boolean;
-  hidePass = true;
-  private idPaciente: string;
 
   ngOnInit() {
     this.route.params.subscribe(params => {

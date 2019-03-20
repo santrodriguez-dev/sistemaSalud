@@ -1,0 +1,41 @@
+<mat-toolbar color="primary">
+  <span>Centros de atención medica</span>
+
+  <span class="flex-spacer"></span>
+
+  <button mat-icon-button>
+    <mat-icon matTooltip="Recargar" matTooltipPosition="above">refresh</mat-icon>
+  </button>
+
+  <a mat-icon-button [routerLink]="['crear']">
+    <mat-icon matTooltip="Registrar centro médico" matTooltipPosition="above">add</mat-icon>
+  </a>
+</mat-toolbar>
+
+<div class="content-medical-center">
+  <mat-form-field>
+    <input matInput placeholder="Buscar...">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <section class="content-list-cards">
+    <mat-card matRipple *ngFor="let medicalCenter of medicalCenters" (click)="selectMedicalCenter(medicalCenter.id)"
+      class="medical-card">
+      <mat-card-header>
+        <!-- <div mat-card-avatar class="example-header-image"></div> -->
+        <mat-card-title>{{medicalCenter.name}}</mat-card-title>
+        <mat-card-subtitle>{{medicalCenter.address}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <p>
+          {{medicalCenter.description}}
+        </p>
+      </mat-card-content>
+      <!-- <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>Modificar</button>
+      </mat-card-actions> -->
+    </mat-card>
+
+  </section>
+</div>

@@ -18,6 +18,10 @@ button:focus {
   outline: none
 }
 
+a[ng-reflect-router-link] {
+  color: white;
+}
+
 /* width */
 /* ::-webkit-scrollbar {
   width: 4px;

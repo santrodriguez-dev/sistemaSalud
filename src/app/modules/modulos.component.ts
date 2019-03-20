@@ -4,7 +4,8 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { UtilsService } from '../shared';
 import { Subscription } from 'rxjs';
-import { Solicitud } from './solicitudes/interfaces/Solicitud';
+import { Solicitud } from './reported-emergencies/interfaces/Solicitud';
+import { User } from '../shared/models/User';
 
 @Component({
   selector: 'app-modulos',
@@ -13,16 +14,17 @@ import { Solicitud } from './solicitudes/interfaces/Solicitud';
 })
 export class ModulosComponent implements OnInit, OnDestroy {
 
+  user: User;
   mobileQuery: MediaQueryList;
   @ViewChild('sidenav') sideNav: MatSidenav;
   private _mobileQueryListener: () => void;
   private subsObtSoli: Subscription;
   lsNotificaciones: Solicitud[] = [];
-  rutas: Ruta[] = [
+  routes: Route[] = [
     // { url: 'home', nombre: 'Home', icono: 'home' },
-    { url: 'pacientes', nombre: 'Pacientes', icono: 'accessibility' },
-    { url: 'emergencias', nombre: 'Emergecias Reportadas', icono: 'alarm' },
-    { url: 'centros-salud', nombre: 'Centros de Salud', icono: 'local_hospital' }
+    { url: 'pacientes', name: 'Pacientes', icon: 'accessibility' },
+    { url: 'emergencias', name: 'Emergecias Reportadas', icon: 'alarm' },
+    { url: 'centros-salud', name: 'Centros de Salud', icon: 'local_hospital' }
   ];
 
   cargando = false;
@@ -31,13 +33,13 @@ export class ModulosComponent implements OnInit, OnDestroy {
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private router: Router,
-    private utilServ: UtilsService,
+    private utilService: UtilsService,
     private snackBar: MatSnackBar) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-
-    this.utilServ.cambioCargando.subscribe(cargando => {
+    this.user = utilService.getUser();
+    this.utilService.cambioCargando.subscribe(cargando => {
       this.cargando = cargando;
     });
   }
@@ -74,8 +76,8 @@ export class ModulosComponent implements OnInit, OnDestroy {
 
 }
 
-interface Ruta {
+interface Route {
   url: string;
-  nombre: string;
-  icono: string;
+  name: string;
+  icon: string;
 }

@@ -8,5 +8,5 @@ export { Usuario } from './interfaces/Usuario';
 /**
  * Servicios comunes
  */
-export { UtilsService } from './servicios/utils.service';
-export { RutasService } from './servicios/rutas.service';
+export { UtilsService } from './services/utils.service';
+export { RutasService } from './services/rutas.service';

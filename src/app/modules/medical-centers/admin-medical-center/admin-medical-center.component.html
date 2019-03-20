@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+  <a mat-icon-button [routerLink]="['../']" class="mr-2">
+    <mat-icon>arrow_back</mat-icon>
+  </a>
+  <!-- <span>{{obtenerTitulo()}}</span> -->
+
+  <span class="flex-spacer"></span>
+
+  <!-- <button mat-icon-button (click)="resetForm(regForm)">
+    <mat-icon matTooltip="Recargar" matTooltipPosition="above">refresh</mat-icon>
+  </button> -->
+  <button mat-icon-button class="mr-2" form="ngForm">
+    <mat-icon matTooltip="Guardar cambios" matTooltipPosition="above">check</mat-icon>
+  </button>
+</mat-toolbar>
+
+<p>
+  admin-medical-center works!
+</p>

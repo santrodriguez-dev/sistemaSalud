@@ -6,20 +6,18 @@ import { MaterialModule } from '../shared';
 
 // Submodulos de modulo principal
 import { HomeModule } from './home/home.module';
-import { PacientesModule } from './pacientes/pacientes.module';
 import { PruebasComponent } from './pruebas/pruebas.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
     path: '', component: ModulosComponent, children: [
-      { path: 'home', loadChildren: () => HomeModule },
-      { path: 'pacientes', loadChildren: () => PacientesModule },
-      { path: 'emergencias', loadChildren: './solicitudes/solicitudes.module#SolicitudesModule' },
+      // { path: 'home', loadChildren: () => HomeModule },
+      { path: 'pacientes', loadChildren: './pacientes/pacientes.module#PacientesModule' },
+      { path: 'emergencias', loadChildren: './reported-emergencies/reported-emergencies.module#ReportedEmergenciesModule' },
       { path: 'centros-salud', loadChildren: './medical-centers/medical-centers.module#MedicalCentersModule' },
       { path: 'pruebas', component: PruebasComponent },
       { path: '**', redirectTo: 'pacientes' }
-
     ]
   }
 ];
