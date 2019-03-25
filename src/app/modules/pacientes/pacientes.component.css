@@ -9,3 +9,7 @@ table {
 .example-tab-icon {
   margin-right: 8px;
 }
+
+.main-container {
+  padding: 2em 1.5em;
+}

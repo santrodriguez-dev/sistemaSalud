@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { UtilsService, RespuestaServidor, RutasService } from '../../../shared';
-import { Paciente } from '../interfaces/paciente';
-import { map } from 'rxjs/operators';
+import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
+import { UtilsService, RutasService, RequestResult } from '../../../shared';
+import { map, take } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material';
+import { Patient } from 'src/app/shared/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PacientesService {
 
-  obEditarPaciente = new BehaviorSubject<Paciente>(null);
-  lsPacientes: MatTableDataSource<Paciente>;
+  // obEditarPaciente = new BehaviorSubject<Paciente>(null);
+  lsPacientes: MatTableDataSource<Patient>;
   urlServices: string;
 
   constructor(private http: HttpClient,
@@ -21,56 +21,57 @@ export class PacientesService {
     this.urlServices = routesService.routes.urlServices;
   }
 
-  cargarPacientes() {
-    this.util.mostrarCargando(true);
-    this.getAllPacientes().subscribe(lsPac => {
-      this.lsPacientes = new MatTableDataSource(lsPac);
-      this.util.mostrarCargando(false);
-    }, err => {
-      this.util.mostrarCargando(false);
-      console.error(err);
-    });
-  }
+  // cargarPacientes() {
+  //   this.util.mostrarCargando(true);
+  //   this.getAllPacientes().subscribe(reqRes => {
 
-  private getAllPacientes(): Observable<Paciente[]> {
-    return this.http.get<RespuestaServidor>(this.urlServices + 'pacientes/getall').pipe(map(res => {
-      if (res.satisfactorio) {
-        return res.resultado;
-      }
+  //     this.lsPacientes = new MatTableDataSource(reqRes.result);
+  //     this.util.mostrarCargando(false);
+  //   }, err => {
+  //     this.util.mostrarCargando(false);
+  //     console.error(err);
+  //   });
+  // }
+
+  getAll() {
+    return this.http.get<RequestResult<Patient[]>>(this.urlServices + 'patient/getall').pipe(take(1), map(reqRes => {
+      return this.resolveResponse(reqRes);
     }));
   }
 
 
-  cargarPaciente(idPaciente: string): Observable<Paciente[]> {
-    return this.http.get<RespuestaServidor>(this.urlServices + 'pacientes/get/' + idPaciente).pipe(map(res => {
-      if (res.satisfactorio) {
-        return res.resultado;
-      }
+  save(patient: Patient) {
+    return this.http.post<RequestResult<Patient>>(this.urlServices + 'patient/save', patient).pipe(take(1), map(reqRes => {
+      return this.resolveResponse(reqRes);
     }));
   }
 
-  crearPaciente(paciente: Paciente): Observable<boolean> {
-    return this.http.post<RespuestaServidor>(this.urlServices + 'pacientes/new', paciente).pipe(map(res => {
-      return res.satisfactorio;
+  get(id: string) {
+    return this.http.get<RequestResult<Patient>>(this.urlServices + 'patient/get/' + id).pipe(map(reqRes => {
+      return this.resolveResponse(reqRes);
     }));
   }
 
-  eliminarPaciente(paciente: Paciente): Observable<boolean> {
-    return this.http.delete<RespuestaServidor>(this.urlServices + 'pacientes/delete/' + paciente.nom_usuario)
-      .pipe(map(res => {
-        return res.satisfactorio;
-      }));
+  delete(id: number) {
+    return this.http.delete<RequestResult<any>>(this.urlServices + 'patient/delete/' + id).pipe(take(1), map(reqRes => {
+      return this.resolveResponse(reqRes);
+    }));
   }
 
-  actualizarPaciente(paciente: Paciente): Observable<boolean> {
-    return this.http.put<RespuestaServidor>(this.urlServices + 'pacientes/update/', paciente)
-      .pipe(map(res => {
-        return res.satisfactorio;
-      }));
+  actualizarPaciente(paciente: Patient) {
+    return this.http.put<RequestResult<any>>(this.urlServices + 'patient/update/', paciente).pipe(take(1));
   }
 
-  redirectEditarPaciente(p: Paciente) {
-    this.obEditarPaciente.next(p);
+  redirectEditarPaciente(p: Patient) {
+    // this.obEditarPaciente.next(p);
+  }
+
+  private resolveResponse<T>(reqRes: RequestResult<T>) {
+    if (!reqRes.successful) {
+      console.error('PatientService', reqRes.message);
+      throw new Error(reqRes.message);
+    }
+    return reqRes.result;
   }
 
 }

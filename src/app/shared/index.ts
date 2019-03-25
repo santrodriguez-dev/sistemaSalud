@@ -2,7 +2,7 @@ export * from './material/material.module';
 /**
  * Interfaces
  */
-export { RespuestaServidor } from './interfaces/RespuestaServidor';
+export { RequestResult } from './interfaces/request-result';
 export { Usuario } from './interfaces/Usuario';
 
 /**

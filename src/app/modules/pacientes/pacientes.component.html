@@ -1,34 +1,80 @@
-<!-- <router-outlet></router-outlet> -->
+<mat-toolbar color="primary">
+  <span>Pacientes registrados</span>
 
-<!-- <app-listado-pacientes></app-listado-pacientes> -->
+  <span class="flex-spacer"></span>
 
+  <button mat-icon-button (click)="getAll()">
+    <mat-icon matTooltip="Recargar" matTooltipPosition="above">refresh</mat-icon>
+  </button>
+  <button mat-icon-button (click)="nuevoPaciente()">
+    <mat-icon matTooltip="Registrar paciente" matTooltipPosition="above">add</mat-icon>
+  </button>
+</mat-toolbar>
 
-<!-- <mat-tab-group color="primary" backgroundColor="primary" [(selectedIndex)]="tabIndex" (selectedIndexChange)="cambioTab($event)">
-  <mat-tab class="p-4 tabs">
-    <ng-template mat-tab-label>
-      <mat-icon class="example-tab-icon">format_list_bulleted</mat-icon>
-      Listado
-    </ng-template>
-    <div class="cont">
-      <app-listado-pacientes></app-listado-pacientes>
-    </div>
-  </mat-tab>
-  <mat-tab class="cont">
-    <ng-template mat-tab-label>
-      <mat-icon class="example-tab-icon">accessibility</mat-icon>
-      Registro
-    </ng-template>
-    <div class="cont">
-      <app-registro-pacientes (recargarPacientes)="recargarPacientes()"></app-registro-pacientes>
-    </div>
-  </mat-tab>
-  <mat-tab class="cont" *ngIf="pacienteSeleccionado">
-    <ng-template mat-tab-label>
-      <mat-icon class="example-tab-icon">accessibility</mat-icon>
-      Actualizar usuario
-    </ng-template>
-    <div class="cont">
-      <app-registro-pacientes [paciente]="pacienteSeleccionado" (recargarPacientes)="recargarPacientes()"></app-registro-pacientes>
-    </div>
-  </mat-tab>
-</mat-tab-group> -->
+<div class="main-container">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar...">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="patients" matSort>
+      <ng-container matColumnDef="nombre">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="documento">
+        <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.identification}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="telefono">
+        <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="direccion">
+        <mat-header-cell *matHeaderCellDef> Dirección </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.address}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="nom_usuario">
+        <mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="edad">
+        <mat-header-cell *matHeaderCellDef> Edad </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{getAge(element.birthdate)}} años </mat-cell>
+      </ng-container>
+      <!-- <ng-container matColumnDef="foto">
+          <mat-header-cell *matHeaderCellDef> Foto </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.foto}} </mat-cell>
+        </ng-container> -->
+      <ng-container matColumnDef="acciones">
+        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openClinicHistory(element)">
+              <mat-icon color="secondary">history</mat-icon>
+              <span>Ver historial</span>
+            </button>
+            <button mat-menu-item (click)="editarPaciente(element)">
+              <mat-icon color="secondary">edit</mat-icon>
+              <span>Editar</span>
+            </button>
+            <button mat-menu-item (click)="eliminarPaciente(element)">
+              <mat-icon>delete</mat-icon>
+              <span color="primary">Eliminar</span>
+            </button>
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="filaSeleccionada(row)"></mat-row>
+  
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[3, 5, 10]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+

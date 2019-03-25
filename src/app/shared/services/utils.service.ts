@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import * as io from 'socket.io-client';
 import { RutasService } from './rutas.service';
 import { User } from '../models/User';
-import { Solicitud } from 'src/app/modules/reported-emergencies/interfaces/Solicitud';
+import { UserAdministrator } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class UtilsService {
 
   cambioCargando = new BehaviorSubject<boolean>(false);
   private socket;
-  obNuevaSolicitud: Observable<Solicitud>;
+  // obNuevaSolicitud: Observable<Solicitud>;
 
   constructor(private rutas: RutasService) {
     // this.socket = io.connect(this.rutas.rutasServicios.urlSocket);
@@ -29,7 +29,7 @@ export class UtilsService {
     this.cambioCargando.next(flag);
   }
 
-  getUser(): User {
+  getUser(): UserAdministrator {
     try {
       return JSON.parse(localStorage.getItem('session'))
     } catch (error) {

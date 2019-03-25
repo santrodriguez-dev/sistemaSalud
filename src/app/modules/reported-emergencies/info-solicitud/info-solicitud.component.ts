@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Solicitud } from '../interfaces/Solicitud';
 import { UtilsService } from '../../../shared';
 import { GoogleMapsAPIWrapper, LatLngLiteral } from '@agm/core';
 import { SeguimSolicitud } from '../interfaces/Seguim_Solicitud';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { SolicitudesService } from '../services/solicitudes.service';
+import { MedicalEmergency } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-info-solicitud',
@@ -18,51 +18,57 @@ export class InfoSolicitudComponent implements OnInit {
   public mapa: GoogleMapsAPIWrapper;
 
   id: number;
-  solicitud: Solicitud;
+  medicalEmergency: MedicalEmergency;
   displayedColumns: string[] = ['id', 'diagnostico', 'observacion', 'createdAt'];
   seguimiento: MatTableDataSource<SeguimSolicitud>;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private route: ActivatedRoute,
-    private _solicitudesService: SolicitudesService,
+    private medicalEmeService: SolicitudesService,
     private router: Router,
     private utilServ: UtilsService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      this.cargarInfo();
+      this.getMedicalEmergency();
     });
   }
 
-  cargarSeguimiento() {
-    this.utilServ.mostrarCargando(true);
-    this._solicitudesService.obtenerSeguimientoSolicitud(this.id).subscribe(segui => {
-      this.seguimiento = new MatTableDataSource(segui);
-      this.seguimiento.paginator = this.paginator;
-      this.seguimiento.sort = this.sort;
-      this.utilServ.mostrarCargando(false);
-    }, err => {
-      console.log(err);
-      this.utilServ.mostrarCargando(false);
+  getMedicalEmergency() {
+    this.medicalEmeService.get(this.id).subscribe(medicalEmergency => {
+      this.medicalEmergency = medicalEmergency;
     });
   }
 
-  cargarSolicitud() {
-    this.utilServ.mostrarCargando(true);
-    this._solicitudesService.getSolicitud(this.id).subscribe(resp => {
-      this.solicitud = resp;
-      this.utilServ.mostrarCargando(false);
-    }, err => {
-      console.log(err);
-      this.utilServ.mostrarCargando(false);
-    });
-  }
+  // cargarSeguimiento() {
+  //   this.utilServ.mostrarCargando(true);
+  //   this._solicitudesService.obtenerSeguimientoSolicitud(this.id).subscribe(segui => {
+  //     this.seguimiento = new MatTableDataSource(segui);
+  //     this.seguimiento.paginator = this.paginator;
+  //     this.seguimiento.sort = this.sort;
+  //     this.utilServ.mostrarCargando(false);
+  //   }, err => {
+  //     console.log(err);
+  //     this.utilServ.mostrarCargando(false);
+  //   });
+  // }
+
+  // cargarSolicitud() {
+  //   this.utilServ.mostrarCargando(true);
+  //   this._solicitudesService.getSolicitud(this.id).subscribe(resp => {
+  //     this.solicitud = resp;
+  //     this.utilServ.mostrarCargando(false);
+  //   }, err => {
+  //     console.log(err);
+  //     this.utilServ.mostrarCargando(false);
+  //   });
+  // }
 
   cargarInfo() {
-    this.cargarSeguimiento();
-    this.cargarSolicitud();
+    // this.cargarSeguimiento();
+    // this.cargarSolicitud();
   }
 
   volverAtras() {
@@ -75,8 +81,8 @@ export class InfoSolicitudComponent implements OnInit {
 
   localizarPaciente(): void {
     const ub: LatLngLiteral = {
-      lat: this.solicitud.coordLat,
-      lng: this.solicitud.coordLong
+      lat: this.medicalEmergency.coordLat,
+      lng: this.medicalEmergency.coordLong
     };
     this.mapa.setCenter(ub);
     this.mapa.setZoom(15);

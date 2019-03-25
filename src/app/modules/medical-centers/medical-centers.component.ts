@@ -21,7 +21,9 @@ export class MedicalCentersComponent implements OnInit {
   ngOnInit() { }
 
   getAllMedicalCenters() {
-    this.medicalCenters = this.medicalCentersService.getAll();
+    this.medicalCentersService.getAll().subscribe(medicalCenters => {
+      this.medicalCenters = medicalCenters;
+    });
   }
 
   selectMedicalCenter(id: number) {

@@ -18,29 +18,29 @@
       <mat-icon class="example-tab-icon" class="mr-2">accessible_forward</mat-icon>
       General
     </ng-template>
-    <mat-card *ngIf="solicitud" class="m-4">
+    <mat-card *ngIf="medicalEmergency" class="m-4">
       <mat-list>
         <mat-list-item>
           <mat-icon mat-list-icon>accessibility</mat-icon>
-          <h4 mat-line>{{solicitud.paciente.nombre}}</h4>
+          <h4 mat-line>{{medicalEmergency.patient.name}}</h4>
           <!-- <p mat-line> {{folder.updated | date}} </p> -->
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
           <mat-icon mat-list-icon>assessment</mat-icon>
-          <h4 mat-line>{{solicitud.clasificacion}}</h4>
+          <h4 mat-line>{{medicalEmergency.priority}}</h4>
           <!-- <p mat-line> {{folder.updated | date}} </p> -->
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
           <mat-icon mat-list-icon>description</mat-icon>
-          <h4 mat-line>{{solicitud.descripcion}}</h4>
+          <h4 mat-line>{{medicalEmergency.patient_description}}</h4>
           <!-- <p mat-line> {{folder.updated | date}} </p> -->
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
           <mat-icon mat-list-icon>update</mat-icon>
-          <h4 mat-line>{{solicitud.createdAt | date: 'dd/MM/yyyy h:MM:ss'}}</h4>
+          <h4 mat-line>{{medicalEmergency.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</h4>
           <!-- <p mat-line> {{folder.updated | date}} </p> -->
         </mat-list-item>
       </mat-list>
@@ -86,18 +86,18 @@
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon class="example-tab-icon" class="mr-2">map</mat-icon>
-      Ubicación
+      Ubicación de accidente
     </ng-template>
-    <mat-card *ngIf="solicitud" class="m-4">
+    <mat-card *ngIf="medicalEmergency" class="m-4">
       <mat-card-header>
-        <mat-card-title>Ubicación</mat-card-title>
-        <mat-card-subtitle>{{solicitud.paciente?.nombre}}</mat-card-subtitle>
+        <mat-card-title>Ubicación de accidente</mat-card-title>
+        <mat-card-subtitle>{{medicalEmergency.patient?.name}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
 
-        <agm-map [latitude]="solicitud.coordLat" [longitude]="solicitud.coordLong" [zoom]="15" (mapReady)="mapReady($event)"
+        <agm-map [latitude]="medicalEmergency.coordLat" [longitude]="medicalEmergency.coordLong" [zoom]="15" (mapReady)="mapReady($event)"
           class="mb-2">
-          <agm-marker [latitude]="solicitud.coordLat" [longitude]="solicitud.coordLong" [label]="solicitud.paciente?.nombre"></agm-marker>
+          <agm-marker [latitude]="medicalEmergency.coordLat" [longitude]="medicalEmergency.coordLong" [label]="medicalEmergency.patient?.name"></agm-marker>
         </agm-map>
 
       </mat-card-content>

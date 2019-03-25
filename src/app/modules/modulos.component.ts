@@ -4,8 +4,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { UtilsService } from '../shared';
 import { Subscription } from 'rxjs';
-import { Solicitud } from './reported-emergencies/interfaces/Solicitud';
-import { User } from '../shared/models/User';
+import { UserAdministrator } from '../shared/models';
 
 @Component({
   selector: 'app-modulos',
@@ -14,12 +13,12 @@ import { User } from '../shared/models/User';
 })
 export class ModulosComponent implements OnInit, OnDestroy {
 
-  user: User;
+  user: UserAdministrator;
   mobileQuery: MediaQueryList;
   @ViewChild('sidenav') sideNav: MatSidenav;
   private _mobileQueryListener: () => void;
   private subsObtSoli: Subscription;
-  lsNotificaciones: Solicitud[] = [];
+  lsNotificaciones: any[] = [];
   routes: Route[] = [
     // { url: 'home', nombre: 'Home', icono: 'home' },
     { url: 'pacientes', name: 'Pacientes', icon: 'accessibility' },
@@ -71,7 +70,7 @@ export class ModulosComponent implements OnInit, OnDestroy {
   }
 
   cierraNotifi() {
-    this.lsNotificaciones = [];
+    // this.lsNotificaciones = [];
   }
 
 }

@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator, MatBottomSheet } from '@angular/material';
 import { SolicitudesService } from './services/solicitudes.service';
-import { Solicitud } from './interfaces/Solicitud';
 import { UtilsService } from '../../shared';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BottomSheetSolicitudComponent } from './bottom-sheets/bottom-sheet-solicitud/bottom-sheet-solicitud.component';
+import { MedicalEmergency } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-reported-emergencies',
@@ -14,8 +13,9 @@ import { BottomSheetSolicitudComponent } from './bottom-sheets/bottom-sheet-soli
 })
 export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['id', 'paciente_id', 'clasificacion_id', 'descripcion', 'createdAt'];
-  lsSolicitudes: MatTableDataSource<Solicitud>;
+  displayedColumns: string[] = ['id', 'paciente_id', 'descripcion', 'state', 'createdAt'];
+  lsSolicitudes: MatTableDataSource<MedicalEmergency>;
+  emergencies: MedicalEmergency[];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private subsObtSoli: Subscription;
@@ -25,15 +25,23 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
     private utilServ: UtilsService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private bottomSheet: MatBottomSheet) { }
+    private bottomSheet: MatBottomSheet) {
+    this.getAll();
+  }
 
   ngOnInit() {
     if (!this.lsSolicitudes) {
-      this.cargarSolicitudes();
+      // this.cargarSolicitudes();
     }
     // this.subsObtSoli = this.utilServ.obNuevaSolicitud.subscribe(socket => {
     //   this.cargarSolicitudes();
     // });
+  }
+
+  getAll() {
+    this.solicitudesService.getAll().subscribe(emergencies => {
+      this.emergencies = emergencies;
+    });
   }
 
   ngOnDestroy(): void {
@@ -45,18 +53,18 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
     // this.socket.emit('sendMessage', { message: msg });
   }
 
-  cargarSolicitudes() {
-    this.utilServ.mostrarCargando(true);
-    this.solicitudesService.getAllSolicitudes().subscribe(lsSoli => {
-      this.lsSolicitudes = new MatTableDataSource(lsSoli);
-      this.lsSolicitudes.paginator = this.paginator;
-      this.lsSolicitudes.sort = this.sort;
-      this.utilServ.mostrarCargando(false);
-    }, err => {
-      this.utilServ.mostrarCargando(false);
-      console.log('Ha ocurrido un error', err);
-    });
-  }
+  // cargarSolicitudes() {
+  //   this.utilServ.mostrarCargando(true);
+  //   this.solicitudesService.getAllSolicitudes().subscribe(lsSoli => {
+  //     this.lsSolicitudes = new MatTableDataSource(lsSoli);
+  //     this.lsSolicitudes.paginator = this.paginator;
+  //     this.lsSolicitudes.sort = this.sort;
+  //     this.utilServ.mostrarCargando(false);
+  //   }, err => {
+  //     this.utilServ.mostrarCargando(false);
+  //     console.log('Ha ocurrido un error', err);
+  //   });
+  // }
 
   applyFilter(filterValue: string) {
     this.lsSolicitudes.filter = filterValue.trim().toLowerCase();
@@ -65,7 +73,7 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
     }
   }
 
-  filaSeleccionada(row: Solicitud) {
+  filaSeleccionada(row: MedicalEmergency) {
     this.router.navigate([row.id], { relativeTo: this.activatedRoute });
     // this.bottomSheet.open(BottomSheetSolicitudComponent, { data: row });
   }

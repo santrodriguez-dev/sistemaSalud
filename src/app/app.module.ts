@@ -8,6 +8,7 @@ import { AuthGuard } from './shared/auth/auth.guard';
 import { UtilsService } from './shared/services/utils.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RutasService } from './shared';
+import { MatNativeDateModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { RutasService } from './shared';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatNativeDateModule
   ],
   providers: [AuthGuard, UtilsService, RutasService],
   bootstrap: [AppComponent]

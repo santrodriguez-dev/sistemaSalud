@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RutasService {
 
-  routes: RutasServicios;
+  routes: RouteServices;
 
   // public rutasServicios: RutasServicios = {
   //   urlServidor: 'https://accesibilidad-back-end.herokuapp.com/',
@@ -29,12 +29,12 @@ export class RutasService {
   }
 
   getAllRoutes() {
-    return this.http.get<RutasServicios>('assets/config.json').subscribe(routes => this.routes = routes);
+    return this.http.get<RouteServices>('assets/config.json').subscribe(routes => this.routes = routes);
   }
 
 }
 
-class RutasServicios {
+class RouteServices {
   urlServices: string;
   urlSocket: string;
 }

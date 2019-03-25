@@ -8,7 +8,7 @@
       </button>
       <h1 class="example-app-name">Sistema de salud</h1>
       <span class="flex-spacer"></span>
-      <h2>Bienvenido {{user.nombre}}</h2>
+      <h2>Bienvenido {{user.name}}</h2>
       <button *ngIf="lsNotificaciones.length" mat-icon-button [matMenuTriggerFor]="menuSolicitudes" [matBadge]="lsNotificaciones.length"
         matBadgePosition="after" matBadgeColor="accent">
         <mat-icon>accessible_forward</mat-icon>

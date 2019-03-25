@@ -1,9 +1,9 @@
 <mat-toolbar color="primary">
-  <span>Centros de atención medica</span>
+  <span>Centros de atención médica</span>
 
   <span class="flex-spacer"></span>
 
-  <button mat-icon-button>
+  <button mat-icon-button (click)="getAllMedicalCenters()">
     <mat-icon matTooltip="Recargar" matTooltipPosition="above">refresh</mat-icon>
   </button>
 
@@ -25,7 +25,7 @@
         <mat-card-title>{{medicalCenter.name}}</mat-card-title>
         <mat-card-subtitle>{{medicalCenter.address}}</mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      <img mat-card-image [src]="medicalCenter.photo || 'https://material.angular.io/assets/img/examples/shiba2.jpg'" alt="Photo of a Shiba Inu">
       <mat-card-content>
         <p>
           {{medicalCenter.description}}

@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UtilsService, RespuestaServidor, RutasService } from '../../../shared';
-import { Observable } from 'rxjs';
-import { Solicitud } from '../interfaces/Solicitud';
-import { map } from 'rxjs/operators';
-import { SeguimSolicitud } from '../interfaces/Seguim_Solicitud';
+import { UtilsService, RutasService, RequestResult } from '../../../shared';
+import { map, take } from 'rxjs/operators';
+import { MedicalEmergency } from 'src/app/shared/models';
 
 @Injectable({
   providedIn: 'root'
@@ -19,28 +17,33 @@ export class SolicitudesService {
     this.urlServices = routesService.routes.urlServices;
   }
 
-  getAllSolicitudes(): Observable<Solicitud[]> {
-    return this.http.get<RespuestaServidor>(this.urlServices + 'solicitudes/getall').pipe(map(res => {
-      if (res.satisfactorio) {
-        return res.resultado;
-      }
+  getAll() {
+    return this.http.get<RequestResult<MedicalEmergency[]>>(this.urlServices + 'medical-emergency/getall').pipe(take(1), map(reqRes => {
+      return this.resolveResponse(reqRes);
     }));
   }
 
-  getSolicitud(idSolicitud: number): Observable<Solicitud> {
-    return this.http.get<RespuestaServidor>(this.urlServices + 'solicitudes/get/' + idSolicitud).pipe(map(res => {
-      if (res.satisfactorio) {
-        return res.resultado;
-      }
+  get(id: number) {
+    return this.http.get<RequestResult<MedicalEmergency>>(this.urlServices + 'medical-emergency/get/' + id).pipe(take(1), map(reqRes => {
+      return this.resolveResponse(reqRes);
     }));
   }
 
-  obtenerSeguimientoSolicitud(id: number): Observable<SeguimSolicitud[]> {
-    return this.http.get<RespuestaServidor>(this.urlServices + 'seguimsolicitud/getall/' + id).pipe(map(res => {
-      if (res.satisfactorio) {
-        return res.resultado;
-      }
-    }));
+  getSolicitud(idSolicitud: number) {
+    return this.http.get<RequestResult<any>>(this.urlServices + 'solicitudes/get/' + idSolicitud).pipe(take(1));
   }
+
+  obtenerSeguimientoSolicitud(id: number) {
+    return this.http.get<RequestResult<any>>(this.urlServices + 'seguimsolicitud/getall/' + id).pipe(take(1));
+  }
+
+  private resolveResponse<T>(reqRes: RequestResult<T>) {
+    if (!reqRes.successful) {
+      console.error('PatientService', reqRes.message);
+      throw new Error(reqRes.message);
+    }
+    return reqRes.result;
+  }
+
 
 }

@@ -5,6 +5,7 @@ export class MedicalCenter {
   address: string;
   description: string;
   phone: string;
+  photo: string;
   city: string;
   coordLat: string;
   coordLong: string;

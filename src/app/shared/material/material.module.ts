@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
  * Modulos angular material
  */
 import {
+  MatDatepickerModule,
   MatButtonModule,
   MatRippleModule,
   MatCheckboxModule,
@@ -33,6 +34,7 @@ import {
 
 @NgModule({
   imports: [
+    MatDatepickerModule,
     MatButtonModule,
     MatRippleModule,
     MatCheckboxModule,
@@ -61,6 +63,7 @@ import {
     MatAutocompleteModule,
   ],
   exports: [
+    MatDatepickerModule,
     MatButtonModule,
     MatRippleModule,
     MatCheckboxModule,

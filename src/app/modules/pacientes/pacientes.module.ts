@@ -7,17 +7,14 @@ import { PacientesService } from './servicios/pacientes.service';
 import { RegistroPacientesComponent } from './registro-pacientes/registro-pacientes.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListadoPacientesComponent } from './listado-pacientes/listado-pacientes.component';
+import { ClinicHistoryComponent } from './clinic-history/clinic-history.component';
 
 const routes: Routes = [
   // { path: '', component: PacientesComponent },
-  {
-    path: '', children: [
-      { path: '', component: ListadoPacientesComponent },
-      { path: 'modificar/:id', component: RegistroPacientesComponent },
-      { path: 'crear', component: RegistroPacientesComponent },
-      { path: '**', redirectTo: '' }
-    ]
-  },
+  { path: '', component: PacientesComponent },
+  { path: ':id', component: RegistroPacientesComponent },
+  { path: 'crear', component: RegistroPacientesComponent },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
@@ -28,9 +25,10 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [PacientesComponent, RegistroPacientesComponent, ListadoPacientesComponent],
+  declarations: [PacientesComponent, RegistroPacientesComponent, ListadoPacientesComponent, ClinicHistoryComponent],
   exports: [RouterModule],
-  providers: [PacientesService]
+  providers: [PacientesService],
+  entryComponents: [ClinicHistoryComponent]
 })
 
 export class PacientesModule { }

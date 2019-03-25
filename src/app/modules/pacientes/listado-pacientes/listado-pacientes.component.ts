@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
-import { Paciente } from '../interfaces/paciente';
 import { PacientesService } from '../servicios/pacientes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -27,7 +26,7 @@ export class ListadoPacientesComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute) {
     if (!_pacientesService.lsPacientes) {
-      _pacientesService.cargarPacientes();
+      // _pacientesService.cargarPacientes();
     }
   }
 
@@ -43,18 +42,18 @@ export class ListadoPacientesComponent implements OnInit {
   filaSeleccionada(row) {
   }
 
-  editarPaciente(p: Paciente) {
-    this.router.navigate(['modificar', p.nom_usuario], { relativeTo: this.route });
-    // this._pacientesService.redirectEditarPaciente(p);
-  }
+  // editarPaciente(p: Paciente) {
+  //   this.router.navigate(['modificar', p.nom_usuario], { relativeTo: this.route });
+  //   // this._pacientesService.redirectEditarPaciente(p);
+  // }
 
-  eliminarPaciente(p: Paciente) {
-    this._pacientesService.eliminarPaciente(p).subscribe(res => {
-      if (res) {
-        this._pacientesService.cargarPacientes();
-      }
-    });
-  }
+  // eliminarPaciente(p: Paciente) {
+  //   this._pacientesService.eliminarPaciente(p).subscribe(res => {
+  //     if (res) {
+  //       this._pacientesService.cargarPacientes();
+  //     }
+  //   });
+  // }
 
   nuevoPaciente() {
     this.router.navigate(['crear'], { relativeTo: this.route });

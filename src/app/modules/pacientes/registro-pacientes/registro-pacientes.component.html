@@ -9,55 +9,59 @@
   <button mat-icon-button (click)="resetForm(regForm)">
     <mat-icon matTooltip="Recargar" matTooltipPosition="above">refresh</mat-icon>
   </button>
-  <button mat-icon-button class="mr-2" form="ngForm">
+  <button mat-icon-button class="mr-2" form="ngForm" (click)="buttonSubmit.click()">
     <mat-icon matTooltip="Guardar cambios" matTooltipPosition="above">check</mat-icon>
   </button>
 </mat-toolbar>
 
-<form class="patient-form" #regForm="ngForm" [formGroup]="registroPacForm" (ngSubmit)="onSubmit(regForm)">
-  <!-- <h2 class="text-center">Registrar paciente</h2> -->
-  <mat-form-field>
-    <input matInput placeholder="Nombre" formControlName="nombre" required>
-    <mat-icon matSuffix>person</mat-icon>
-    <mat-error>El nombre de usuario es requerido</mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Documento" formControlName="documento" required>
-    <mat-icon matSuffix>vpn_key</mat-icon>
-    <mat-error>El nombre de usuario es requerido</mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Teléfono" formControlName="telefono">
-    <mat-icon matSuffix>phone</mat-icon>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Dirección" formControlName="direccion">
-    <mat-icon matSuffix>location_on</mat-icon>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Correo" formControlName="nom_usuario" required>
-    <mat-icon matSuffix>email</mat-icon>
-    <mat-error>El correo no es válido</mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Contraseña" [type]="hidePass ? 'password' : 'text'" formControlName="contrasena"
-      required>
-    <mat-icon matSuffix (click)="hidePass = !hidePass">{{hidePass ? 'visibility' : 'visibility_off'}}</mat-icon>
-    <mat-error>La conttraseña no es válida</mat-error>
-  </mat-form-field>
-  <!-- <mat-form-field>
-      <input matInput placeholder="Foto" formControlName="username" required>
+<div class="main-container">
+  <form class="patient-form" #regForm="ngForm" [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+    <!-- <h2 class="text-center">Registrar paciente</h2> -->
+    <mat-form-field>
+      <input matInput placeholder="Nombre" formControlName="name" required>
       <mat-icon matSuffix>person</mat-icon>
       <mat-error>El nombre de usuario es requerido</mat-error>
-    </mat-form-field> -->
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Documento" formControlName="identification" required>
+      <mat-icon matSuffix>vpn_key</mat-icon>
+      <mat-error>El nombre de usuario es requerido</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Teléfono" formControlName="phone">
+      <mat-icon matSuffix>phone</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Dirección" formControlName="address">
+      <mat-icon matSuffix>location_on</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Correo" formControlName="email" required>
+      <mat-icon matSuffix>email</mat-icon>
+      <mat-error>El correo no es válido</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Contraseña" [type]="hidePass ? 'password' : 'text'" formControlName="password"
+        required>
+      <mat-icon matSuffix (click)="hidePass = !hidePass">{{hidePass ? 'visibility' : 'visibility_off'}}</mat-icon>
+      <mat-error>La conttraseña no es válida</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" formControlName="birthdate" placeholder="Fecha de nacimiento">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
-  <!-- <div class="d-flex pt-3">
-      <button mat-raised-button color="primary" class="mr-3" type="submit">
-        <i class="material-icons">done</i> Guardar
-      </button>
-      <button mat-raised-button color="primary" (click)="resetForm()" type="button">
-        <i class="material-icons">delete</i> Reestablecer
-      </button>
-    </div> -->
+    <button #buttonSubmit hidden type="submit"></button>
 
-</form>
+    <!-- <div class="d-flex pt-3">
+        <button mat-raised-button color="primary" class="mr-3" type="submit">
+          <i class="material-icons">done</i> Guardar
+        </button>
+        <button mat-raised-button color="primary" (click)="resetForm()" type="button">
+          <i class="material-icons">delete</i> Reestablecer
+        </button>
+      </div> -->
+
+  </form>
+</div>

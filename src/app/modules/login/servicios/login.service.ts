@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Credenciales } from '../interfaces/credenciales';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { RespuestaServidor, Usuario, RutasService } from '../../../shared';
-import { map } from 'rxjs/operators';
+import { RequestResult, Usuario, RutasService } from '../../../shared';
+import { take } from 'rxjs/operators';
+import { Credentials } from 'src/app/shared/interfaces/credentials';
+import { UserAdministrator } from 'src/app/shared/models';
 
 @Injectable({
   providedIn: 'root'
@@ -17,21 +17,12 @@ export class LoginService {
     this.urlServices = routesService.routes.urlServices;
   }
 
-  validarCredenciales(credenciales: Credenciales): Observable<Boolean> {
-    return this.http.post<RespuestaServidor>(this.urlServices + 'usuarios/login', credenciales)
-      .pipe(map(res => {
-        if (res.satisfactorio) {
-          if (res.resultado !== null) {
-            this.saveSession(res.resultado);
-            return true;
-          }
-        }
-        return false;
-      }));
+  login(credentials: Credentials) {
+    return this.http.post<RequestResult<UserAdministrator>>(this.urlServices + 'user-admin/login', credentials).pipe(take(1));
   }
 
-  private saveSession(us: Usuario) {
-    localStorage.setItem('session', JSON.stringify(us));
-  }
+  // private saveSession(us: UserAdministrator) {
+  //   localStorage.setItem('session', JSON.stringify(us));
+  // }
 
 }
