@@ -6,7 +6,6 @@ import { MaterialModule } from '../../shared';
 import { PacientesService } from './servicios/pacientes.service';
 import { RegistroPacientesComponent } from './registro-pacientes/registro-pacientes.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ListadoPacientesComponent } from './listado-pacientes/listado-pacientes.component';
 import { ClinicHistoryComponent } from './clinic-history/clinic-history.component';
 
 const routes: Routes = [
@@ -25,7 +24,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [PacientesComponent, RegistroPacientesComponent, ListadoPacientesComponent, ClinicHistoryComponent],
+  declarations: [PacientesComponent, RegistroPacientesComponent, ClinicHistoryComponent],
   exports: [RouterModule],
   providers: [PacientesService],
   entryComponents: [ClinicHistoryComponent]

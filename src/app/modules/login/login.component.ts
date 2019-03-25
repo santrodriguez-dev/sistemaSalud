@@ -55,7 +55,8 @@ export class LoginComponent {
         this.saveSession(reqRes.result);
         this.router.navigate(['']);
       }, err => {
-        this.openSnackBar(err, '');
+        this.cargando = false;
+        this.openSnackBar(err.mmessage, '');
         console.log(err);
       });
   }
