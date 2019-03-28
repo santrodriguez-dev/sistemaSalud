@@ -34,7 +34,7 @@ export class ManageMedicalEmergencyDialogComponent implements OnInit {
     this.medicalEmergencyService.save(this.medicalEmergency).subscribe(res => {
       if (res) {
         this.openSnackBar('La emergencia ha sido atendida satisfactoriamente', '');
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       }
     });
   }

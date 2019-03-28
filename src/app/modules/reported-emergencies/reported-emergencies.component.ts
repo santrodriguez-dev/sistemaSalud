@@ -106,6 +106,9 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getAll();
+      }
     });
   }
 

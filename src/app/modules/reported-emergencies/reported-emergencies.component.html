@@ -21,28 +21,28 @@
       </ng-container> -->
       <ng-container matColumnDef="paciente_id">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre paciente </mat-header-cell>>
-        <mat-cell *matCellDef="let element"> {{element.patient.name}} </mat-cell>
+        <mat-cell *matCellDef="let element" (click)="filaSeleccionada(element)"> {{element.patient.name}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="descripcion">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </mat-header-cell>>
-        <mat-cell *matCellDef="let element"> {{element.patient_description}} </mat-cell>
+        <mat-cell *matCellDef="let element" (click)="filaSeleccionada(element)"> {{element.patient_description}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="state">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>>
         <mat-cell *matCellDef="let element">
           <!-- {{getStateMedicalEm(element.state)}} -->
           <button mat-raised-button *ngIf="element.state !=='Asignado'" (click)=" openManageMedicalE(element)"
-            color="primary">Sin Asignar</button>
+            color="warn">Sin Asignar</button>
           <button mat-raised-button *ngIf="element.state ==='Asignado'" disabled>Asignado</button>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="createdAt">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha y hora </mat-header-cell>>
-        <mat-cell *matCellDef="let element"> {{element.createdAt | date: 'dd/MM/yyyy hh:mm a'}} </mat-cell>
+        <mat-cell *matCellDef="let element" (click)="filaSeleccionada(element)"> {{element.createdAt | date: 'dd/MM/yyyy hh:mm a'}} </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="filaSeleccionada(row)"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
     </mat-table>
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
