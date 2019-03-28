@@ -1,4 +1,5 @@
 import { Patient } from './patient';
+import { MedicalCenter } from './medical-center';
 
 export class MedicalEmergency {
     id: number;
@@ -14,6 +15,7 @@ export class MedicalEmergency {
     coordLat: number;
     coordLong: number;
     patient?: Patient;
+    medicalCenter?: MedicalCenter;
     createdAt?: Date;
     updatedAt?: Date;
 }

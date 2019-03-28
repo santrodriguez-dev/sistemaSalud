@@ -1,0 +1,29 @@
+.title {
+  text-align: center;
+}
+
+.content-list-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-gap: 15px;
+  margin-bottom: 1em;
+
+  .active {
+    background: #cdcdcd;
+  }
+
+  .medical-card {
+    mat-card-header {
+      /deep/.mat-card-header-text {
+        width: 100%;
+      }
+
+      mat-card-title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+}

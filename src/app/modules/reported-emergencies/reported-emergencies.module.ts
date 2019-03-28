@@ -7,6 +7,8 @@ import { BottomSheetSolicitudComponent } from './bottom-sheets/bottom-sheet-soli
 import { AgmCoreModule } from '@agm/core';
 import { SolicitudesService } from './services/solicitudes.service';
 import { ReportedEmergenciesComponent } from './reported-emergencies.component';
+import { ManageMedicalEmergencyDialogComponent } from './manage-medical-emergency-dialog/manage-medical-emergency-dialog.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: ReportedEmergenciesComponent },
@@ -16,17 +18,19 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule.forChild(routes),
     MaterialModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDt4NvJtVZeAFY7Oc_JwbIkcoF7cOswOPk'
     })
   ],
-  entryComponents: [BottomSheetSolicitudComponent],
+  entryComponents: [BottomSheetSolicitudComponent, ManageMedicalEmergencyDialogComponent],
   declarations: [
     ReportedEmergenciesComponent,
     InfoSolicitudComponent,
-    BottomSheetSolicitudComponent
+    BottomSheetSolicitudComponent,
+    ManageMedicalEmergencyDialogComponent
   ],
   exports: [RouterModule],
   providers: [SolicitudesService]

@@ -29,6 +29,13 @@ export class SolicitudesService {
     }));
   }
 
+  save(medicalEmergency: MedicalEmergency) {
+    return this.http.post<RequestResult<MedicalEmergency>>(this.urlServices + 'medical-emergency/save', medicalEmergency)
+      .pipe(take(1), map(reqRes => {
+        return this.resolveResponse(reqRes);
+      }));
+  }
+
   getSolicitud(idSolicitud: number) {
     return this.http.get<RequestResult<any>>(this.urlServices + 'solicitudes/get/' + idSolicitud).pipe(take(1));
   }

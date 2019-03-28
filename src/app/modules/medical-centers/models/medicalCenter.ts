@@ -10,4 +10,5 @@ export class MedicalCenter {
   coordLat: string;
   coordLong: string;
   image?: string;
+  selected?: boolean;
 }

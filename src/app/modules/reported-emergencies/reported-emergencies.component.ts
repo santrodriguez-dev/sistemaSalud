@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator, MatBottomSheet } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatBottomSheet, MatDialog } from '@angular/material';
 import { SolicitudesService } from './services/solicitudes.service';
 import { UtilsService } from '../../shared';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MedicalEmergency } from 'src/app/shared/models';
+import { ManageMedicalEmergencyDialogComponent } from './manage-medical-emergency-dialog/manage-medical-emergency-dialog.component';
+import { MedicalCentersService } from '../medical-centers/services/medical-centers.service';
+import { MedicalCenter } from '../medical-centers/models/medicalCenter';
 
 @Component({
   selector: 'app-reported-emergencies',
@@ -16,17 +19,21 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['paciente_id', 'descripcion', 'state', 'createdAt'];
   dataSource: MatTableDataSource<MedicalEmergency>;
   emergencies: MedicalEmergency[];
+  medicalCenters: MedicalCenter[];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private subsObtSoli: Subscription;
 
   constructor(
-    private solicitudesService: SolicitudesService,
+    private medicalEmergencyService: SolicitudesService,
+    private medicalCentersService: MedicalCentersService,
     private utilServ: UtilsService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private bottomSheet: MatBottomSheet) {
+    private bottomSheet: MatBottomSheet,
+    public dialog: MatDialog) {
     this.getAll();
+    this.getAllMedicalCenters();
   }
 
   ngOnInit() {
@@ -34,10 +41,16 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
   }
 
   getAll() {
-    this.solicitudesService.getAll().subscribe(emergencies => {
+    this.medicalEmergencyService.getAll().subscribe(emergencies => {
       this.dataSource = new MatTableDataSource(emergencies);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+    });
+  }
+
+  getAllMedicalCenters() {
+    this.medicalCentersService.getAll().subscribe(list => {
+      this.medicalCenters = list;
     });
   }
 
@@ -82,6 +95,18 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
       default:
         return 'pendiente';
     }
+  }
+
+  openManageMedicalE(medicalEmergency: MedicalEmergency) {
+    const dialogRef = this.dialog.open(ManageMedicalEmergencyDialogComponent, {
+      width: '90vw',
+      height: 'auto',
+      maxHeight: '90vh',
+      data: { medicalCenters: this.medicalCenters, medicalEmergency: medicalEmergency }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 }

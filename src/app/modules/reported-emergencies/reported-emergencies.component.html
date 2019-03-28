@@ -29,7 +29,12 @@
       </ng-container>
       <ng-container matColumnDef="state">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>>
-        <mat-cell *matCellDef="let element"> {{getStateMedicalEm(element.state)}} </mat-cell>
+        <mat-cell *matCellDef="let element">
+          <!-- {{getStateMedicalEm(element.state)}} -->
+          <button mat-raised-button *ngIf="element.state !=='Asignado'" (click)=" openManageMedicalE(element)"
+            color="primary">Sin Asignar</button>
+          <button mat-raised-button *ngIf="element.state ==='Asignado'" disabled>Asignado</button>
+        </mat-cell>
       </ng-container>
       <ng-container matColumnDef="createdAt">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha y hora </mat-header-cell>>

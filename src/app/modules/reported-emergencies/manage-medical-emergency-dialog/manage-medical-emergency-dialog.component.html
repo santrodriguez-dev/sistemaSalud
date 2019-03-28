@@ -1,0 +1,37 @@
+<h2 class="title">Asignar centros de atención medica</h2>
+<div class="content-medical-center">
+  <!-- <mat-form-field>
+      <input matInput placeholder="Buscar...">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field> -->
+  <section class="content-list-cards">
+    <mat-card matRipple *ngFor="let medicalCenter of medicalCenters" class="medical-card"
+      (click)="selectMedicalCenter(medicalCenter)" [ngClass]="{'active': medicalCenter.selected}">
+      <mat-card-header>
+        <!-- <div mat-card-avatar class="example-header-image"></div> -->
+        <mat-card-title>{{medicalCenter.name}}</mat-card-title>
+        <mat-card-subtitle>{{medicalCenter.address}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="medicalCenter.photo || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
+        alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <p>
+          {{medicalCenter.description}}
+        </p>
+      </mat-card-content>
+      <!-- <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>Modificar</button>
+        </mat-card-actions> -->
+    </mat-card>
+  </section>
+
+  <div>
+    <mat-form-field>
+      <input matInput [(ngModel)]="doctorDescription" placeholder="Favorite food" value="Sushi">
+    </mat-form-field>
+  </div>
+
+</div>
+
+<button mat-raised-button (click)="saveMedicalEmergency()" color="primary">Guardar cambios</button>
