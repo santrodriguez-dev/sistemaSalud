@@ -29,6 +29,10 @@ export class ManageMedicalEmergencyDialogComponent implements OnInit {
   }
 
   saveMedicalEmergency() {
+    if (!this.medicalEmergency.medical_center_id) {
+      this.openSnackBar('Por favor selecciona un centro de atención', '');
+      return;
+    }
     this.medicalEmergency.state = 'Asignado';
     this.medicalEmergency.doctor_description = this.doctorDescription;
     this.medicalEmergencyService.save(this.medicalEmergency).subscribe(res => {

@@ -28,10 +28,11 @@
 
   <div class="description">
     <mat-form-field>
-      <textarea  matInput [(ngModel)]="doctorDescription" placeholder="Descripción"></textarea>
+      <textarea matInput [(ngModel)]="doctorDescription" placeholder="Descripción"></textarea>
     </mat-form-field>
   </div>
 
 </div>
 
-<button mat-raised-button (click)="saveMedicalEmergency()" color="primary">Guardar cambios</button>
+<button mat-raised-button (click)="saveMedicalEmergency()" [disabled]="!this.medicalEmergency.medical_center_id"
+  color="primary">Guardar cambios</button>
