@@ -11,9 +11,9 @@ import { ClinicHistoryComponent } from './clinic-history/clinic-history.componen
   templateUrl: './pacientes.component.html',
   styleUrls: ['./pacientes.component.css']
 })
-export class PacientesComponent {
+export class PacientesComponent implements OnInit {
 
-  patients: Patient[];
+  dataSource: MatTableDataSource<Patient>;
   displayedColumns: string[] = [
     'nombre',
     'documento',
@@ -34,16 +34,24 @@ export class PacientesComponent {
     this.getAll();
   }
 
+  ngOnInit() {
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
+  }
+
   getAll() {
     this.patientService.getAll().subscribe(patients => {
-      this.patients = patients;
+      this.dataSource = new MatTableDataSource(patients);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
 
   applyFilter(filterValue: string) {
-    this.patientService.lsPacientes.filter = filterValue.trim().toLowerCase();
-    if (this.patientService.lsPacientes.paginator) {
-      this.patientService.lsPacientes.paginator.firstPage();
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 

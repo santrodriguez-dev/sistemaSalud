@@ -13,8 +13,8 @@ import { MedicalEmergency } from 'src/app/shared/models';
 })
 export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['id', 'paciente_id', 'descripcion', 'state', 'createdAt'];
-  lsSolicitudes: MatTableDataSource<MedicalEmergency>;
+  displayedColumns: string[] = ['paciente_id', 'descripcion', 'state', 'createdAt'];
+  dataSource: MatTableDataSource<MedicalEmergency>;
   emergencies: MedicalEmergency[];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,17 +30,14 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (!this.lsSolicitudes) {
-      // this.cargarSolicitudes();
-    }
-    // this.subsObtSoli = this.utilServ.obNuevaSolicitud.subscribe(socket => {
-    //   this.cargarSolicitudes();
-    // });
+
   }
 
   getAll() {
     this.solicitudesService.getAll().subscribe(emergencies => {
-      this.emergencies = emergencies;
+      this.dataSource = new MatTableDataSource(emergencies);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
 
@@ -67,15 +64,24 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
   // }
 
   applyFilter(filterValue: string) {
-    this.lsSolicitudes.filter = filterValue.trim().toLowerCase();
-    if (this.lsSolicitudes.paginator) {
-      this.lsSolicitudes.paginator.firstPage();
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 
   filaSeleccionada(row: MedicalEmergency) {
     this.router.navigate([row.id], { relativeTo: this.activatedRoute });
     // this.bottomSheet.open(BottomSheetSolicitudComponent, { data: row });
+  }
+
+  getStateMedicalEm(state: string) {
+    switch (state) {
+      case '1':
+        return 'Atendido';
+      default:
+        return 'pendiente';
+    }
   }
 
 }

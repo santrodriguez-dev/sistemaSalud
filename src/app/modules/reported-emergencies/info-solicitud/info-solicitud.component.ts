@@ -10,7 +10,7 @@ import { MedicalEmergency } from 'src/app/shared/models';
 @Component({
   selector: 'app-info-solicitud',
   templateUrl: './info-solicitud.component.html',
-  styleUrls: ['./info-solicitud.component.css']
+  styleUrls: ['./info-solicitud.component.scss']
 })
 
 export class InfoSolicitudComponent implements OnInit {
@@ -67,7 +67,7 @@ export class InfoSolicitudComponent implements OnInit {
   // }
 
   cargarInfo() {
-    // this.cargarSeguimiento();
+    this.getMedicalEmergency();
     // this.cargarSolicitud();
   }
 
@@ -89,6 +89,10 @@ export class InfoSolicitudComponent implements OnInit {
   }
 
   trazarRutaPaciente(): void { }
+
+  getAge(birthdate: Date) {
+    return new Date().getFullYear() - new Date(birthdate).getFullYear()
+  }
 
   filaSeleccionada(fila: SeguimSolicitud) { }
 

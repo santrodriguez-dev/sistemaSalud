@@ -1,4 +1,10 @@
 .content {
+  background-image: url("../../../assets/images/ambulance.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.content {
   position: absolute;
   top: 0;
   right: 0;
@@ -8,5 +14,7 @@
 
 .content .card {
   position: absolute;
-  width: 500px;
+  width: 400px;
+  max-width: 100vw;
+  opacity: 0.9;
 }

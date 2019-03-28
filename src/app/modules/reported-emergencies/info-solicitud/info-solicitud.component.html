@@ -2,7 +2,7 @@
   <button mat-icon-button (click)="volverAtras()" class="mr-2">
     <mat-icon matTooltip="Volver" matTooltipPosition="above">arrow_back</mat-icon>
   </button>
-  <span>{{medicalEmergency.patient_description}}</span>
+  <span>Reportado por {{medicalEmergency?.patient.name}}</span>
   <span class="flex-spacer"></span>
   <!-- <button mat-icon-button class="mr-2" form="ngForm">
     <mat-icon matTooltip="Guardar cambios" matTooltipPosition="above">check</mat-icon>
@@ -16,34 +16,63 @@
   <mat-tab class="p-4 tabs">
     <ng-template mat-tab-label>
       <mat-icon class="example-tab-icon" class="mr-2">accessible_forward</mat-icon>
-      General
+      Información general
     </ng-template>
     <mat-card *ngIf="medicalEmergency" class="m-4">
-      <mat-list>
+
+      <div class="item">
+        <div class="text">Nombre de paciente:</div>
+        <div class="description"><a [routerLink]="['/pacientes', medicalEmergency.patient.id]">{{medicalEmergency.patient.name}}</a></div>
+      </div>
+      <hr>
+      <div class="item">
+        <div class="text">Edad:</div>
+        <div class="description">{{getAge(medicalEmergency.patient.birthdate)}} años</div>
+      </div>
+      <hr>
+      <div class="item">
+        <div class="text">Hospital asignado:</div>
+        <div class="description">{{medicalEmergency.medical_center_id?'Hospital Colsubsidio':'Sin asignar'}}</div>
+      </div>
+      <hr>
+      <div class="item">
+        <div class="text">Descripcion paciente:</div>
+        <div class="description">{{medicalEmergency.patient_description}}</div>
+      </div>
+      <hr>
+      <div class="item">
+        <div class="text">Descripcion general:</div>
+        <div class="description">{{medicalEmergency.doctor_description}}</div>
+      </div>
+      <hr>
+      <div class="item">
+        <div class="text">Fecha:</div>
+        <div class="description">{{medicalEmergency.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</div>
+      </div>
+      <hr>
+
+
+      <!-- <mat-list>
         <mat-list-item>
           <mat-icon mat-list-icon>accessibility</mat-icon>
           <h4 mat-line>{{medicalEmergency.patient.name}}</h4>
-          <!-- <p mat-line> {{folder.updated | date}} </p> -->
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
           <mat-icon mat-list-icon>assessment</mat-icon>
           <h4 mat-line>{{medicalEmergency.priority}}</h4>
-          <!-- <p mat-line> {{folder.updated | date}} </p> -->
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
           <mat-icon mat-list-icon>description</mat-icon>
           <h4 mat-line>{{medicalEmergency.patient_description}}</h4>
-          <!-- <p mat-line> {{folder.updated | date}} </p> -->
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>
           <mat-icon mat-list-icon>update</mat-icon>
           <h4 mat-line>{{medicalEmergency.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</h4>
-          <!-- <p mat-line> {{folder.updated | date}} </p> -->
         </mat-list-item>
-      </mat-list>
+      </mat-list> -->
     </mat-card>
   </mat-tab>
   <!-- <mat-tab>
@@ -95,9 +124,10 @@
       </mat-card-header>
       <mat-card-content>
 
-        <agm-map [latitude]="medicalEmergency.coordLat" [longitude]="medicalEmergency.coordLong" [zoom]="15" (mapReady)="mapReady($event)"
-          class="mb-2">
-          <agm-marker [latitude]="medicalEmergency.coordLat" [longitude]="medicalEmergency.coordLong" [label]="medicalEmergency.patient?.name"></agm-marker>
+        <agm-map [latitude]="medicalEmergency.coordLat" [longitude]="medicalEmergency.coordLong" [zoom]="15"
+          (mapReady)="mapReady($event)" class="mb-2">
+          <agm-marker [latitude]="medicalEmergency.coordLat" [longitude]="medicalEmergency.coordLong"
+            [label]="medicalEmergency.patient?.name"></agm-marker>
         </agm-map>
 
       </mat-card-content>
