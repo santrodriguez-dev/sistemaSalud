@@ -50,3 +50,8 @@ mat-nav-list {
 mat-sidenav {
   width: 210px
 }
+
+.medical-emergency {
+  background: red !important;
+  color: white !important;
+}

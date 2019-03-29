@@ -32,3 +32,9 @@ button:focus {
 ::before {
   box-sizing: initial;
 } */
+
+.medical-emergency-reported {
+  background: #e60f0f !important;
+  color: white !important;
+  width: 100%;
+}

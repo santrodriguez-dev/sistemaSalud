@@ -9,6 +9,7 @@ import { UtilsService } from './shared/services/utils.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RutasService } from './shared';
 import { MatNativeDateModule } from '@angular/material';
+import { SocketService } from './shared/services/socket.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { MatNativeDateModule } from '@angular/material';
     HttpClientModule,
     MatNativeDateModule
   ],
-  providers: [AuthGuard, UtilsService, RutasService],
+  providers: [AuthGuard, UtilsService, RutasService, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

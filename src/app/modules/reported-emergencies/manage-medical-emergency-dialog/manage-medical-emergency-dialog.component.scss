@@ -13,6 +13,7 @@
   }
 
   .medical-card {
+    cursor: pointer;
     mat-card-header {
       /deep/.mat-card-header-text {
         width: 100%;

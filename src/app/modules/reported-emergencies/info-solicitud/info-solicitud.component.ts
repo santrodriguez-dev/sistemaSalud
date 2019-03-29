@@ -3,9 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UtilsService } from '../../../shared';
 import { GoogleMapsAPIWrapper, LatLngLiteral } from '@agm/core';
 import { SeguimSolicitud } from '../interfaces/Seguim_Solicitud';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { SolicitudesService } from '../services/solicitudes.service';
 import { MedicalEmergency } from 'src/app/shared/models';
+import { MedicalCenter } from '../../medical-centers/models/medicalCenter';
+import { ManageMedicalEmergencyDialogComponent } from '../manage-medical-emergency-dialog/manage-medical-emergency-dialog.component';
+import { MedicalCentersService } from '../../medical-centers/services/medical-centers.service';
 
 @Component({
   selector: 'app-info-solicitud',
@@ -16,6 +19,8 @@ import { MedicalEmergency } from 'src/app/shared/models';
 export class InfoSolicitudComponent implements OnInit {
 
   public mapa: GoogleMapsAPIWrapper;
+  medicalCenters: MedicalCenter[];
+
 
   id: number;
   medicalEmergency: MedicalEmergency;
@@ -25,9 +30,11 @@ export class InfoSolicitudComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private route: ActivatedRoute,
+    private medicalCentersService: MedicalCentersService,
     private medicalEmeService: SolicitudesService,
     private router: Router,
-    private utilServ: UtilsService) { }
+    private utilServ: UtilsService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -39,32 +46,17 @@ export class InfoSolicitudComponent implements OnInit {
   getMedicalEmergency() {
     this.medicalEmeService.get(this.id).subscribe(medicalEmergency => {
       this.medicalEmergency = medicalEmergency;
+      if (!medicalEmergency.medicalCenter) {
+        this.getAllMedicalCenters();
+      }
     });
   }
 
-  // cargarSeguimiento() {
-  //   this.utilServ.mostrarCargando(true);
-  //   this._solicitudesService.obtenerSeguimientoSolicitud(this.id).subscribe(segui => {
-  //     this.seguimiento = new MatTableDataSource(segui);
-  //     this.seguimiento.paginator = this.paginator;
-  //     this.seguimiento.sort = this.sort;
-  //     this.utilServ.mostrarCargando(false);
-  //   }, err => {
-  //     console.log(err);
-  //     this.utilServ.mostrarCargando(false);
-  //   });
-  // }
-
-  // cargarSolicitud() {
-  //   this.utilServ.mostrarCargando(true);
-  //   this._solicitudesService.getSolicitud(this.id).subscribe(resp => {
-  //     this.solicitud = resp;
-  //     this.utilServ.mostrarCargando(false);
-  //   }, err => {
-  //     console.log(err);
-  //     this.utilServ.mostrarCargando(false);
-  //   });
-  // }
+  getAllMedicalCenters() {
+    this.medicalCentersService.getAll().subscribe(list => {
+      this.medicalCenters = list;
+    });
+  }
 
   cargarInfo() {
     this.getMedicalEmergency();
@@ -101,6 +93,24 @@ export class InfoSolicitudComponent implements OnInit {
     if (this.seguimiento.paginator) {
       this.seguimiento.paginator.firstPage();
     }
+  }
+
+  openManageMedicalE() {
+    const dialogRef = this.dialog.open(ManageMedicalEmergencyDialogComponent, {
+      width: '90vw',
+      height: 'auto',
+      maxHeight: '90vh',
+      data: {
+        medicalCenters: this.medicalCenters,
+        medicalEmergency: Object.assign({}, this.medicalEmergency)
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getMedicalEmergency();
+      }
+    });
   }
 
 }

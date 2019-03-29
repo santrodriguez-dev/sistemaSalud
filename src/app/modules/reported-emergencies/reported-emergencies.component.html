@@ -25,7 +25,8 @@
       </ng-container>
       <ng-container matColumnDef="descripcion">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </mat-header-cell>>
-        <mat-cell *matCellDef="let element" (click)="filaSeleccionada(element)"> {{element.patient_description}} </mat-cell>
+        <mat-cell *matCellDef="let element" (click)="filaSeleccionada(element)"> {{element.patient_description}}
+        </mat-cell>
       </ng-container>
       <ng-container matColumnDef="state">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>>
@@ -37,8 +38,9 @@
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="createdAt">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha y hora </mat-header-cell>>
-        <mat-cell *matCellDef="let element" (click)="filaSeleccionada(element)"> {{element.createdAt | date: 'dd/MM/yyyy hh:mm a'}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha y hora de creación </mat-header-cell>
+        <mat-cell *matCellDef="let element" (click)="filaSeleccionada(element)">
+          {{element.createdAt | date: 'dd/MM/yyyy hh:mm a'}} </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

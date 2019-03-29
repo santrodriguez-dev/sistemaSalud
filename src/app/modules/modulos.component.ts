@@ -5,7 +5,20 @@ import { Router } from '@angular/router';
 import { UtilsService } from '../shared';
 import { Subscription } from 'rxjs';
 import { UserAdministrator } from '../shared/models';
-import * as io from 'socket.io-client';
+import * as socketIo from 'socket.io-client';
+import { SocketService } from '../shared/services/socket.service';
+
+export enum Action {
+  JOINED,
+  LEFT,
+  RENAME
+}
+
+// Socket.io events
+export enum Event {
+  CONNECT = 'connect',
+  DISCONNECT = 'disconnect'
+}
 
 @Component({
   selector: 'app-modulos',
@@ -26,16 +39,16 @@ export class ModulosComponent implements OnInit, OnDestroy {
     { url: 'emergencias', name: 'Emergecias Reportadas', icon: 'alarm' },
     { url: 'centros-salud', name: 'Centros de Salud', icon: 'local_hospital' }
   ];
-
-  private socket;
-
+  private emergencySocket$: Subscription;
   cargando = false;
+  ioConnection: any;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private router: Router,
     private utilService: UtilsService,
+    private socketService: SocketService,
     private snackBar: MatSnackBar) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -44,27 +57,43 @@ export class ModulosComponent implements OnInit, OnDestroy {
     this.utilService.cambioCargando.subscribe(cargando => {
       this.cargando = cargando;
     });
-    this.initSocket();
+    this.initIoConnection();
   }
 
   ngOnInit(): void {
-    // this.subsObtSoli = this.utilServ.obNuevaSolicitud.subscribe(socket => {
-    //   this.openSnackBar(`Se ha creado una nueva solicitud por ${socket.paciente_id}`, 'Exitoso');
-    //   this.lsNotificaciones.push(socket);
-    // });
-  }
-
-  initSocket() {
-    this.socket = io.connect('http://localhost:5000/');
-    // // this.obNuevaSolicitud = new Observable(observer => {
-    this.socket.on('nuevaSolicitud', (data) => {
-      console.log(data);
-      // observer.next(data);
+    this.emergencySocket$ = this.socketService.onMedicalEmergencyCreated().subscribe(medicalEmergency => {
+      const snackbar = this.snackBar.open(`Se ha reportado una nueva emergencia: "${medicalEmergency.patient_description}"`, 'Reporte de emergencia', {
+        duration: 500000,
+        panelClass: ['medical-emergency-reported'],
+      });
+      snackbar.onAction().subscribe(act => {
+        this.router.navigate(['/emergencias', medicalEmergency.id]);
+      })
     });
   }
 
+  private initIoConnection(): void {
+    this.socketService.initSocket();
+
+    // this.ioConnection = this.socketService.onMessage()
+    //   .subscribe((message: any) => {
+    //     console.log(message);
+    //     this.openSnackBar('Se ha reportado una nueva emergencia', '');
+    //   });
+
+    this.socketService.onEvent(Event.CONNECT)
+      .subscribe(() => {
+        console.log('connected');
+      });
+
+    this.socketService.onEvent(Event.DISCONNECT)
+      .subscribe(() => {
+        console.log('disconnected');
+      });
+  }
+
   ngOnDestroy(): void {
-    // this.subsObtSoli.unsubscribe();
+    this.emergencySocket$.unsubscribe();
   }
 
   sideNavToggle() {
@@ -79,6 +108,7 @@ export class ModulosComponent implements OnInit, OnDestroy {
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 5000,
+
     });
   }
 

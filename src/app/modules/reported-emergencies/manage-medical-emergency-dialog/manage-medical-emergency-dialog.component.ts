@@ -21,6 +21,7 @@ export class ManageMedicalEmergencyDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { medicalEmergency: MedicalEmergency, medicalCenters: MedicalCenter[] },
     private medicalEmergencyService: SolicitudesService,
     public snackBar: MatSnackBar) {
+      
     this.medicalEmergency = data.medicalEmergency;
     this.medicalCenters = data.medicalCenters;
   }

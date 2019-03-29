@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator, MatBottomSheet, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatBottomSheet, MatDialog, MatSnackBar } from '@angular/material';
 import { SolicitudesService } from './services/solicitudes.service';
 import { UtilsService } from '../../shared';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MedicalEmergency } from 'src/app/shared/models';
 import { ManageMedicalEmergencyDialogComponent } from './manage-medical-emergency-dialog/manage-medical-emergency-dialog.component';
 import { MedicalCentersService } from '../medical-centers/services/medical-centers.service';
 import { MedicalCenter } from '../medical-centers/models/medicalCenter';
+import { SocketService } from 'src/app/shared/services/socket.service';
 
 @Component({
   selector: 'app-reported-emergencies',
@@ -23,6 +24,7 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private subsObtSoli: Subscription;
+  private emergencySocket$: Subscription;
 
   constructor(
     private medicalEmergencyService: SolicitudesService,
@@ -31,13 +33,18 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private bottomSheet: MatBottomSheet,
+    private snackBar: MatSnackBar,
+    private socketService: SocketService,
     public dialog: MatDialog) {
     this.getAll();
     this.getAllMedicalCenters();
   }
 
   ngOnInit() {
-
+    this.emergencySocket$ = this.socketService.onMedicalEmergencyCreated()
+      .subscribe((message: any) => {
+        this.getAll();
+      });
   }
 
   getAll() {
@@ -55,7 +62,7 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.subsObtSoli.unsubscribe();
+    this.emergencySocket$.unsubscribe();
   }
 
   // EMITTER
@@ -102,13 +109,19 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
       width: '90vw',
       height: 'auto',
       maxHeight: '90vh',
-      data: { medicalCenters: this.medicalCenters, medicalEmergency: medicalEmergency }
+      data: { medicalCenters: this.medicalCenters, medicalEmergency: Object.assign({}, medicalEmergency) }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.getAll();
       }
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000,
     });
   }
 

@@ -1,4 +1,4 @@
 {
-  "urlServices": "https://localhost:5000",
-  "urlSocket": "https://localhost:5000"
+  "urlServices": "https://accesibilidad-back-end.herokuapp.com/",
+  "urlSocket": "https://accesibilidad-back-end.herokuapp.com/"
 }
