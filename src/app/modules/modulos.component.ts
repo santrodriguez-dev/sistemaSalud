@@ -62,8 +62,8 @@ export class ModulosComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.emergencySocket$ = this.socketService.onMedicalEmergencyCreated().subscribe(medicalEmergency => {
-      const snackbar = this.snackBar.open(`Se ha reportado una nueva emergencia: "${medicalEmergency.patient_description}"`, 'Reporte de emergencia', {
-        duration: 500000,
+      const snackbar = this.snackBar.open(`Se ha reportado una nueva emergencia: "${medicalEmergency.patient_description}"`, '🚑 Reporte de emergencia', {
+        duration: 10000,
         panelClass: ['medical-emergency-reported'],
       });
       snackbar.onAction().subscribe(act => {
@@ -74,12 +74,6 @@ export class ModulosComponent implements OnInit, OnDestroy {
 
   private initIoConnection(): void {
     this.socketService.initSocket();
-
-    // this.ioConnection = this.socketService.onMessage()
-    //   .subscribe((message: any) => {
-    //     console.log(message);
-    //     this.openSnackBar('Se ha reportado una nueva emergencia', '');
-    //   });
 
     this.socketService.onEvent(Event.CONNECT)
       .subscribe(() => {

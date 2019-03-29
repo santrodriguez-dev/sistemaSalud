@@ -36,5 +36,9 @@ button:focus {
 .medical-emergency-reported {
   background: #e60f0f !important;
   color: white !important;
-  width: 100%;
+  width: 100% !important;
+}
+
+.medical-emergency-reported .mat-button-wrapper {
+  font-size: 1.2em;
 }
