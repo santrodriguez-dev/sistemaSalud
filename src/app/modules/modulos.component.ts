@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UtilsService } from '../shared';
 import { Subscription } from 'rxjs';
 import { UserAdministrator } from '../shared/models';
+import * as io from 'socket.io-client';
 
 @Component({
   selector: 'app-modulos',
@@ -26,6 +27,8 @@ export class ModulosComponent implements OnInit, OnDestroy {
     { url: 'centros-salud', name: 'Centros de Salud', icon: 'local_hospital' }
   ];
 
+  private socket;
+
   cargando = false;
 
   constructor(
@@ -41,6 +44,7 @@ export class ModulosComponent implements OnInit, OnDestroy {
     this.utilService.cambioCargando.subscribe(cargando => {
       this.cargando = cargando;
     });
+    this.initSocket();
   }
 
   ngOnInit(): void {
@@ -48,6 +52,15 @@ export class ModulosComponent implements OnInit, OnDestroy {
     //   this.openSnackBar(`Se ha creado una nueva solicitud por ${socket.paciente_id}`, 'Exitoso');
     //   this.lsNotificaciones.push(socket);
     // });
+  }
+
+  initSocket() {
+    this.socket = io.connect('http://localhost:5000/');
+    // // this.obNuevaSolicitud = new Observable(observer => {
+    this.socket.on('nuevaSolicitud', (data) => {
+      console.log(data);
+      // observer.next(data);
+    });
   }
 
   ngOnDestroy(): void {
