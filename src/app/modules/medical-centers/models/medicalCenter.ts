@@ -7,8 +7,9 @@ export class MedicalCenter {
   phone: string;
   photo: string;
   city: string;
-  coordLat: string;
-  coordLong: string;
+  coordLat: number;
+  coordLong: number;
   image?: string;
   selected?: boolean;
+  near?: boolean;
 }

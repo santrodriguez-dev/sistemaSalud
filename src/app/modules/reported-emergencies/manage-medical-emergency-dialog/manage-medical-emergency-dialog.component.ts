@@ -21,9 +21,10 @@ export class ManageMedicalEmergencyDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { medicalEmergency: MedicalEmergency, medicalCenters: MedicalCenter[] },
     private medicalEmergencyService: SolicitudesService,
     public snackBar: MatSnackBar) {
-      
+
     this.medicalEmergency = data.medicalEmergency;
     this.medicalCenters = data.medicalCenters;
+    this.calculateDistances();
   }
 
   ngOnInit() {
@@ -61,6 +62,40 @@ export class ManageMedicalEmergencyDialogComponent implements OnInit {
     // }
     // this.medicalCenterSelected = medicalCenter.id;
     // medicalCenter.selected = !medicalCenter.selected;
+  }
+
+  calculateDistances() {
+    let medicalCenterNear: MedicalCenter;
+    let temp;
+    for (const medCenter of this.medicalCenters) {
+      if (!medCenter.coordLat && !medCenter.coordLong) {
+        continue;
+      }
+      const x1 = this.medicalEmergency.coordLat;
+      const y1 = this.medicalEmergency.coordLong;
+      const x2 = medCenter.coordLat;
+      const y2 = medCenter.coordLong;
+
+      const intern = Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)
+      const distance = Math.abs(Math.sqrt(intern));  // valor absoluto
+
+      if (!temp) {
+        temp = distance;
+        medicalCenterNear = medCenter;
+        continue;
+      }
+
+      if (distance < temp) {
+        temp = distance;
+        medicalCenterNear = medCenter;
+        continue;
+      }
+    }
+
+    if (medicalCenterNear) {
+      medicalCenterNear.near = true;
+      // medicalCenterNear.selected = true;
+    }
   }
 
 }
