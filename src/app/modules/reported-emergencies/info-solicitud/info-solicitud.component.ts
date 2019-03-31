@@ -5,10 +5,12 @@ import { GoogleMapsAPIWrapper, LatLngLiteral } from '@agm/core';
 import { SeguimSolicitud } from '../interfaces/Seguim_Solicitud';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { SolicitudesService } from '../services/solicitudes.service';
-import { MedicalEmergency } from 'src/app/shared/models';
+import { MedicalEmergency, ClinicHistory } from 'src/app/shared/models';
 import { MedicalCenter } from '../../medical-centers/models/medicalCenter';
 import { ManageMedicalEmergencyDialogComponent } from '../manage-medical-emergency-dialog/manage-medical-emergency-dialog.component';
 import { MedicalCentersService } from '../../medical-centers/services/medical-centers.service';
+import { ClinicHistoryComponent } from 'src/app/shared/components/clinic-history/clinic-history.component';
+import { ClinicHistoryService } from '../services/clinic-history.service';
 
 @Component({
   selector: 'app-info-solicitud',
@@ -24,6 +26,7 @@ export class InfoSolicitudComponent implements OnInit {
 
   id: number;
   medicalEmergency: MedicalEmergency;
+  clinicHistory: ClinicHistory[];
   displayedColumns: string[] = ['id', 'diagnostico', 'observacion', 'createdAt'];
   seguimiento: MatTableDataSource<SeguimSolicitud>;
   @ViewChild(MatSort) sort: MatSort;
@@ -32,6 +35,7 @@ export class InfoSolicitudComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private medicalCentersService: MedicalCentersService,
     private medicalEmeService: SolicitudesService,
+    private clinicHistoryService: ClinicHistoryService,
     private router: Router,
     private utilServ: UtilsService,
     public dialog: MatDialog) { }
@@ -93,6 +97,31 @@ export class InfoSolicitudComponent implements OnInit {
     if (this.seguimiento.paginator) {
       this.seguimiento.paginator.firstPage();
     }
+  }
+
+
+  getHistory(patient_id: number) {
+    if (!this.clinicHistory) {
+      this.clinicHistoryService.getByPatient(patient_id).subscribe(list => {
+        this.clinicHistory = list;
+        this.openModalHistory();
+      });
+      return;
+    }
+    this.openModalHistory();
+  }
+
+  openModalHistory() {
+    const dialogRef = this.dialog.open(ClinicHistoryComponent, {
+      width: '90vw',
+      height: 'auto',
+      maxHeight: '90vh',
+      data: this.clinicHistory
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
   }
 
   openManageMedicalE() {

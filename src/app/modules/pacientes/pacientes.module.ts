@@ -6,7 +6,7 @@ import { MaterialModule } from '../../shared';
 import { PacientesService } from './servicios/pacientes.service';
 import { RegistroPacientesComponent } from './registro-pacientes/registro-pacientes.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ClinicHistoryComponent } from './clinic-history/clinic-history.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   // { path: '', component: PacientesComponent },
@@ -21,13 +21,13 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     MaterialModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [PacientesComponent, RegistroPacientesComponent, ClinicHistoryComponent],
+  declarations: [PacientesComponent, RegistroPacientesComponent],
   exports: [RouterModule],
   providers: [PacientesService],
-  entryComponents: [ClinicHistoryComponent]
 })
 
 export class PacientesModule { }

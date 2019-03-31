@@ -9,6 +9,7 @@ import { SolicitudesService } from './services/solicitudes.service';
 import { ReportedEmergenciesComponent } from './reported-emergencies.component';
 import { ManageMedicalEmergencyDialogComponent } from './manage-medical-emergency-dialog/manage-medical-emergency-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   { path: '', component: ReportedEmergenciesComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    SharedModule,
     RouterModule.forChild(routes),
     MaterialModule,
     AgmCoreModule.forRoot({

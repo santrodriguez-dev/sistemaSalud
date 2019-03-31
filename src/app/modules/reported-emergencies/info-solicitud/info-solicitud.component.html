@@ -22,8 +22,10 @@
 
       <div class="item">
         <div class="text">Nombre de paciente:</div>
-        <div class="description"><a
-            [routerLink]="['/pacientes', medicalEmergency.patient.id]">{{medicalEmergency.patient.name}}</a></div>
+        <div class="description">
+          <a [routerLink]="['/pacientes', medicalEmergency.patient.id]">{{medicalEmergency.patient.name}}</a>
+          <span (click)="getHistory(medicalEmergency.patient_id)" class="btn-history"> (Ver historial)</span>
+        </div>
       </div>
       <hr>
       <div class="item">

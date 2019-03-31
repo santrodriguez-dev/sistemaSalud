@@ -4,7 +4,7 @@ import { PacientesService } from './servicios/pacientes.service';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Patient } from 'src/app/shared/models';
-import { ClinicHistoryComponent } from './clinic-history/clinic-history.component';
+import { ClinicHistoryComponent } from 'src/app/shared/components/clinic-history/clinic-history.component';
 
 @Component({
   selector: 'app-pacientes',
