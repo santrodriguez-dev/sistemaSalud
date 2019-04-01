@@ -1,3 +1,5 @@
 node_modules
 
 ng build --prod --base-href "https://santiago-git.github.io/sistemaSalud/"
+
+ghp dist/sistema-salud
