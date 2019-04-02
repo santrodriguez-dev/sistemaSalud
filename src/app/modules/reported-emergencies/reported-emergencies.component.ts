@@ -108,7 +108,7 @@ export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ManageMedicalEmergencyDialogComponent, {
       width: '90vw',
       height: 'auto',
-      maxHeight: '90vh',
+      maxHeight: '98vh',
       data: { medicalCenters: this.medicalCenters, medicalEmergency: Object.assign({}, medicalEmergency) }
     });
 
