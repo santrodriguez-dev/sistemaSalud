@@ -29,6 +29,13 @@ export class SolicitudesService {
     }));
   }
 
+  getByMedicalCenter(id: string) {
+    return this.http.get<RequestResult<MedicalEmergency[]>>(this.urlServices + 'medical-emergency/getByMedicalCenter/' + id)
+      .pipe(take(1), map(reqRes => {
+        return this.resolveResponse(reqRes);
+      }));
+  }
+
   save(medicalEmergency: MedicalEmergency) {
     return this.http.post<RequestResult<MedicalEmergency>>(this.urlServices + 'medical-emergency/save', medicalEmergency)
       .pipe(take(1), map(reqRes => {

@@ -34,7 +34,7 @@
       </div>
       <hr>
       <div class="item">
-        <div class="text">Hospital asignado:</div>
+        <div class="text">Centro de atención asignado:</div>
         <div *ngIf="medicalEmergency.medical_center_id" class="description">{{medicalEmergency.medicalCenter.name}}
           ({{medicalEmergency.updatedAt | date: 'dd/MM/yyyy hh:mm a'}})
         </div>
@@ -130,13 +130,9 @@
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon class="example-tab-icon" class="mr-2">map</mat-icon>
-      Ubicación de emergencia
+      Ubicación reporte de emergencia
     </ng-template>
     <mat-card *ngIf="medicalEmergency" class="m-4">
-      <mat-card-header>
-        <mat-card-title>Ubicación de accidente</mat-card-title>
-        <mat-card-subtitle>{{medicalEmergency.patient?.name}}</mat-card-subtitle>
-      </mat-card-header>
       <mat-card-content>
 
         <agm-map [latitude]="medicalEmergency.coordLat" [longitude]="medicalEmergency.coordLong" [zoom]="15"

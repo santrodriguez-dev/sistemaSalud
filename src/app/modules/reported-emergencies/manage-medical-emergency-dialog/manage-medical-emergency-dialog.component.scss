@@ -3,10 +3,16 @@
 }
 
 .content-list-cards {
+  max-height: 410px;
+  overflow: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 15px;
   margin-bottom: 1em;
+
+  .card-title {
+    white-space: normal !important;
+  }
 
   .active {
     background: #cdcdcd;
@@ -37,4 +43,12 @@
 
 .alert-near {
   color: red;
+}
+
+.content-image {
+  height: 150px;
+
+  img {
+    width: 100%;
+  }
 }

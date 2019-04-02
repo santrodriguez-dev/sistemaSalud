@@ -1,3 +1,4 @@
+import { MedicalEmergency } from "src/app/shared/models";
 
 export class MedicalCenter {
   id: number;
@@ -12,4 +13,5 @@ export class MedicalCenter {
   image?: string;
   selected?: boolean;
   near?: boolean;
+  medicalEmergencies?: MedicalEmergency[];
 }

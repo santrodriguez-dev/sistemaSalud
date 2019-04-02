@@ -22,6 +22,13 @@ export class MedicalCentersService {
     }));
   }
 
+  getWithEmergencies(id: string) {
+    return this.http.get<RequestResult<MedicalCenter>>(this.urlServices + 'medical-center/getWithEmergencies/' + id)
+      .pipe(take(1), map(reqRes => {
+        return this.resolveResponse(reqRes);
+      }));
+  }
+
   private resolveResponse<T>(reqRes: RequestResult<T>) {
     if (!reqRes.successful) {
       console.error('PatientService', reqRes.message);

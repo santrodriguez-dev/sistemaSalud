@@ -18,7 +18,7 @@
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field> -->
   <section class="content-list-cards">
-    <mat-card matRipple *ngFor="let medicalCenter of medicalCenters" class="medical-card">
+    <mat-card matRipple *ngFor="let medicalCenter of medicalCenters" (click)="selectMedicalCenter(medicalCenter.id)" class="medical-card">
       <mat-card-header>
         <!-- <div mat-card-avatar class="example-header-image"></div> -->
         <mat-card-title>{{medicalCenter.name}}</mat-card-title>

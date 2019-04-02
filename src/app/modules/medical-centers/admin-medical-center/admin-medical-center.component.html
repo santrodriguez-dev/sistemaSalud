@@ -2,18 +2,110 @@
   <a mat-icon-button [routerLink]="['../']" class="mr-2">
     <mat-icon>arrow_back</mat-icon>
   </a>
-  <!-- <span>{{obtenerTitulo()}}</span> -->
+  <span>{{medicalCenter?.name}}</span>
 
   <span class="flex-spacer"></span>
 
-  <!-- <button mat-icon-button (click)="resetForm(regForm)">
+  <button mat-icon-button (click)="loadInfo()">
     <mat-icon matTooltip="Recargar" matTooltipPosition="above">refresh</mat-icon>
-  </button> -->
-  <button mat-icon-button class="mr-2" form="ngForm">
-    <mat-icon matTooltip="Guardar cambios" matTooltipPosition="above">check</mat-icon>
   </button>
+  <!-- <button mat-icon-button class="mr-2" form="ngForm">
+    <mat-icon matTooltip="Guardar cambios" matTooltipPosition="above">check</mat-icon>
+  </button> -->
 </mat-toolbar>
 
-<p>
-  admin-medical-center works!
-</p>
+<mat-tab-group *ngIf="medicalCenter" color="primary" backgroundColor="primary" [selectedIndex]="0">
+  <mat-tab class="p-4 tabs">
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon" class="mr-2">info</mat-icon>
+      Información general
+    </ng-template>
+    <mat-card class="m-4">
+      <img [src]="medicalCenter.photo" [alt]="medicalCenter.name" class="img-medical-center">
+      <div class="item">
+        <div class="text">Nombre de Centro de atención:</div>
+        <div class="description">{{medicalCenter.name}}</div>
+      </div>
+      <hr>
+      <div class="item">
+        <div class="text">Ciudad:</div>
+        <div class="description">{{medicalCenter.city}}</div>
+      </div>
+      <hr>
+      <div class="item">
+        <div class="text">Dirección:</div>
+        <div class="description">{{medicalCenter.address}}</div>
+      </div>
+      <hr>
+      <div class="item">
+        <div class="text">Teléfono:</div>
+        <div class="description">{{medicalCenter.phone}}</div>
+      </div>
+      <hr>
+      <div class="item">
+        <div class="text">Descripción:</div>
+        <div class="description">{{medicalCenter.description}}</div>
+      </div>
+      <hr>
+    </mat-card>
+  </mat-tab>
+  <mat-tab class="p-4 tabs">
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon" class="mr-2">map</mat-icon>
+      Ubicación
+    </ng-template>
+    <mat-card class="m-4">
+      <agm-map *ngIf="medicalCenter" [latitude]="medicalCenter.coordLat" [longitude]="medicalCenter.coordLong"
+        [zoom]="15" (mapReady)="mapReady($event)" class="mb-2">
+        <agm-marker [latitude]="medicalCenter.coordLat" [longitude]="medicalCenter.coordLong"
+          [label]="medicalCenter.name"></agm-marker>
+      </agm-map>
+      <button mat-raised-button color="primary" class="m-2" (click)="toLocate()">
+        <mat-icon matTooltip="Recargar" matTooltipPosition="above">my_location</mat-icon> Localizar
+      </button>
+    </mat-card>
+  </mat-tab>
+  <mat-tab class="p-4 tabs">
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon" class="mr-2">accessible_forward</mat-icon>
+      Emergencias reportadas
+    </ng-template>
+    <strong *ngIf="!this.dataSource?.data.length">No se encuentran resultados</strong>
+    <mat-card *ngIf="this.dataSource?.data.length > 0" class="m-4">
+      <div class="mat-elevation-z8">
+        <mat-table [dataSource]="dataSource" matSort>
+          <!-- <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>>
+                  <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                </ng-container> -->
+          <ng-container matColumnDef="paciente_id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre paciente </mat-header-cell>>
+            <mat-cell *matCellDef="let element"> {{element.patient.name}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="descripcion">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </mat-header-cell>>
+            <mat-cell *matCellDef="let element"> {{element.patient_description}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="doctor_descripcion">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción general</mat-header-cell>>
+            <mat-cell *matCellDef="let element"> {{element.doctor_description}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="updatedAt">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha y hora de asignación </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{element.updatedAt | date: 'dd/MM/yyyy hh:mm a'}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+      </div>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>

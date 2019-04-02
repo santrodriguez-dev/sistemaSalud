@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MedicalCenter } from './models/medicalCenter';
 import { MedicalCentersService } from './services/medical-centers.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SolicitudesService } from '../reported-emergencies/services/solicitudes.service';
+import { MedicalEmergency } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-medical-centers',
@@ -11,10 +13,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class MedicalCentersComponent implements OnInit {
 
   medicalCenters: MedicalCenter[] = [];
+  medicalEmergencies: MedicalEmergency[] = [];
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
-    private medicalCentersService: MedicalCentersService) {
+    private medicalCentersService: MedicalCentersService,
+    private medicalEmergenciesService: SolicitudesService,
+  ) {
     this.getAllMedicalCenters();
   }
 

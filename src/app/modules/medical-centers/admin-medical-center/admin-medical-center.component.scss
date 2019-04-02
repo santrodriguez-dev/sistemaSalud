@@ -1,0 +1,22 @@
+.img-medical-center {
+  max-width: 70%;
+  padding-bottom: 20px;
+}
+
+.item {
+  display: flex;
+
+  .text {
+    width: 250px;
+  }
+
+  .description {
+    .img-report {
+      max-width: 250px;
+    }
+  }
+}
+
+agm-map {
+  height: 300px;
+}

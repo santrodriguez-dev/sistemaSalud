@@ -1,4 +1,4 @@
-<h2 class="title">Asignar centro de atención medica</h2>
+<h2 class="title">Asignar centro de salud</h2>
 <div class="content-medical-center">
   <!-- <mat-form-field>
       <input matInput placeholder="Buscar...">
@@ -9,7 +9,7 @@
       (click)="selectMedicalCenter(medicalCenter)" [ngClass]="{'active': medicalCenter.selected}">
       <mat-card-header>
         <!-- <div mat-card-avatar class="example-header-image"></div> -->
-        <mat-card-title>
+        <mat-card-title class="card-title">
           {{medicalCenter.name}}
         </mat-card-title>
         <mat-card-subtitle>
@@ -17,9 +17,13 @@
           <small *ngIf="medicalCenter.near" class="alert-near">(más cercano)</small>
         </mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image [src]="medicalCenter.photo || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
-        alt="Photo of a Shiba Inu">
+      <!-- <img mat-card-image [src]="medicalCenter.photo || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
+        alt="Photo of a Shiba Inu"> -->
       <mat-card-content>
+        <div class="content-image">
+          <img [src]="medicalCenter.photo || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
+            alt="Photo of a Shiba Inu">
+        </div>
         <p>
           {{medicalCenter.description}}
         </p>

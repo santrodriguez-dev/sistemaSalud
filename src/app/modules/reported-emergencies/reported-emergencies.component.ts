@@ -18,9 +18,9 @@ import { SocketService } from 'src/app/shared/services/socket.service';
 export class ReportedEmergenciesComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['paciente_id', 'descripcion', 'state', 'createdAt'];
-  dataSource: MatTableDataSource<MedicalEmergency>;
   emergencies: MedicalEmergency[];
   medicalCenters: MedicalCenter[];
+  dataSource: MatTableDataSource<MedicalEmergency>;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private subsObtSoli: Subscription;
