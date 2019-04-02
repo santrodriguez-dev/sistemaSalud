@@ -1,5 +1,6 @@
 node_modules
 
 ng build --prod --base-href "https://santiago-git.github.io/sistemaSalud/"
+ng build --prod --base-href "https://angular-accesibilidad.herokuapp.com/"
 
 ghp dist/sistema-salud
